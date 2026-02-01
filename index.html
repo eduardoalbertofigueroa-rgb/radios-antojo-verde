@@ -5,10 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radios Antojo Verde</title>
 
-    <!-- ICONO -->
-    <link rel="icon" type="image/png" href="icono.png">
-    <link rel="apple-touch-icon" href="icono.png">
+    <!-- Icono para app -->
+    <link rel="icon" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
     <meta name="theme-color" content="#0b1a0f">
+
+    <!-- Manifest simple -->
+    <link rel="manifest" href="data:application/json,{
+      &quot;name&quot;:&quot;Radios Antojo Verde&quot;,
+      &quot;short_name&quot;:&quot;Radios AV&quot;,
+      &quot;start_url&quot;:&quot;.&quot;,
+      &quot;display&quot;:&quot;standalone&quot;,
+      &quot;background_color&quot;:&quot;#0b1a0f&quot;,
+      &quot;theme_color&quot;:&quot;#0b1a0f&quot;,
+      &quot;icons&quot;:[{
+        &quot;src&quot;:&quot;icon.png&quot;,
+        &quot;sizes&quot;:&quot;512x512&quot;,
+        &quot;type&quot;:&quot;image/png&quot;
+      }]
+    }">
 
     <style>
         body {
@@ -31,7 +46,7 @@
             font-weight: bold;
             border: 2px solid #2d4a35;
             max-width: 300px;
-            cursor: pointer;
+            text-decoration: none;
         }
 
         .btn:active {
@@ -39,10 +54,21 @@
             color: black;
         }
 
-        audio {
-            width: 100%;
-            max-width: 320px;
-            margin: 20px auto;
+        .social {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 28px;
+        }
+
+        .social a {
+            color: #4ade80;
+            text-decoration: none;
+        }
+
+        .social a:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -50,51 +76,26 @@
 <body>
 
 <h2>🌿 Radios Antojo Verde</h2>
-<p>Tocá una radio y después ▶ Play</p>
+<p>Tocá para abrir en el reproductor de tu celu</p>
 
-<audio id="player" controls preload="none">
-    <source id="source" src="" type="audio/mpeg">
-    Tu navegador no soporta audio en vivo.
-</audio>
+<a href="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3" class="btn">📻 Radio Mitre</a>
+<a href="https://24373.live.streamtheworld.com/ASPEN.mp3" class="btn">📻 Aspen 102.3</a>
+<a href="https://das-edge63-live365-dal03.cdnstream.com/a98981" class="btn">📻 La Nación 104.9</a>
+<a href="https://cdn.instream.audio:9660/stream" class="btn">📻 Urbana Play</a>
+<a href="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3" class="btn">📻 Radio Disney</a>
+<a href="https://24283.live.streamtheworld.com/RIVADAVIA.mp3" class="btn">📻 Radio Rivadavia AM630</a>
 
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">
-    📻 Radio Mitre
-</div>
-
-<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3')">
-    📻 Aspen 102.3
-</div>
-
-<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981')">
-    📻 La Nación 104.9
-</div>
-
-<div class="btn" onclick="playRadio('https://cdn.instream.audio:9660/stream')">
-    📻 Urbana Play
-</div>
-
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">
-    📻 Radio Disney
-</div>
-
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3')">
-    📻 Radio Rivadavia AM630
+<!-- Redes -->
+<div class="social">
+    <a href="https://instagram.com/antojoverdeok" aria-label="Instagram">📸</a>
+    <a href="https://wa.me/5492364581705" aria-label="WhatsApp">💬</a>
 </div>
 
 <p style="font-size:0.8em; color:#666; margin-top:40px">
-    Reproducción directa · sin abrir apps · sin descargas
+    Reproducción directa · sin apps · sin vueltas
 </p>
-
-<script>
-function playRadio(url) {
-    const player = document.getElementById("player");
-    const source = document.getElementById("source");
-
-    source.src = url;
-    player.load();
-    player.play();
-}
-</script>
 
 </body>
 </html>
+
+
