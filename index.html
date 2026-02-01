@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radios Antojo Verde</title>
 
+<!-- Icono -->
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <meta name="theme-color" content="#0b1a0f">
@@ -31,12 +31,27 @@ h2 { color:#4ade80; }
     font-weight: bold;
     border: 2px solid #2d4a35;
     max-width: 300px;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 .btn:active {
     background: #4ade80;
     color: black;
+}
+
+#controls {
+    margin-top: 25px;
+    font-size: 22px;
+}
+
+.control-btn {
+    background: #4ade80;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .social {
@@ -57,32 +72,52 @@ h2 { color:#4ade80; }
 <body>
 
 <h2>🌿 Radios Antojo Verde</h2>
-<p>Tocá una radio y empieza a sonar</p>
+<p>Tocá una radio y listo 🎶</p>
 
 <!-- Reproductor oculto -->
 <audio id="player"></audio>
 
-<a class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">📻 Radio Mitre</a>
-<a class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3')">📻 Aspen 102.3</a>
-<a class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981')">📻 La Nación 104.9</a>
-<a class="btn" onclick="playRadio('https://cdn.instream.audio:9660/stream')">📻 Urbana Play</a>
-<a class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">📻 Radio Disney</a>
-<a class="btn" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3')">📻 Radio Rivadavia AM630</a>
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">📻 Radio Mitre</div>
+<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3')">📻 Aspen 102.3</div>
+<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981')">📻 La Nación 104.9</div>
+<div class="btn" onclick="playRadio('https://cdn.instream.audio:9660/stream')">📻 Urbana Play</div>
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">📻 Radio Disney</div>
+<div class="btn" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3')">📻 Radio Rivadavia AM630</div>
 
+<!-- Controles -->
+<div id="controls">
+    <button class="control-btn" onclick="togglePlay()">▶️ / ⏸</button>
+</div>
+
+<!-- Redes -->
 <div class="social">
     <a href="https://instagram.com/antojoverdeok">📸</a>
     <a href="https://wa.me/5492364581705">💬</a>
 </div>
 
+<p style="font-size:0.8em; color:#666; margin-top:40px">
+    Reproducción directa · sin apps · como una app real
+</p>
+
 <script>
+const player = document.getElementById("player");
+
 function playRadio(url) {
-    const player = document.getElementById('player');
     player.src = url;
     player.play();
+}
+
+function togglePlay() {
+    if (player.paused) {
+        player.play();
+    } else {
+        player.pause();
+    }
 }
 </script>
 
 </body>
 </html>
+
 
 
