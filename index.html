@@ -1,13 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <head>
-    <!-- deploy fix -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radios Antojo Verde</title>
 
+    <!-- ICONO -->
     <link rel="icon" type="image/png" href="icono.png">
     <link rel="apple-touch-icon" href="icono.png">
     <meta name="theme-color" content="#0b1a0f">
@@ -27,13 +26,19 @@
             display: block;
             background: #162a1c;
             color: #4ade80;
-            padding: 28px;
+            padding: 30px;
             margin: 12px auto;
-            border-radius: 15px;
+            border-radius: 18px;
             font-weight: bold;
             border: 2px solid #2d4a35;
             max-width: 320px;
             cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        .btn:active {
+            background: #4ade80;
+            color: black;
         }
 
         .btn.active {
@@ -44,27 +49,20 @@
 
         audio {
             width: 100%;
-            max-width: 320px;
-            margin: 20px auto;
+            max-width: 340px;
+            margin: 25px auto;
         }
 
-        /* ICONOS REDES */
-        .redes {
-            margin-top: 30px;
+        .social {
+            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
+            font-size: 30px;
         }
 
-        .redes img {
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .redes img:hover {
-            transform: scale(1.15);
+        .social a {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -72,34 +70,48 @@
 <body>
 
 <h2>🌿 Radios Antojo Verde</h2>
-<p>Tocá una radio y después ▶ Play</p>
+<p>Tocá una radio y se reproduce sola</p>
 
-<p id="nowPlaying" style="color:#9ae6b4; font-weight:bold;">
-🎵 Ninguna radio sonando
+<p id="nowPlaying" style="color:#9ae6b4; font-weight:bold; margin-bottom:20px;">
+    🎵 Ninguna radio sonando
 </p>
 
-<audio id="player" controls></audio>
+<audio id="player" controls preload="none"></audio>
 
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3', this, 'Radio Mitre')">📻 Radio Mitre AM 790 </div>
-<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3', this, 'Aspen 102.3')">📻 Aspen 102.3</div>
-<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981', this, 'La Nación 104.9')">📻 La Nación 104.9</div>
-<div class="btn" onclick="playRadio('https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac', this, 'Rock & Pop')">📻 Rock & Pop</div>
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3', this, 'Radio Disney')">📻 Radio Disney</div>
-<div class="btn" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3', this, 'Rock & Pop')">📻 Radio Rivadavia AM 630</div>
-
-<!-- REDES -->
-<div class="redes">
-    <a href="https://wa.me/c/5492364581705" target="_blank">
-        <img src="whatsapp.png" alt="WhatsApp Antojo Verde">
-    </a>
-
-    <a href="https://www.instagram.com/antojoverdeok" target="_blank">
-        <img src="instagram.png" alt="Instagram Antojo Verde">
-    </a>
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3', this, 'Radio Mitre')">
+    📻 Radio Mitre
 </div>
 
-<p style="font-size:0.8em; color:#666; margin-top:25px">
-    💚 Antojo Verde
+<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3', this, 'Aspen 102.3')">
+    📻 Aspen 102.3
+</div>
+
+<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981', this, 'La Nación 104.9')">
+    📻 La Nación 104.9
+</div>
+
+<div class="btn" onclick="playRadio('https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac', this, 'Rock & Pop')">
+    📻 Rock & Pop
+</div>
+
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3', this, 'Radio Disney')">
+    📻 Radio Disne
+</div>
+   <div class="btn" onclick="playRadio('https://cdn.instream.audio:9660/stream', this, 'Urbana Play')">
+    📻 Urbana Play
+</div> 
+
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3', this, 'Radio Rivadavia AM630')">
+    📻 Radio Rivadavia
+</div>
+
+<div class="social">
+    <a href="https://instagram.com/antojoverdeok" target="_blank">📸</a>
+    <a href="https://wa.me/c/5492364581705" target="_blank">💬</a>
+</div>
+
+<p style="font-size:0.8em; color:#666; margin-top:30px">
+    Reproducción directa · sin apps · sin vueltas
 </p>
 
 <script>
@@ -110,9 +122,13 @@ let activeButton = null;
 function playRadio(url, btn, name) {
     player.src = url;
     player.play();
+
     nowPlaying.textContent = "🎵 Sonando ahora: " + name;
 
-    if (activeButton) activeButton.classList.remove("active");
+    if (activeButton) {
+        activeButton.classList.remove("active");
+    }
+
     btn.classList.add("active");
     activeButton = btn;
 }
