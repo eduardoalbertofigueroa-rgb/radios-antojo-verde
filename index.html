@@ -1,123 +1,125 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radios Antojo Verde</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radios Antojo Verde</title>
 
-<!-- Icono -->
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
-<meta name="theme-color" content="#0b1a0f">
+    <link rel="icon" type="image/png" href="icono.png">
+    <link rel="apple-touch-icon" href="icono.png">
+    <meta name="theme-color" content="#0b1a0f">
 
-<style>
-body {
-    font-family: sans-serif;
-    background: #0b1a0f;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #0b1a0f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
 
-h2 { color:#4ade80; }
+        h2 { color:#4ade80; }
 
-.btn {
-    display: block;
-    background: #162a1c;
-    color: #4ade80;
-    padding: 25px;
-    margin: 10px auto;
-    border-radius: 15px;
-    font-weight: bold;
-    border: 2px solid #2d4a35;
-    max-width: 300px;
-    cursor: pointer;
-}
+        .btn {
+            display: block;
+            background: #162a1c;
+            color: #4ade80;
+            padding: 28px;
+            margin: 12px auto;
+            border-radius: 15px;
+            font-weight: bold;
+            border: 2px solid #2d4a35;
+            max-width: 320px;
+            cursor: pointer;
+        }
 
-.btn:active {
-    background: #4ade80;
-    color: black;
-}
+        .btn.active {
+            background: #4ade80;
+            color: black;
+            box-shadow: 0 0 15px #4ade80;
+        }
 
-#controls {
-    margin-top: 25px;
-    font-size: 22px;
-}
+        audio {
+            width: 100%;
+            max-width: 320px;
+            margin: 20px auto;
+        }
 
-.control-btn {
-    background: #4ade80;
-    color: black;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        /* ICONOS REDES */
+        .redes {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
 
-.social {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    font-size: 28px;
-}
+        .redes img {
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
 
-.social a {
-    color: #4ade80;
-    text-decoration: none;
-}
-</style>
+        .redes img:hover {
+            transform: scale(1.15);
+        }
+    </style>
 </head>
 
 <body>
 
 <h2>🌿 Radios Antojo Verde</h2>
-<p>Tocá una radio y listo 🎶</p>
+<p>Tocá una radio y después ▶ Play</p>
 
-<!-- Reproductor oculto -->
-<audio id="player"></audio>
+<p id="nowPlaying" style="color:#9ae6b4; font-weight:bold;">
+🎵 Ninguna radio sonando
+</p>
 
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">📻 Radio Mitre</div>
-<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3')">📻 Aspen 102.3</div>
-<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981')">📻 La Nación 104.9</div>
-<div class="btn" onclick="playRadio('https://cdn.instream.audio:9660/stream')">📻 Urbana Play</div>
-<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">📻 Radio Disney</div>
-<div class="btn" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3')">📻 Radio Rivadavia AM630</div>
+<audio id="player" controls></audio>
 
-<!-- Controles -->
-<div id="controls">
-    <button class="control-btn" onclick="togglePlay()">▶️ / ⏸</button>
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3', this, 'Radio Mitre')">📻 Radio Mitre AM 790 </div>
+<div class="btn" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3', this, 'Aspen 102.3')">📻 Aspen 102.3</div>
+<div class="btn" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981', this, 'La Nación 104.9')">📻 La Nación 104.9</div>
+<div class="btn" onclick="playRadio('https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac', this, 'Rock & Pop')">📻 Rock & Pop</div>
+<div class="btn" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3', this, 'Radio Disney')">📻 Radio Disney</div>
+<div class="btn" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3', this, 'Rock & Pop')">📻 Radio Rivadavia AM 630</div>
+
+<!-- REDES -->
+<div class="redes">
+    <a href="https://wa.me/c/5492364581705" target="_blank">
+        <img src="whatsapp.png" alt="WhatsApp Antojo Verde">
+    </a>
+
+    <a href="https://www.instagram.com/antojoverdeok" target="_blank">
+        <img src="instagram.png" alt="Instagram Antojo Verde">
+    </a>
 </div>
 
-<!-- Redes -->
-<div class="social">
-    <a href="https://instagram.com/antojoverdeok">📸</a>
-    <a href="https://wa.me/5492364581705">💬</a>
-</div>
-
-<p style="font-size:0.8em; color:#666; margin-top:40px">
-    Reproducción directa · sin apps · como una app real
+<p style="font-size:0.8em; color:#666; margin-top:25px">
+    💚 Antojo Verde
 </p>
 
 <script>
 const player = document.getElementById("player");
+const nowPlaying = document.getElementById("nowPlaying");
+let activeButton = null;
 
-function playRadio(url) {
+function playRadio(url, btn, name) {
     player.src = url;
     player.play();
-}
+    nowPlaying.textContent = "🎵 Sonando ahora: " + name;
 
-function togglePlay() {
-    if (player.paused) {
-        player.play();
-    } else {
-        player.pause();
-    }
+    if (activeButton) activeButton.classList.remove("active");
+    btn.classList.add("active");
+    activeButton = btn;
 }
 </script>
 
 </body>
 </html>
+
+
+
 
 
 
