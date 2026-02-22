@@ -27,7 +27,7 @@ h2{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:16px;
-    max-width:500px;
+    max-width:550px;
     margin:30px auto;
     padding:0 15px;
 }
@@ -53,7 +53,7 @@ h2{
 }
 
 .card span{
-    font-size:32px;
+    font-size:30px;
     display:block;
     margin-bottom:10px;
 }
@@ -61,7 +61,7 @@ h2{
 .card p{
     margin:0;
     font-weight:bold;
-    font-size:0.9em;
+    font-size:0.85em;
 }
 
 /* Barra inferior */
@@ -108,38 +108,37 @@ audio{
 <div class="radio-grid">
 
 <div class="card" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3', this, 'Radio Mitre')">
-<span>📻</span>
-<p>Radio Mitre</p>
-</div>
+<span>📻</span><p>Radio Mitre</p></div>
 
 <div class="card" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3', this, 'Aspen 102.3')">
-<span>🎶</span>
-<p>Aspen 102.3</p>
-</div>
+<span>🎶</span><p>Aspen 102.3</p></div>
+
+<div class="card" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981', this, 'La Nación 104.9')">
+<span>📰</span><p>La Nación 104.9</p></div>
 
 <div class="card" onclick="playRadio('https://24403.live.streamtheworld.com/FM999_56.mp3', this, 'La 100')">
-<span>🔥</span>
-<p>La 100</p>
-</div>
+<span>🔥</span><p>La 100</p></div>
+
+<div class="card" onclick="playRadio('https://vale.stweb.tv/vale/live/chunks.m3u8?', this, 'Vale 97.5')">
+<span>💃</span><p>Vale 97.5</p></div>
 
 <div class="card" onclick="playRadio('https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac', this, 'Rock & Pop')">
-<span>🎸</span>
-<p>Rock & Pop</p>
-</div>
+<span>🎸</span><p>Rock & Pop</p></div>
 
 <div class="card" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3', this, 'Radio Disney')">
-<span>✨</span>
-<p>Radio Disney</p>
-</div>
+<span>✨</span><p>Radio Disney</p></div>
 
 <div class="card" onclick="playRadio('https://cdn.instream.audio:9660/stream', this, 'Urbana Play')">
-<span>🎙</span>
-<p>Urbana Play</p>
-</div>
+<span>🎙</span><p>Urbana Play</p></div>
+
+<div class="card" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3', this, 'Radio Rivadavia')">
+<span>🗞</span><p>Radio Rivadavia</p></div>
+
+<div class="card" onclick="playRadio('https://unlimited5-us.dps.live/observador/aac/icecast.audio', this, 'EO 107.9')">
+<span>🎧</span><p>EO 107.9</p></div>
 
 </div>
 
-<!-- Barra inferior -->
 <div class="player-bar">
     <div class="player-info" id="nowPlaying">
         🎵 Ninguna radio sonando
@@ -183,24 +182,3 @@ function togglePlay(){
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
