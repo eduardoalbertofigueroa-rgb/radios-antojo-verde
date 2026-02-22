@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +46,6 @@ h2{
     border:1px solid #2d4a35;
     cursor:pointer;
     transition:0.2s;
-
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -101,52 +101,62 @@ h2{
 
 <div class="radio-grid">
 
-<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">
+<div class="card" data-name="Radio Mitre"
+onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">
 <img src="logo/mitre.png" class="logo">
 <p>Radio Mitre</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://24373.live.streamtheworld.com/ASPEN.mp3')">
+<div class="card" data-name="Aspen 102.3"
+onclick="playRadio(this,'https://24373.live.streamtheworld.com/ASPEN.mp3')">
 <img src="logo/aspen.png" class="logo">
 <p>Aspen 102.3</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://das-edge63-live365-dal03.cdnstream.com/a98981')">
+<div class="card" data-name="La Nación 104.9"
+onclick="playRadio(this,'https://das-edge63-live365-dal03.cdnstream.com/a98981')">
 <img src="logo/lanacion.png" class="logo">
 <p>La Nación 104.9</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://24403.live.streamtheworld.com/FM999_56.mp3')">
+<div class="card" data-name="La 100"
+onclick="playRadio(this,'https://24403.live.streamtheworld.com/FM999_56.mp3')">
 <img src="logo/la100.png" class="logo">
 <p>La 100</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://vale.stweb.tv/vale/live/chunks.m3u8?')">
+<div class="card" data-name="Vale 97.5"
+onclick="playRadio(this,'https://vale.stweb.tv/vale/live/chunks.m3u8?')">
 <img src="logo/vale.png" class="logo">
 <p>Vale 97.5</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac')">
+<div class="card" data-name="Rock & Pop"
+onclick="playRadio(this,'https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac')">
 <img src="logo/rockpop.png" class="logo">
 <p>Rock & Pop</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">
+<div class="card" data-name="Radio Disney"
+onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">
 <img src="logo/disney.png" class="logo">
 <p>Radio Disney</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://cdn.instream.audio:9660/stream')">
+<div class="card" data-name="Urbana Play"
+onclick="playRadio(this,'https://cdn.instream.audio:9660/stream')">
 <img src="logo/urbana.png" class="logo">
 <p>Urbana Play</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3')">
+<div class="card" data-name="Radio Rivadavia"
+onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3')">
 <img src="logo/rivadavia.png" class="logo">
 <p>Radio Rivadavia</p>
 </div>
 
-<div class="card" onclick="playRadio(this,'https://unlimited5-us.dps.live/observador/aac/icecast.audio')">
+<div class="card" data-name="EO 107.9"
+onclick="playRadio(this,'https://unlimited5-us.dps.live/observador/aac/icecast.audio')">
 <img src="logo/eo.png" class="logo">
 <p>EO 107.9</p>
 </div>
@@ -166,36 +176,22 @@ const status=document.getElementById("status");
 const playBtn=document.querySelector(".play-btn");
 let activeCard=null;
 
+// Cargar última radio guardada
+window.addEventListener("load",()=>{
+    const saved=localStorage.getItem("ultimaRadio");
+    const savedName=localStorage.getItem("ultimaRadioNombre");
+    if(saved){
+        player.src=saved;
+        status.textContent="🎵 Última: "+savedName;
+    }
+});
+
 function playRadio(card,url){
 
     player.src=url;
     player.play();
 
-    if(activeCard){
-        activeCard.classList.remove("active");
-    }
-
-    card.classList.add("active");
-    activeCard=card;
-
-    status.textContent="🎵 Reproduciendo...";
-    playBtn.textContent="Pause";
-}
-
-function togglePlay(){
-    if(player.paused){
-        player.play();
-        playBtn.textContent="Pause";
-    }else{
-        player.pause();
-        playBtn.textContent="Play";
-    }
-}
-</script>
-
-</body>
-</html>
-
+    const name=card.dataset.name;
 
 
 
