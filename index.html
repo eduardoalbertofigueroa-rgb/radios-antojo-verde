@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,9 +9,7 @@
 <meta name="theme-color" content="#0b1a0f">
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 html,body{
     margin:0;
@@ -47,6 +44,7 @@ h2{
     padding:18px 10px;
     border:1px solid #2d4a35;
     cursor:pointer;
+    transition:0.2s;
 
     display:flex;
     flex-direction:column;
@@ -54,9 +52,10 @@ h2{
     justify-content:center;
 }
 
-.card:active{
+.card.active{
     background:#4ade80;
     color:black;
+    box-shadow:0 0 15px #4ade80;
 }
 
 .logo{
@@ -102,34 +101,54 @@ h2{
 
 <div class="radio-grid">
 
-<div class="card" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">
+<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3')">
 <img src="logo/mitre.png" class="logo">
 <p>Radio Mitre</p>
 </div>
 
-<div class="card" onclick="playRadio('https://24373.live.streamtheworld.com/ASPEN.mp3')">
+<div class="card" onclick="playRadio(this,'https://24373.live.streamtheworld.com/ASPEN.mp3')">
 <img src="logo/aspen.png" class="logo">
 <p>Aspen 102.3</p>
 </div>
 
-<div class="card" onclick="playRadio('https://das-edge63-live365-dal03.cdnstream.com/a98981')">
+<div class="card" onclick="playRadio(this,'https://das-edge63-live365-dal03.cdnstream.com/a98981')">
 <img src="logo/lanacion.png" class="logo">
 <p>La Nación 104.9</p>
 </div>
 
-<div class="card" onclick="playRadio('https://cdn.instream.audio:9660/stream')">
-<img src="logo/urbana.png" class="logo">
-<p>Urbana Play</p>
+<div class="card" onclick="playRadio(this,'https://24403.live.streamtheworld.com/FM999_56.mp3')">
+<img src="logo/la100.png" class="logo">
+<p>La 100</p>
 </div>
 
-<div class="card" onclick="playRadio('https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">
+<div class="card" onclick="playRadio(this,'https://vale.stweb.tv/vale/live/chunks.m3u8?')">
+<img src="logo/vale.png" class="logo">
+<p>Vale 97.5</p>
+</div>
+
+<div class="card" onclick="playRadio(this,'https://27443.live.streamtheworld.com/ROCKANDPOPAAC.aac')">
+<img src="logo/rockpop.png" class="logo">
+<p>Rock & Pop</p>
+</div>
+
+<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3')">
 <img src="logo/disney.png" class="logo">
 <p>Radio Disney</p>
 </div>
 
-<div class="card" onclick="playRadio('https://24283.live.streamtheworld.com/RIVADAVIA.mp3')">
+<div class="card" onclick="playRadio(this,'https://cdn.instream.audio:9660/stream')">
+<img src="logo/urbana.png" class="logo">
+<p>Urbana Play</p>
+</div>
+
+<div class="card" onclick="playRadio(this,'https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3')">
 <img src="logo/rivadavia.png" class="logo">
 <p>Radio Rivadavia</p>
+</div>
+
+<div class="card" onclick="playRadio(this,'https://unlimited5-us.dps.live/observador/aac/icecast.audio')">
+<img src="logo/eo.png" class="logo">
+<p>EO 107.9</p>
 </div>
 
 </div>
@@ -145,10 +164,20 @@ h2{
 const player=document.getElementById("player");
 const status=document.getElementById("status");
 const playBtn=document.querySelector(".play-btn");
+let activeCard=null;
 
-function playRadio(url){
+function playRadio(card,url){
+
     player.src=url;
     player.play();
+
+    if(activeCard){
+        activeCard.classList.remove("active");
+    }
+
+    card.classList.add("active");
+    activeCard=card;
+
     status.textContent="🎵 Reproduciendo...";
     playBtn.textContent="Pause";
 }
