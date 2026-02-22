@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -123,8 +124,40 @@ window.addEventListener("load", () => {
         r.classList.add("active");
       }
     });
+  }
+});
 
+radios.forEach(radio => {
+  radio.addEventListener("click", () => {
 
+    radios.forEach(r => r.classList.remove("active"));
+    radio.classList.add("active");
+
+    const stream = radio.dataset.stream;
+    const name = radio.dataset.name;
+
+    if (currentStream === stream) {
+      audio.pause();
+      audio.src = "";
+      currentStream = null;
+      currentRadioName.textContent = "Radio detenida";
+      localStorage.removeItem("lastRadio");
+      localStorage.removeItem("lastRadioName");
+    } else {
+      currentStream = stream;
+      audio.src = stream;
+      audio.play();
+      currentRadioName.textContent = "Reproduciendo: " + name;
+
+      localStorage.setItem("lastRadio", stream);
+      localStorage.setItem("lastRadioName", name);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
 
 
 
