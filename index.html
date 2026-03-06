@@ -5,84 +5,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radios Antojo Verde</title>
 
-<!-- soporte para m3u8 -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <style>
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0f1f16;
-    color:white;
-    text-align:center;
-    padding-bottom:110px;
+margin:0;
+font-family:Arial,sans-serif;
+background:#0f1f16;
+color:white;
+text-align:center;
+padding-bottom:120px;
 }
 
 h1{
-    margin-top:20px;
-    color:#4ade80;
+margin-top:20px;
+color:#4ade80;
 }
 
 .radio-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:15px;
-    padding:20px;
-    max-width:600px;
-    margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+padding:20px;
+max-width:650px;
+margin:auto;
 }
 
 .card{
-    background:#162a1c;
-    border-radius:15px;
-    padding:15px;
-    cursor:pointer;
-    transition:0.2s;
-    border:2px solid transparent;
+background:#162a1c;
+border-radius:15px;
+padding:15px;
+cursor:pointer;
+transition:0.2s;
+border:2px solid transparent;
 }
 
 .card img{
-    width:70px;
-    height:70px;
-    object-fit:contain;
-    margin-bottom:10px;
+width:70px;
+height:70px;
+object-fit:contain;
+margin-bottom:10px;
 }
 
 .card p{
-    margin:0;
-    font-weight:bold;
-    font-size:14px;
+margin:0;
+font-weight:bold;
+font-size:14px;
 }
 
 .card:hover{
-    transform:scale(1.05);
+transform:scale(1.05);
 }
 
 .card.active{
-    border:2px solid #4ade80;
-    box-shadow:0 0 15px #4ade80;
-    background:#1f3b2a;
+border:2px solid #4ade80;
+box-shadow:0 0 15px #4ade80;
+background:#1f3b2a;
 }
 
 .player-bar{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#111;
-    padding:15px;
-    border-top:1px solid #333;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#111;
+padding:15px;
+border-top:1px solid #333;
 }
 
 #currentRadioName{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#4ade80;
+margin-bottom:10px;
+font-weight:bold;
+color:#4ade80;
 }
 
 audio{
-    width:90%;
-    max-width:400px;
+width:90%;
+max-width:400px;
+}
+
+/* botón flotante */
+
+.floating-player{
+position:fixed;
+bottom:90px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:#4ade80;
+color:black;
+font-size:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+box-shadow:0 0 15px #4ade80;
+}
+
+.volume{
+margin-top:8px;
 }
 </style>
 </head>
@@ -99,20 +119,10 @@ data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/A
 <p>Radio Mitre</p>
 </div>
 
-<div class="card" data-name="Radio Vorterix 97.1"
+<div class="card" data-name="Radio Vorterix"
 data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
 <img src="logo/vorterix.png">
-<p>Radio Vorterix 97.1</p>
-</div>
-<div class="card" data-name="Mega 98.3"
-data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-<img src="logo/mega.png">
-<p>Mega 98.3</p>
-</div>
-<div class="card" data-name="Metro 95.1"
-data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-<img src="logo/metro.png">
-<p>Metro 95.1</p>
+<p>Vorterix</p>
 </div>
 
 <div class="card" data-name="Aspen 102.3"
@@ -124,7 +134,7 @@ data-stream="https://24373.live.streamtheworld.com/ASPEN.mp3">
 <div class="card" data-name="La Nación 104.9"
 data-stream="https://das-edge63-live365-dal03.cdnstream.com/a98981">
 <img src="logo/lanacion.png">
-<p>La Nación 104.9</p>
+<p>La Nación</p>
 </div>
 
 <div class="card" data-name="La 100"
@@ -160,7 +170,7 @@ data-stream="https://cdn.instream.audio:9660/stream">
 <div class="card" data-name="Radio Rivadavia"
 data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
 <img src="logo/rivadavia.png">
-<p>Radio Rivadavia</p>
+<p>Rivadavia</p>
 </div>
 
 <div class="card" data-name="EO 107.9"
@@ -172,111 +182,127 @@ data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
 </div>
 
 <div class="player-bar">
+
 <div id="currentRadioName">Seleccioná una radio</div>
+
 <audio id="audioPlayer" controls></audio>
+
+<div class="volume">
+Volumen  
+<input type="range" id="volume" min="0" max="1" step="0.01" value="1">
 </div>
+
+</div>
+
+<div class="floating-player" id="playButton">▶</div>
 
 <script>
 
-const cards = document.querySelectorAll(".card");
-const audio = document.getElementById("audioPlayer");
-const currentRadioName = document.getElementById("currentRadioName");
+const cards = document.querySelectorAll(".card")
+const audio = document.getElementById("audioPlayer")
+const nameBox = document.getElementById("currentRadioName")
+const playButton = document.getElementById("playButton")
+const volume = document.getElementById("volume")
 
-let currentStream = null;
-let hls = null;
+let currentStream = null
+let fallbackStreams = []
 
-function playStream(stream){
+audio.volume = 1
 
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
+volume.addEventListener("input",()=>{
+audio.volume = volume.value
+})
 
-    if(stream.includes(".m3u8")){
-        if(Hls.isSupported()){
-            hls = new Hls();
-            hls.loadSource(stream);
-            hls.attachMedia(audio);
-        }else{
-            audio.src = stream;
-        }
-    }else{
-        audio.src = stream;
-    }
+function tryPlay(streams,name){
 
-    audio.play();
+if(streams.length===0){
+nameBox.textContent="Stream no disponible"
+return
 }
 
-window.addEventListener("load", () => {
+let stream=streams.shift()
 
-    const lastStream = localStorage.getItem("lastStream");
-    const lastName = localStorage.getItem("lastName");
+audio.src=stream
+audio.play()
 
-    if(lastStream && lastName){
+currentStream=stream
 
-        playStream(lastStream);
-        currentStream = lastStream;
+localStorage.setItem("lastStream",stream)
+localStorage.setItem("lastName",name)
 
-        currentRadioName.textContent = "Reproduciendo: " + lastName;
-
-        cards.forEach(card=>{
-            if(card.dataset.stream === lastStream){
-                card.classList.add("active");
-            }
-        });
-    }
-
-});
+}
 
 cards.forEach(card=>{
 
-    card.addEventListener("click", ()=>{
+card.addEventListener("click",()=>{
 
-        cards.forEach(c=>c.classList.remove("active"));
-        card.classList.add("active");
+cards.forEach(c=>c.classList.remove("active"))
+card.classList.add("active")
 
-        const stream = card.dataset.stream;
-        const name = card.dataset.name;
+let stream=card.dataset.stream
+let name=card.dataset.name
 
-        if(currentStream === stream){
+fallbackStreams=[
+stream,
+stream.replace(".mp3",".aac"),
+stream.replace(".aac",".mp3")
+]
 
-            audio.pause();
+tryPlay([...fallbackStreams],name)
 
-            if(hls){
-                hls.destroy();
-                hls = null;
-            }
+nameBox.textContent="Reproduciendo: "+name
 
-            audio.src="";
-            currentStream=null;
+})
 
-            currentRadioName.textContent="Radio detenida";
+})
 
-            localStorage.removeItem("lastStream");
-            localStorage.removeItem("lastName");
+audio.addEventListener("error",()=>{
 
-            card.classList.remove("active");
+if(fallbackStreams.length>0){
+let next=fallbackStreams.shift()
+audio.src=next
+audio.play()
+}
 
-        }else{
+})
 
-            playStream(stream);
+playButton.addEventListener("click",()=>{
 
-            currentStream=stream;
+if(audio.paused){
+audio.play()
+playButton.textContent="⏸"
+}else{
+audio.pause()
+playButton.textContent="▶"
+}
 
-            currentRadioName.textContent="Reproduciendo: "+name;
+})
 
-            localStorage.setItem("lastStream",stream);
-            localStorage.setItem("lastName",name);
-        }
+window.addEventListener("load",()=>{
 
-    });
+let lastStream=localStorage.getItem("lastStream")
+let lastName=localStorage.getItem("lastName")
 
-});
+if(lastStream){
+
+audio.src=lastStream
+nameBox.textContent="Lista: "+lastName
+
+cards.forEach(card=>{
+if(card.dataset.stream===lastStream){
+card.classList.add("active")
+}
+})
+
+}
+
+})
 
 </script>
 
 </body>
 </html>
+
 
 
 
