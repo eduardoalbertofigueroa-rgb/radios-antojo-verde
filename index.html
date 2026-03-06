@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radios Antojo Verde</title>
 
+<!-- soporte para m3u8 -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <style>
 body{
     margin:0;
@@ -95,6 +98,7 @@ data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/A
 <img src="logo/mitre.png">
 <p>Radio Mitre</p>
 </div>
+
 <div class="card" data-name="Radio Vorterix 97.1"
 data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
 <img src="logo/vorterix.png">
@@ -163,72 +167,104 @@ data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
 </div>
 
 <script>
+
 const cards = document.querySelectorAll(".card");
 const audio = document.getElementById("audioPlayer");
 const currentRadioName = document.getElementById("currentRadioName");
 
 let currentStream = null;
+let hls = null;
+
+function playStream(stream){
+
+    if(hls){
+        hls.destroy();
+        hls = null;
+    }
+
+    if(stream.includes(".m3u8")){
+        if(Hls.isSupported()){
+            hls = new Hls();
+            hls.loadSource(stream);
+            hls.attachMedia(audio);
+        }else{
+            audio.src = stream;
+        }
+    }else{
+        audio.src = stream;
+    }
+
+    audio.play();
+}
 
 window.addEventListener("load", () => {
+
     const lastStream = localStorage.getItem("lastStream");
     const lastName = localStorage.getItem("lastName");
 
     if(lastStream && lastName){
-        audio.src = lastStream;
-        currentStream = lastStream;
-        currentRadioName.textContent = "Lista: " + lastName;
 
-        cards.forEach(card => {
+        playStream(lastStream);
+        currentStream = lastStream;
+
+        currentRadioName.textContent = "Reproduciendo: " + lastName;
+
+        cards.forEach(card=>{
             if(card.dataset.stream === lastStream){
                 card.classList.add("active");
             }
         });
     }
+
 });
 
-cards.forEach(card => {
-    card.addEventListener("click", () => {
+cards.forEach(card=>{
 
-        cards.forEach(c => c.classList.remove("active"));
+    card.addEventListener("click", ()=>{
+
+        cards.forEach(c=>c.classList.remove("active"));
         card.classList.add("active");
 
         const stream = card.dataset.stream;
         const name = card.dataset.name;
 
         if(currentStream === stream){
+
             audio.pause();
-            audio.src = "";
-            currentStream = null;
-            currentRadioName.textContent = "Radio detenida";
+
+            if(hls){
+                hls.destroy();
+                hls = null;
+            }
+
+            audio.src="";
+            currentStream=null;
+
+            currentRadioName.textContent="Radio detenida";
+
             localStorage.removeItem("lastStream");
             localStorage.removeItem("lastName");
-            card.classList.remove("active");
-        } else {
-            audio.src = stream;
-            audio.play();
-            currentStream = stream;
-            currentRadioName.textContent = "Reproduciendo: " + name;
 
-            localStorage.setItem("lastStream", stream);
-            localStorage.setItem("lastName", name);
+            card.classList.remove("active");
+
+        }else{
+
+            playStream(stream);
+
+            currentStream=stream;
+
+            currentRadioName.textContent="Reproduciendo: "+name;
+
+            localStorage.setItem("lastStream",stream);
+            localStorage.setItem("lastName",name);
         }
+
     });
+
 });
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
