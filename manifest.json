@@ -1,7 +1,7 @@
 {
 "name": "Radios Antojo Verde",
 "short_name": "Antojo Verde",
-"start_url": ".",
+"start_url": "index.html",
 "display": "standalone",
 "background_color": "#0f1f16",
 "theme_color": "#4ade80",
