@@ -210,6 +210,11 @@ Volumen
 
 <script>
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+  .then(() => console.log("Service Worker registrado"));
+}
+
 const cards = document.querySelectorAll(".card")
 const audio = document.getElementById("audioPlayer")
 const nameBox = document.getElementById("currentRadioName")
@@ -314,6 +319,7 @@ card.classList.add("active")
 
 </body>
 </html>
+
 
 
 
