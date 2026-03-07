@@ -193,6 +193,45 @@ data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
 </div>
 
 </div>
+<h2>📺 Noticias en vivo</h2>
+
+<div class="radio-grid">
+
+<div class="card tv" data-video="https://www.youtube.com/live/cb12KmMMDJA?si=3jyKBT-lyD2aozYE">
+<img src="logo/tn.png">
+<p>TN</p>
+</div>
+
+<div class="card tv" data-video="https://www.youtube.com/live/SF06Qy1Ct6Y?si=Y6Zyh3fGfhmUIqFh">
+<img src="logo/c5n.png">
+<p>C5N</p>
+</div>
+
+<div class="card tv" data-video="https://www.youtube.com/live/M_gUd2Bp9g0?si=1W31nJgDs9bnHRxX">
+<img src="logo/lanacionplus.png">
+<p>La Nación+</p>
+</div>
+
+<div class="card tv" data-video="https://www.youtube.com/live/JC7f3EUDaqw?si=BsmEXsgoP_lBwV2i">
+<img src="logo/cronica.png">
+<p>Crónica</p>
+</div>
+
+<div class="card tv" data-video="https://www.youtube.com/live/ArKbAx1K-2U?si=BRcR-3xRWZODZoPQ">
+<img src="logo/a24.png">
+<p>A24</p>
+</div>
+
+</div>
+
+<div id="videoContainer" style="display:none;margin-top:20px;">
+<iframe id="videoPlayer"
+width="90%"
+height="250"
+frameborder="0"
+allowfullscreen>
+</iframe>
+</div>
 
 <div class="player-bar">
 
@@ -316,10 +355,28 @@ card.classList.add("active")
 
 })
 
+/* NOTICIAS EN VIVO */
+
+const videoPlayer = document.getElementById("videoPlayer")
+const videoContainer = document.getElementById("videoContainer")
+
+document.querySelectorAll(".tv").forEach(card=>{
+card.addEventListener("click",()=>{
+
+audio.pause()
+
+videoContainer.style.display="block"
+
+videoPlayer.src = card.dataset.video
+
+})
+})
+
 </script>
 
 </body>
 </html>
+
 
 
 
