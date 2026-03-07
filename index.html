@@ -255,7 +255,27 @@ margin-top:8px;
 </div>
 
 <div id="videoContainer" style="display:none;margin-top:20px;">
-<iframe id="videoPlayer" width="90%" height="250" frameborder="0" allowfullscreen></iframe>
+
+<iframe id="videoPlayer"
+width="90%"
+height="250"
+frameborder="0"
+allowfullscreen>
+</iframe>
+
+<br><br>
+
+<button id="fullscreenBtn" style="
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:bold;
+cursor:pointer;
+">
+📺 Pantalla completa
+</button>
+
 </div>
 
 </div>
@@ -327,6 +347,17 @@ playButton.textContent="▶"
 }
 
 })
+  /* PANTALLA COMPLETA VIDEO */
+
+const fullscreenBtn = document.getElementById("fullscreenBtn")
+
+fullscreenBtn.addEventListener("click",()=>{
+
+if(videoPlayer.requestFullscreen){
+videoPlayer.requestFullscreen()
+}
+
+})
 
 /* NOTICIAS */
 
@@ -356,6 +387,8 @@ const noticiasSection=document.getElementById("noticiasSection")
 tabRadios.onclick=()=>{
 radiosSection.style.display="block"
 noticiasSection.style.display="none"
+videoContainer.style.display="none"
+videoPlayer.src=""
 tabRadios.classList.add("active")
 tabNoticias.classList.remove("active")
 }
@@ -371,6 +404,7 @@ tabRadios.classList.remove("active")
 
 </body>
 </html>
+
 
 
 
