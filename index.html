@@ -384,26 +384,33 @@ const tabNoticias=document.getElementById("tabNoticias")
 const radiosSection=document.getElementById("radiosSection")
 const noticiasSection=document.getElementById("noticiasSection")
 
-tabRadios.onclick=()=>{
-radiosSection.style.display="block"
-noticiasSection.style.display="none"
-videoContainer.style.display="none"
-videoPlayer.src=""
-tabRadios.classList.add("active")
-tabNoticias.classList.remove("active")
+tabRadios.onclick = () => {
+  radiosSection.style.display = "block"
+  noticiasSection.style.display = "none"
+  videoContainer.style.display = "none"
+  videoPlayer.src = ""
+  tabRadios.classList.add("active")
+  tabNoticias.classList.remove("active")
+  
+  // Mostramos la barra de audio
+  document.querySelector(".player-bar").style.display = "block"
 }
 
-tabNoticias.onclick=()=>{
-radiosSection.style.display="none"
-noticiasSection.style.display="block"
-tabNoticias.classList.add("active")
-tabRadios.classList.remove("active")
+tabNoticias.onclick = () => {
+  radiosSection.style.display = "none"
+  noticiasSection.style.display = "block"
+  tabNoticias.classList.add("active")
+  tabRadios.classList.remove("active")
+  
+  // Ocultamos la barra de audio
+  document.querySelector(".player-bar").style.display = "none"
 }
 
 </script>
 
 </body>
 </html>
+
 
 
 
