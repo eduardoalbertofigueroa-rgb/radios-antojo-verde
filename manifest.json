@@ -1,20 +1,20 @@
 {
-  "name": "Radios de AntojoVerde",
-  "short_name": "Radios",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0f1f16",
-  "theme_color": "#0f1f16",
-  "icons": [
-    {
-      "src": "icono.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icono.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+"name": "Radios Antojo Verde",
+"short_name": "Antojo Verde",
+"start_url": ".",
+"display": "standalone",
+"background_color": "#0f1f16",
+"theme_color": "#4ade80",
+"icons": [
+{
+"src": "icon-192.png",
+"sizes": "192x192",
+"type": "image/png"
+},
+{
+"src": "icon-512.png",
+"sizes": "512x512",
+"type": "image/png"
+}
+]
 }
