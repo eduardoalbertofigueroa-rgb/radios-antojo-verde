@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio en TV</title>
 
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+margin:0;
+}
+
+h1{
+color:#4ade80;
+}
+
+audio{
+width:300px;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 id="radioName"></h1>
+
+<audio id="player" controls autoplay></audio>
+
+<script>
+
+const params = new URLSearchParams(window.location.search)
+
+const stream = params.get("stream")
+const name = params.get("name")
+
+document.getElementById("radioName").textContent = name
+document.getElementById("player").src = stream
+
+</script>
+
+</body>
+</html>
