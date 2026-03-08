@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Radio en TV</title>
 
 <style>
@@ -17,15 +19,27 @@ align-items:center;
 justify-content:center;
 height:100vh;
 margin:0;
+text-align:center;
 }
 
 h1{
 color:#4ade80;
+margin-bottom:20px;
 }
 
 audio{
-width:300px;
+width:320px;
 margin-top:20px;
+}
+
+button{
+margin-top:30px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:bold;
+cursor:pointer;
 }
 
 </style>
@@ -34,9 +48,11 @@ margin-top:20px;
 
 <body>
 
-<h1 id="radioName"></h1>
+<h1 id="radioName">Cargando radio...</h1>
 
 <audio id="player" controls autoplay></audio>
+
+<button onclick="volver()">⬅ Volver</button>
 
 <script>
 
@@ -45,8 +61,19 @@ const params = new URLSearchParams(window.location.search)
 const stream = params.get("stream")
 const name = params.get("name")
 
-document.getElementById("radioName").textContent = name
-document.getElementById("player").src = stream
+const player = document.getElementById("player")
+const radioName = document.getElementById("radioName")
+
+radioName.textContent = name || "Radio en vivo"
+
+if(stream){
+player.src = stream
+player.play().catch(()=>{})
+}
+
+function volver(){
+window.close()
+}
 
 </script>
 
