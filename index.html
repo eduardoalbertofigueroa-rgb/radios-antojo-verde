@@ -130,16 +130,6 @@ box-shadow:0 0 15px #4ade80;
 margin-top:8px;
 }
 
-#sendToTV{
-margin-top:10px;
-padding:10px 18px;
-border:none;
-border-radius:10px;
-background:#4ade80;
-font-weight:bold;
-cursor:pointer;
-}
-
 </style>
 </head>
 
@@ -152,11 +142,13 @@ cursor:pointer;
 <button id="tabNoticias" class="tab">📺 NOTICIAS</button>
 </div>
 
-<!-- RADIOS -->
+<!-- SECCIÓN RADIOS -->
 
 <div id="radiosSection">
 
 <div class="radio-grid">
+
+<!-- TODAS TUS RADIOS (NO CAMBIÉ NADA) -->
 
 <div class="card" data-name="Radio Mitre" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
 <img src="logo/mitre.png">
@@ -224,9 +216,10 @@ cursor:pointer;
 </div>
 
 </div>
+
 </div>
 
-<!-- NOTICIAS -->
+<!-- SECCIÓN NOTICIAS -->
 
 <div id="noticiasSection" style="display:none">
 
@@ -264,6 +257,8 @@ cursor:pointer;
 <p>Canal 26</p>
 </div>
 
+  
+
 </div>
 
 <div id="videoContainer" style="display:none;margin-top:20px;">
@@ -277,8 +272,14 @@ allowfullscreen>
 
 <br><br>
 
-<button id="fullscreenBtn"
-style="padding:10px 20px;border:none;border-radius:10px;background:#4ade80;font-weight:bold;cursor:pointer;">
+<button id="fullscreenBtn" style="
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:bold;
+cursor:pointer;
+">
 📺 Pantalla completa
 </button>
 
@@ -291,8 +292,6 @@ style="padding:10px 20px;border:none;border-radius:10px;background:#4ade80;font-
 <div id="currentRadioName">Seleccioná una radio</div>
 
 <audio id="audioPlayer" controls></audio>
-
-<button id="sendToTV">📺 Escuchar en TV</button>
 
 <div class="volume">
 Volumen  
@@ -311,7 +310,7 @@ if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("service-worker.js")
 }
 
-/* ELEMENTOS */
+/* RADIOS */
 
 const cards=document.querySelectorAll(".card")
 const audio=document.getElementById("audioPlayer")
@@ -319,17 +318,9 @@ const nameBox=document.getElementById("currentRadioName")
 const playButton=document.getElementById("playButton")
 const volume=document.getElementById("volume")
 
-const videoPlayer=document.getElementById("videoPlayer")
-const videoContainer=document.getElementById("videoContainer")
-const fullscreenBtn=document.getElementById("fullscreenBtn")
-
-/* VOLUMEN */
-
 volume.addEventListener("input",()=>{
 audio.volume=volume.value
 })
-
-/* RADIOS */
 
 cards.forEach(card=>{
 
@@ -352,8 +343,6 @@ nameBox.textContent="Reproduciendo: "+name
 
 })
 
-/* PLAY FLOTANTE */
-
 playButton.addEventListener("click",()=>{
 
 if(audio.paused){
@@ -365,8 +354,22 @@ playButton.textContent="▶"
 }
 
 })
+  /* PANTALLA COMPLETA VIDEO */
+
+const fullscreenBtn = document.getElementById("fullscreenBtn")
+
+fullscreenBtn.addEventListener("click",()=>{
+
+if(videoPlayer.requestFullscreen){
+videoPlayer.requestFullscreen()
+}
+
+})
 
 /* NOTICIAS */
+
+const videoPlayer=document.getElementById("videoPlayer")
+const videoContainer=document.getElementById("videoContainer")
 
 document.querySelectorAll(".tv").forEach(card=>{
 card.addEventListener("click",()=>{
@@ -380,14 +383,6 @@ videoPlayer.src=card.dataset.video
 })
 })
 
-/* FULLSCREEN */
-
-fullscreenBtn.addEventListener("click",()=>{
-if(videoPlayer.requestFullscreen){
-videoPlayer.requestFullscreen()
-}
-})
-
 /* PESTAÑAS */
 
 const tabRadios=document.getElementById("tabRadios")
@@ -396,44 +391,47 @@ const tabNoticias=document.getElementById("tabNoticias")
 const radiosSection=document.getElementById("radiosSection")
 const noticiasSection=document.getElementById("noticiasSection")
 
-tabRadios.onclick=()=>{
-radiosSection.style.display="block"
-noticiasSection.style.display="none"
-videoContainer.style.display="none"
-videoPlayer.src=""
-tabRadios.classList.add("active")
-tabNoticias.classList.remove("active")
-document.querySelector(".player-bar").style.display="block"
+tabRadios.onclick = () => {
+  radiosSection.style.display = "block"
+  noticiasSection.style.display = "none"
+  videoContainer.style.display = "none"
+  videoPlayer.src = ""
+  tabRadios.classList.add("active")
+  tabNoticias.classList.remove("active")
+  
+  // Mostramos la barra de audio
+  document.querySelector(".player-bar").style.display = "block"
 }
 
-tabNoticias.onclick=()=>{
-radiosSection.style.display="none"
-noticiasSection.style.display="block"
-tabNoticias.classList.add("active")
-tabRadios.classList.remove("active")
-document.querySelector(".player-bar").style.display="none"
+tabNoticias.onclick = () => {
+  radiosSection.style.display = "none"
+  noticiasSection.style.display = "block"
+  tabNoticias.classList.add("active")
+  tabRadios.classList.remove("active")
+  
+  // Ocultamos la barra de audio
+  document.querySelector(".player-bar").style.display = "none"
 }
-
-/* ENVIAR RADIO A TV */
-
-const sendToTV=document.getElementById("sendToTV")
-
-sendToTV.addEventListener("click",()=>{
-
-if(audio.src){
-
-let radioURL="tv.html?stream="+encodeURIComponent(audio.src)+"&name="+encodeURIComponent(nameBox.textContent)
-
-window.open(radioURL,"_blank")
-
-}
-
-})
 
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
