@@ -129,7 +129,15 @@ box-shadow:0 0 15px #4ade80;
 .volume{
 margin-top:8px;
 }
-
+#sendToTV{
+margin-top:10px;
+padding:10px 18px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:bold;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -290,6 +298,7 @@ cursor:pointer;
 <div id="currentRadioName">Seleccioná una radio</div>
 
 <audio id="audioPlayer" controls></audio>
+<button id="sendToTV">📺 Escuchar en TV</button>
 
 <div class="volume">
 Volumen  
@@ -410,11 +419,25 @@ tabNoticias.onclick = () => {
   // Ocultamos la barra de audio
   document.querySelector(".player-bar").style.display = "none"
 }
+  const sendToTV = document.getElementById("sendToTV")
+
+sendToTV.addEventListener("click",()=>{
+
+if(audio.src){
+
+let radioURL = "tv.html?stream=" + encodeURIComponent(audio.src) + "&name=" + encodeURIComponent(nameBox.textContent)
+
+window.open(radioURL,"_blank")
+
+}
+
+})
 
 </script>
 
 </body>
 </html>
+
 
 
 
