@@ -10,7 +10,7 @@
 <style>
 
 body{
-background:black;
+background:#000;
 color:white;
 font-family:Arial;
 display:flex;
@@ -22,24 +22,26 @@ margin:0;
 text-align:center;
 }
 
+.logo{
+width:150px;
+margin-bottom:20px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
 h1{
 color:#4ade80;
-margin-bottom:20px;
+font-size:28px;
 }
 
 audio{
-width:320px;
 margin-top:20px;
-}
-
-button{
-margin-top:30px;
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#4ade80;
-font-weight:bold;
-cursor:pointer;
+width:350px;
 }
 
 </style>
@@ -48,11 +50,11 @@ cursor:pointer;
 
 <body>
 
+<img src="logo/radio.png" class="logo">
+
 <h1 id="radioName">Cargando radio...</h1>
 
 <audio id="player" controls autoplay></audio>
-
-<button onclick="volver()">⬅ Volver</button>
 
 <script>
 
@@ -62,17 +64,12 @@ const stream = params.get("stream")
 const name = params.get("name")
 
 const player = document.getElementById("player")
-const radioName = document.getElementById("radioName")
 
-radioName.textContent = name || "Radio en vivo"
+document.getElementById("radioName").textContent = name || "Radio en vivo"
 
 if(stream){
 player.src = stream
 player.play().catch(()=>{})
-}
-
-function volver(){
-window.close()
 }
 
 </script>
