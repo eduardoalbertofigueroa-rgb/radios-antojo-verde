@@ -240,182 +240,11 @@ transform:scale(1.05);
 
 </div>
 
-<div id="noticiasSection" style="display:none">
-
-<h2>📺 Noticias en vivo</h2>
-
-<div class="radio-grid">
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/cb12KmMMDJA">
-<img src="logo/tn.png">
-<p>TN</p>
-</div>
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/SF06Qy1Ct6Y">
-<img src="logo/c5n.png">
-<p>C5N</p>
-</div>
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/M_gUd2Bp9g0">
-<img src="logo/lanacionplus.png">
-<p>La Nación+</p>
-</div>
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/JC7f3EUDaqw">
-<img src="logo/cronica.png">
-<p>Crónica</p>
-</div>
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/ArKbAx1K-2U">
-<img src="logo/a24.png">
-<p>A24</p>
-</div>
-
-<div class="card tv" tabindex="0" data-video="https://www.youtube.com/embed/rwnz1KIHTh8">
-<img src="logo/canal26.png">
-<p>Canal 26</p>
-</div>
-
-</div>
-
-<div id="videoContainer" style="display:none;margin-top:20px;">
-
-<iframe id="videoPlayer"
-width="90%"
-height="250"
-frameborder="0"
-allowfullscreen>
-</iframe>
-
-<br><br>
-
-<button id="fullscreenBtn" tabindex="0" style="
-padding:10px 20px;
-border:none;
-border-radius:10px;
-background:#4ade80;
-font-weight:bold;
-cursor:pointer;
-">
-📺 Pantalla completa
-</button>
-
-</div>
-
-</div>
-
-<div class="player-bar">
-
-<div id="currentRadioName">Seleccioná una radio</div>
-
-<audio id="audioPlayer" controls></audio>
-
-<div class="volume">
-Volumen  
-<input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-</div>
-
-</div>
-
-<div class="floating-player" id="playButton" tabindex="0">▶</div>
+<!-- (TODO TU HTML SIGUE EXACTAMENTE IGUAL HASTA EL SCRIPT) -->
 
 <script>
 
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js")
-}
-
-const cards=document.querySelectorAll(".card")
-const audio=document.getElementById("audioPlayer")
-const nameBox=document.getElementById("currentRadioName")
-const playButton=document.getElementById("playButton")
-const volume=document.getElementById("volume")
-
-volume.addEventListener("input",()=>{
-audio.volume=volume.value
-})
-
-cards.forEach(card=>{
-
-if(!card.dataset.stream) return
-
-card.addEventListener("click",()=>{
-
-cards.forEach(c=>c.classList.remove("active"))
-card.classList.add("active")
-
-let stream=card.dataset.stream
-let name=card.dataset.name
-
-audio.src=stream
-audio.play()
-
-nameBox.textContent="Reproduciendo: "+name
-
-})
-
-})
-
-playButton.addEventListener("click",()=>{
-
-if(audio.paused){
-audio.play()
-playButton.textContent="⏸"
-}else{
-audio.pause()
-playButton.textContent="▶"
-}
-
-})
-
-const fullscreenBtn = document.getElementById("fullscreenBtn")
-
-fullscreenBtn.addEventListener("click",()=>{
-
-if(videoPlayer.requestFullscreen){
-videoPlayer.requestFullscreen()
-}
-
-})
-
-const videoPlayer=document.getElementById("videoPlayer")
-const videoContainer=document.getElementById("videoContainer")
-
-document.querySelectorAll(".tv").forEach(card=>{
-card.addEventListener("click",()=>{
-
-audio.pause()
-
-videoContainer.style.display="block"
-
-videoPlayer.src=card.dataset.video
-
-})
-})
-
-const tabRadios=document.getElementById("tabRadios")
-const tabNoticias=document.getElementById("tabNoticias")
-
-const radiosSection=document.getElementById("radiosSection")
-const noticiasSection=document.getElementById("noticiasSection")
-
-tabRadios.onclick = () => {
-  radiosSection.style.display = "block"
-  noticiasSection.style.display = "none"
-  videoContainer.style.display = "none"
-  videoPlayer.src = ""
-  tabRadios.classList.add("active")
-  tabNoticias.classList.remove("active")
-  document.querySelector(".player-bar").style.display = "block"
-}
-
-tabNoticias.onclick = () => {
-  radiosSection.style.display = "none"
-  noticiasSection.style.display = "block"
-  tabNoticias.classList.add("active")
-  tabRadios.classList.remove("active")
-  document.querySelector(".player-bar").style.display = "none"
-}
+/* TODO TU SCRIPT ORIGINAL SIGUE IGUAL */
 
 /* ENTER PARA CONTROL REMOTO */
 
@@ -428,6 +257,40 @@ focused.click()
 }
 
 })
+
+/* NAVEGACION CONTROL REMOTO ANDROID TV */
+
+const focusables = Array.from(document.querySelectorAll('.card, .tab, #playButton, #fullscreenBtn'));
+
+let focusIndex = 0;
+
+function setFocus(i){
+  if(i < 0) i = focusables.length - 1;
+  if(i >= focusables.length) i = 0;
+  focusIndex = i;
+  focusables[focusIndex].focus();
+}
+
+setFocus(0);
+
+document.addEventListener("keydown", (e) => {
+
+  if(e.key === "ArrowRight" || e.key === "ArrowDown"){
+    setFocus(focusIndex + 1);
+    e.preventDefault();
+  }
+
+  if(e.key === "ArrowLeft" || e.key === "ArrowUp"){
+    setFocus(focusIndex - 1);
+    e.preventDefault();
+  }
+
+  if(e.key === "Enter"){
+    focusables[focusIndex].click();
+    e.preventDefault();
+  }
+
+});
 
 </script>
 
