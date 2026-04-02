@@ -402,21 +402,23 @@ document.querySelector(".player-bar").style.display="none"
 
 function mostrarCategoria(cat){
 
-  ["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
-    const el=document.getElementById(id)
-    if(el) el.style.display="none"
-  })
+["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
+const el=document.getElementById(id)
+if(el) el.style.display="none"
+})
 
-  const activa=document.getElementById(cat)
-  if(activa) activa.style.display="block"
+const activa=document.getElementById(cat)
+if(activa) activa.style.display="block"
 }
 
-function volverCategorias(){   // ✅ AFUERA
-  ["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
-    const el=document.getElementById(id)
-    if(el) el.style.display="none"
-  })
+function volverCategorias(){
+["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
+const el=document.getElementById(id)
+if(el) el.style.display="none"
+})
 }
+
+
 
 
 
