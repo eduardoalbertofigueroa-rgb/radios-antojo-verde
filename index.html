@@ -134,6 +134,35 @@ margin-top:8px;
 outline:3px solid #4ade80;
 transform:scale(1.05);
 }
+body{
+  margin:0;
+}
+
+/* 👇 PEGALO ACÁ ABAJO */
+.categorias{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:15px;
+  padding:15px;
+}
+
+.card{
+  background:#1e1e1e;
+  color:white;
+  font-size:20px;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.card:hover{
+  transform:scale(1.03);
+  background:#2a2a2a;
+}
+
+</style>
 
 </style>
 </head>
@@ -258,74 +287,30 @@ transform:scale(1.05);
 
 <!-- 🛒 COMERCIOS (REEMPLAZA NOTICIAS) -->
 <div id="comerciosSection" style="display:none">
+  <div class="categorias">
+    <div class="card">PRUEBA 1</div>
+    <div class="card">PRUEBA 2</div>
+  </div>
 <h2>🛒 Comercios y Servicios</h2>
 
-<div class="radio-grid">
+<div class="categorias">
+  <div class="card" onclick="mostrarCategoria('ferreterias')">
+    🔧 Ferreterías
+  </div>
 
-<div class="card" onclick="mostrarCategoria('ferreterias')">
-<p>🔧 Ferreterías</p>
+  <div class="card" onclick="mostrarCategoria('verdulerias')">
+    🥦 Verdulerías
+  </div>
+
+  <div class="card" onclick="mostrarCategoria('pinturerias')">
+    🎨 Pinturerías
+  </div>
+
+  <div class="card" onclick="mostrarCategoria('electricistas')">
+    ⚡ Electricistas
+  </div>
 </div>
 
-<div class="card" onclick="mostrarCategoria('verdulerias')">
-<p>🥬 Verdulerías</p>
-</div>
-
-<div class="card" onclick="mostrarCategoria('pinturerias')">
-<p>🎨 Pinturerías</p>
-</div>
-
-<div class="card" onclick="mostrarCategoria('electricistas')">
-<p>⚡ Electricistas</p>
-</div>
-
-</div>
-
-<!-- LISTAS -->
-
-<div id="ferreterias" style="display:none; padding:15px;">
-<h3>🔧 Ferreterías</h3>
-
-<div class="card">
-<p>Ferretería Ejemplo</p>
-<a href="https://wa.me/5490000000000" target="_blank">📲 WhatsApp</a>
-</div>
-
-</div>
-
-<div id="ferreterias" style="display:none; padding:15px;">
-
-<button onclick="volverCategorias()" class="tab">⬅ Volver</button>
-
-<h3>🔧 Ferreterías</h3>
-</div>
-
-<div id="Verdulerias" style="display:none; padding:15px;">
-
-<button onclick="volverCategorias()" class="tab">⬅ Volver</button>
-
-<h3>🥬Verdulerias</h3>
-</div>
-
-<div id="Pinturerías" style="display:none; padding:15px;">
-
-<button onclick="volverCategorias()" class="tab">⬅ Volver</button>
-
-<h3>🎨 Pinturerías</h3>
-</div>
-
-<div id="Electricistas" style="display:none; padding:15px;">
-
-<button onclick="volverCategorias()" class="tab">⬅ Volver</button>
-
-<h3>🔌 Electricistas</h3>
-</div>
-
-<div id="Refrigeración" style="display:none; padding:15px;">
-
-<button onclick="volverCategorias()" class="tab">⬅ Volver</button>
-
-<h3>❄️ Refrigeración</h3>
-</div>
 
 <div class="player-bar">
 <div id="currentRadioName">Seleccioná una radio</div>
