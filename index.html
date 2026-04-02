@@ -286,133 +286,150 @@ body{
 
 
 <!-- 🛒 COMERCIOS (REEMPLAZA NOTICIAS) -->
+<!-- Sección de Comercios -->
 <div id="comerciosSection" style="display:none">
+  <h2>🛒 Comercios y Servicios</h2>
 
-<h2>🛒 Comercios y Servicios</h2>
-
-<div class="categorias">
-
-  <div class="card" onclick="mostrarCategoria('ferreterias')">
-    🔧 Ferreterías
-
- </div>
-
-  <div class="card" onclick="mostrarCategoria('verdulerias')">
-    🥦 Verdulerías
+  <!-- Menú Principal de Categorías -->
+  <div id="menuCategorias" class="categorias">
+    <div class="card" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
+    <div class="card" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
+    <div class="card" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
+    <div class="card" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
   </div>
 
-  <div class="card" onclick="mostrarCategoria('pinturerias')">
-    🎨 Pinturerías
+  <!-- Contenedores de cada categoría (Están ocultos al inicio) -->
+  <div id="ferreterias" style="display:none">
+    <h3>Lista de Ferreterías</h3>
+    <button onclick="volverCategorias()">⬅ Volver</button>
+    <!-- Aquí van tus datos -->
   </div>
 
-  <div class="card" onclick="mostrarCategoria('electricistas')">
-    ⚡ Electricistas
+  <div id="verdulerias" style="display:none">
+    <h3>Lista de Verdulerías</h3>
+    <button onclick="volverCategorias()">⬅ Volver</button>
+  </div>
 
+  <div id="pinturerias" style="display:none">
+    <h3>Lista de Pinturerías</h3>
+    <button onclick="volverCategorias()">⬅ Volver</button>
+  </div>
 
+  <div id="electricistas" style="display:none">
+    <h3>Lista de Electricistas</h3>
+    <button onclick="volverCategorias()">⬅ Volver</button>
+  </div>
 </div>
 
-</div>
-
+<!-- Reproductor -->
 <div class="player-bar">
-<div id="currentRadioName">Seleccioná una radio</div>
-<audio id="audioPlayer" controls></audio>
-
-<div class="volume">
-Volumen  
-<input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-</div>
+  <div id="currentRadioName">Seleccioná una radio</div>
+  <audio id="audioPlayer" controls></audio>
+  <div class="volume">
+    Volumen  
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+  </div>
 </div>
 
 <div class="floating-player" id="playButton">▶</div>
 
 <script>
-
+// Registro de Service Worker
 if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js")
+  navigator.serviceWorker.register("service-worker.js");
 }
 
-const cards=document.querySelectorAll(".card")
-const audio=document.getElementById("audioPlayer")
-const nameBox=document.getElementById("currentRadioName")
-const playButton=document.getElementById("playButton")
-const volume=document.getElementById("volume")
+const audio = document.getElementById("audioPlayer");
+const nameBox = document.getElementById("currentRadioName");
+const playButton = document.getElementById("playButton");
+const volume = document.getElementById("volume");
+const radiosSection = document.getElementById("radiosSection"); // Asegurate de que este ID exista en tu HTML completo
+const comerciosSection = document.getElementById("comerciosSection");
 
-volume.addEventListener("input",()=>{
-audio.volume=volume.value
-})
+// Control de Volumen
+volume.addEventListener("input", () => {
+  audio.volume = volume.value;
+});
 
-cards.forEach(card=>{
-if(!card.dataset.stream) return
+// Lógica de Radio (Asegúrate de que tus cards de radio tengan data-stream)
+document.querySelectorAll(".card").forEach(card => {
+  if (!card.dataset.stream) return;
 
-card.addEventListener("click",()=>{
-cards.forEach(c=>c.classList.remove("active"))
-card.classList.add("active")
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+    audio.src = card.dataset.stream;
+    audio.play();
+    nameBox.textContent = "Reproduciendo: " + (card.dataset.name || "Radio");
+    playButton.textContent = "⏸";
+  });
+});
 
-audio.src=card.dataset.stream
-audio.play()
-nameBox.textContent="Reproduciendo: "+card.dataset.name
-})
-})
+// Botón Flotante Play/Pause
+playButton.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playButton.textContent = "⏸";
+  } else {
+    audio.pause();
+    playButton.textContent = "▶";
+  }
+});
 
-playButton.addEventListener("click",()=>{
-if(audio.paused){
-audio.play()
-playButton.textContent="⏸"
-}else{
-audio.pause()
-playButton.textContent="▶"
-}
-})
+// Cambio de Tabs
+const tabRadios = document.getElementById("tabRadios");
+const tabComercios = document.getElementById("tabComercios");
 
-const tabRadios=document.getElementById("tabRadios")
-const tabComercios=document.getElementById("tabComercios")
-
-const radiosSection=document.getElementById("radiosSection")
-const comerciosSection=document.getElementById("comerciosSection")
-
-tabRadios.onclick=()=>{
-radiosSection.style.display="block"
-comerciosSection.style.display="none"
-tabRadios.classList.add("active")
-tabComercios.classList.remove("active")
-document.querySelector(".player-bar").style.display="block"
-}
-
-tabComercios.onclick=()=>{
-radiosSection.style.display="none"
-comerciosSection.style.display="block"
-tabComercios.classList.add("active")
-tabRadios.classList.remove("active")
-document.querySelector(".player-bar").style.display="none"
+if(tabRadios) {
+  tabRadios.onclick = () => {
+    if(radiosSection) radiosSection.style.display = "block";
+    comerciosSection.style.display = "none";
+    tabRadios.classList.add("active");
+    tabComercios.classList.remove("active");
+    document.querySelector(".player-bar").style.display = "block";
+  };
 }
 
-function mostrarCategoria(cat){
-["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
-const el=document.getElementById(id)
-if(el) el.style.display="none"
-})
-
-const activa=document.getElementById(cat)
-if(activa) activa.style.display="block"
+if(tabComercios) {
+  tabComercios.onclick = () => {
+    if(radiosSection) radiosSection.style.display = "none";
+    comerciosSection.style.display = "block";
+    tabComercios.classList.add("active");
+    tabRadios.classList.remove("active");
+    document.querySelector(".player-bar").style.display = "none";
+  };
 }
 
-function volverCategorias(){
-["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
-const el=document.getElementById(id)
-if(el) el.style.display="none"
-})
+// Funciones de Categorías
+function mostrarCategoria(cat) {
+  // Ocultamos el menú principal y todas las categorías
+  document.getElementById("menuCategorias").style.display = "none";
+  ["ferreterias", "verdulerias", "pinturerias", "electricistas"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+
+  // Mostramos la elegida
+  const activa = document.getElementById(cat);
+  if (activa) activa.style.display = "block";
 }
 
-document.addEventListener("keydown",function(e){
-if(e.key==="Enter"){
-document.activeElement.click()
+function volverCategorias() {
+  // Ocultamos categorías y mostramos el menú principal
+  ["ferreterias", "verdulerias", "pinturerias", "electricistas"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+  document.getElementById("menuCategorias").style.display = "grid"; // O block, según tu CSS
 }
-})
 
+// Accesibilidad teclado
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    document.activeElement.click();
+  }
+});
 </script>
-
-</body>
-</html>
 
 
 
