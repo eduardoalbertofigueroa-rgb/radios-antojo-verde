@@ -401,7 +401,6 @@ document.querySelector(".player-bar").style.display="none"
 }
 
 function mostrarCategoria(cat){
-
 ["ferreterias","verdulerias","pinturerias","electricistas"].forEach(id=>{
 const el=document.getElementById(id)
 if(el) el.style.display="none"
@@ -416,14 +415,6 @@ function volverCategorias(){
 const el=document.getElementById(id)
 if(el) el.style.display="none"
 })
-}
-
-
-
-
-
-const activa=document.getElementById(cat)
-if(activa) activa.style.display="block"
 }
 
 document.addEventListener("keydown",function(e){
