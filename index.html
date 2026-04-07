@@ -39,7 +39,7 @@
   .tab.active { background: #4ade80; color: black; }
 
   /* EFECTO PARA CONTROL REMOTO (TV) */
-  .card:focus, .tab:focus, .btn-volver:focus {
+  .card:focus, .tab:focus, .btn-volver:focus, a:focus {
     outline: 5px solid #4ade80 !important;
     background: #1f3b2a !important;
     transform: scale(1.1);
@@ -121,6 +121,7 @@
   <button id="tabComercios" class="tab" tabindex="0">🛒 COMERCIOS</button>
 </div>
 
+<!-- SECCION RADIOS -->
 <div id="radiosSection">
   <div class="radio-grid">
     <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
@@ -135,8 +136,8 @@
     <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://26483.live.streamtheworld.com/LA_RED_AM910AAC_SC">
       <img src="logo/lared.png"><p>Radio la Red Am 910</p>
     </div>
-    <div class="card" tabindex="0" data-name="Los40-105.5" data-stream="https://edge02.radiohdvivo.com/los40">
-      <img src="logo/los40principales.png"><p>Los40-105.5</p>
+    <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
+      <img src="logo/los40principales.png"><p>Los 40 - 105.5</p>
     </div>
     <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://27603.live.streamtheworld.com/MUCHA_RADIO.mp3">
       <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
@@ -200,7 +201,7 @@
       <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center;">
           <strong>Ferretería El Tornillo</strong><br>
           <small>Calle Falsa 123 - Tel: 2364316208</small><br><br>
-          <a href="https://wa.me/5492364316208?text=Hola%20Ferretería%20El%20Tornillo..." target="_blank" style="background:#25d366; color:white; padding:10px 15px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
+          <a href="https://wa.me" tabindex="0" target="_blank" style="background:#25d366; color:white; padding:10px 15px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
       </div>
       <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
   </div>
@@ -218,7 +219,6 @@
   const radiosSection = document.getElementById('radiosSection');
   const comerciosSection = document.getElementById('comerciosSection');
 
-  // Lógica de Tabs
   document.getElementById('tabRadios').addEventListener('click', () => {
     radiosSection.style.display = 'block';
     comerciosSection.style.display = 'none';
@@ -233,7 +233,6 @@
     document.getElementById('tabRadios').classList.remove('active');
   });
 
-  // Reproducción
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
@@ -244,21 +243,24 @@
     });
   });
 
-  // Comercios funciones
   function mostrarCategoria(id) {
     document.getElementById('menuCategorias').style.display = 'none';
     document.getElementById(id).style.display = 'block';
+    setTimeout(() => { document.querySelector('#' + id + ' .btn-volver').focus(); }, 100);
   }
 
   function volverCategorias() {
     document.querySelectorAll('.seccion-detalle').forEach(s => s.style.display = 'none');
     document.getElementById('menuCategorias').style.display = 'grid';
+    setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
-  // --- LOGICA PARA CONTROL REMOTO (TV) ---
+  // LÓGICA CONTROL REMOTO MEJORADA
   document.addEventListener('keydown', function(e) {
-    const focusables = document.querySelectorAll('.card, .tab, .btn-volver, a');
-    let index = Array.from(focusables).indexOf(document.activeElement);
+    const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, a'))
+      .filter(el => el.offsetParent !== null);
+    
+    let index = focusables.indexOf(document.activeElement);
 
     if (e.key === 'ArrowRight') {
       index = (index + 1) % focusables.length;
@@ -267,7 +269,7 @@
       index = (index - 1 + focusables.length) % focusables.length;
       focusables[index].focus();
     } else if (e.key === 'ArrowDown') {
-      index = (index + 4) % focusables.length; // Salto aproximado de fila
+      index = (index + 4) % focusables.length;
       focusables[index].focus();
     } else if (e.key === 'ArrowUp') {
       index = (index - 4 + focusables.length) % focusables.length;
@@ -280,6 +282,7 @@
 
 </body>
 </html>
+
 
 
 
