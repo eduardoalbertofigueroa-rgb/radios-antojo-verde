@@ -13,7 +13,7 @@
     background: #0f1f16;
     color: white;
     text-align: center;
-    padding-bottom: 140px; /* Espacio para el reproductor */
+    padding-bottom: 140px;
   }
 
   h1 { margin-top: 20px; color: #4ade80; }
@@ -38,7 +38,14 @@
 
   .tab.active { background: #4ade80; color: black; }
 
-  /* Grid para Radios */
+  /* EFECTO PARA CONTROL REMOTO (TV) */
+  .card:focus, .tab:focus, .btn-volver:focus {
+    outline: 5px solid #4ade80 !important;
+    background: #1f3b2a !important;
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
+
   .radio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -48,7 +55,6 @@
     margin: auto;
   }
 
-  /* Grid para Categorías de Comercios */
   .categorias-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -58,7 +64,6 @@
     margin: auto;
   }
 
-  /* Estilo Único de Card */
   .card {
     background: #162a1c;
     border-radius: 15px;
@@ -77,11 +82,7 @@
   .card:hover { transform: scale(1.05); background: #1f3b2a; }
   .card.active { border: 2px solid #4ade80; box-shadow: 0 0 15px #4ade80; }
 
-  /* Estilo para las cards de comercios (más grandes) */
-  .card-comercio {
-    padding: 30px;
-    font-size: 20px;
-  }
+  .card-comercio { padding: 30px; font-size: 20px; }
 
   .player-bar {
     position: fixed;
@@ -96,24 +97,6 @@
 
   #currentRadioName { margin-bottom: 10px; font-weight: bold; color: #4ade80; }
   audio { width: 90%; max-width: 400px; height: 35px; }
-
-  .floating-player {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #4ade80;
-    color: black;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 0 15px #4ade80;
-    z-index: 101;
-  }
 
   .btn-volver {
     background: #4ade80;
@@ -130,235 +113,169 @@
 </head>
 
 <body>
-<body>
 
 <img src="logo.png" style="width:200px; display:block; margin:25px auto 15px;">
 
-
 <div class="tabs">
-  <button id="tabRadios" class="tab active">📻 RADIOS</button>
-  <button id="tabComercios" class="tab">🛒 COMERCIOS</button>
+  <button id="tabRadios" class="tab active" tabindex="0">📻 RADIOS</button>
+  <button id="tabComercios" class="tab" tabindex="0">🛒 COMERCIOS</button>
 </div>
 
-<!-- SECCION RADIOS -->
 <div id="radiosSection">
   <div class="radio-grid">
-    <div class="card" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
+    <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
       <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
     </div>
-    <div class="card" data-name="Continental Am 590" data-stream="https://edge01.radiohdvivo.com/continental">
+    <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://edge01.radiohdvivo.com/continental">
       <img src="logo/continental.png"><p>Continental Am 590</p>
     </div>
-    <div class="card" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
+    <div class="card" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
       <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
     </div>
-    <div class="card" data-name="Radio la Red Am 910" data-stream="https://26483.live.streamtheworld.com/LA_RED_AM910AAC_SC">
-<img src="logo/lared.png">
-<p>Radio la Red Am 910</p>
-</div>
+    <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://26483.live.streamtheworld.com/LA_RED_AM910AAC_SC">
+      <img src="logo/lared.png"><p>Radio la Red Am 910</p>
+    </div>
     <div class="card" tabindex="0" data-name="Los40-105.5" data-stream="https://edge02.radiohdvivo.com/los40">
-<img src="logo/los40principales.png">
-<p>Los40-105.5</p>
-</div>
-     <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://27603.live.streamtheworld.com/MUCHA_RADIO.mp3">
-<img src="logo/mucharadio.png">
-<p>Mucha Radio 94.7</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
-<img src="logo/pop101.5.png">
-<p>Pop 101.5</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
-<img src="logo/vorterix.png">
-<p>Vorterix</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-<img src="logo/mega.png">
-<p>Mega 98.3</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-<img src="logo/metro.png">
-<p>Metro 95.1</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
-<img src="logo/aspen.png">
-<p>Aspen 102.3</p>
-</div>
-
-<div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://streaming.live365.com/a98981">
-<img src="logo/lanacion.png">
-<p>La Nación 104.9</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
-<img src="logo/infobae.png">
-<p>Infobae 97.1</p>
-</div>
-
-<div class="card" tabindex="0" data-name="La 100" data-stream="https://27573.live.streamtheworld.com/FM999_56AAC.aac?">
-<img src="logo/la100.png">
-<p>La 100</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
-<img src="logo/vale.png">
-<p>Vale 97.5</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://26523.live.streamtheworld.com/ROCKANDPOP_SC">
-<img src="logo/rockpop.png">
-<p>Rock & Pop 95.5</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
-<img src="logo/disney.png">
-<p>Radio Disney</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
-<img src="logo/urbana.png">
-<p>Urbana Play 104.3</p>
-</div>
-
-<div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
-<img src="logo/rivadavia.png">
-<p>Rivadavia Am 630</p>
-</div>
-
-<div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
-<img src="logo/eo.png">
-<p>EO 107.9</p>
-</div>
-
-    <!-- Agregá aquí el resto de tus radios con el mismo formato -->
+      <img src="logo/los40principales.png"><p>Los40-105.5</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://27603.live.streamtheworld.com/MUCHA_RADIO.mp3">
+      <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
+      <img src="logo/pop101.5.png"><p>Pop 101.5</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
+      <img src="logo/vorterix.png"><p>Vorterix</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
+      <img src="logo/mega.png"><p>Mega 98.3</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
+      <img src="logo/metro.png"><p>Metro 95.1</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
+      <img src="logo/aspen.png"><p>Aspen 102.3</p>
+    </div>
+    <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://streaming.live365.com/a98981">
+      <img src="logo/lanacion.png"><p>La Nación 104.9</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
+      <img src="logo/infobae.png"><p>Infobae 97.1</p>
+    </div>
+    <div class="card" tabindex="0" data-name="La 100" data-stream="https://27573.live.streamtheworld.com/FM999_56AAC.aac?">
+      <img src="logo/la100.png"><p>La 100</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
+      <img src="logo/vale.png"><p>Vale 97.5</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://26523.live.streamtheworld.com/ROCKANDPOP_SC">
+      <img src="logo/rockpop.png"><p>Rock & Pop 95.5</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
+      <img src="logo/disney.png"><p>Radio Disney</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
+      <img src="logo/urbana.png"><p>Urbana Play 104.3</p>
+    </div>
+    <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
+      <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
+    </div>
+    <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
+      <img src="logo/eo.png"><p>EO 107.9</p>
+    </div>
   </div>
 </div>
 
 <!-- SECCION COMERCIOS -->
 <div id="comerciosSection" style="display:none">
   <div id="menuCategorias" class="categorias-grid">
-    <div class="card card-comercio" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
-    <div class="card card-comercio" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
-    <div class="card card-comercio" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
-    <div class="card card-comercio" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
+    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
+    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
+    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
+    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
   </div>
 
-  <!-- Detalles de Categorías -->
-<div id="ferreterias" class="seccion-detalle" style="display:none">
-    <h3>🛠 Nuestras Ferreterías</h3>
-    <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center; font-family: Arial, sans-serif; color: white;">
-        <strong>Ferretería El Tornillo</strong><br>
-        <small>Calle Falsa 123 - Tel: 2364316208</small><br><br>
-        
-        <!-- ACÁ ESTÁ LA CORRECCIÓN CON %20 PARA QUE LLEGUE CON ESPACIOS -->
-        <a href="https://wa.me/5492364316208?text=Hola%20Ferretería%20El%20Tornillo,%20vengo%20de%20la%20Aplicación%20de%20Radio%20y%20quiero%20hacer%20una%20consulta" 
-           target="_blank" 
-           style="background:#25d366; color:white; padding:10px 15px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold;">
-            💬 Pedir por WhatsApp
-        </a>
-    </div>
-
-    <button class="btn-volver" onclick="volverCategorias()" style="margin-top:10px;">⬅ Volver</button>
-</div>
-
-
-
-
-
-  <div id="verdulerias" class="seccion-detalle" style="display:none">
-    <h3>🥦 Nuestras Verdulerías</h3>
-    <p>Lo de Cacho - Av. Siempreviva 742</p>
-    <button class="btn-volver" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
-
-  <div id="pinturerias" class="seccion-detalle" style="display:none">
-    <h3>🎨 Pinturerías</h3>
-    <button class="btn-volver" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
-
-  <div id="electricistas" class="seccion-detalle" style="display:none">
-    <h3>⚡ Electricistas Matriculados</h3>
-    <button class="btn-volver" onclick="volverCategorias()">⬅ Volver</button>
+  <div id="ferreterias" class="seccion-detalle" style="display:none">
+      <h3>🛠 Nuestras Ferreterías</h3>
+      <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center;">
+          <strong>Ferretería El Tornillo</strong><br>
+          <small>Calle Falsa 123 - Tel: 2364316208</small><br><br>
+          <a href="https://wa.me/5492364316208?text=Hola%20Ferretería%20El%20Tornillo..." target="_blank" style="background:#25d366; color:white; padding:10px 15px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
+      </div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
   </div>
 </div>
 
 <!-- REPRODUCTOR FIJO -->
 <div class="player-bar">
-  <div id="currentRadioName">Seleccioná una radio</div>
-  <audio id="audioPlayer" controls></audio>
-  <div style="margin-top:10px">
-    Volumen <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-  </div>
+    <div id="currentRadioName">Seleccioná una radio</div>
+    <audio id="mainAudio" controls autoplay></audio>
 </div>
 
-<div class="floating-player" id="playButton">▶</div>
-
 <script>
-  const audio = document.getElementById("audioPlayer");
-  const nameBox = document.getElementById("currentRadioName");
-  const playButton = document.getElementById("playButton");
-  const volume = document.getElementById("volume");
-  const radiosSection = document.getElementById("radiosSection");
-  const comerciosSection = document.getElementById("comerciosSection");
+  const mainAudio = document.getElementById('mainAudio');
+  const currentRadioName = document.getElementById('currentRadioName');
+  const radiosSection = document.getElementById('radiosSection');
+  const comerciosSection = document.getElementById('comerciosSection');
 
-  // Lógica de Reproducción de Radios
-  document.querySelectorAll(".radio-grid .card").forEach(card => {
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-      audio.src = card.dataset.stream;
-      audio.play();
-      nameBox.textContent = "Reproduciendo: " + card.dataset.name;
-      playButton.textContent = "⏸";
+  // Lógica de Tabs
+  document.getElementById('tabRadios').addEventListener('click', () => {
+    radiosSection.style.display = 'block';
+    comerciosSection.style.display = 'none';
+    document.getElementById('tabRadios').classList.add('active');
+    document.getElementById('tabComercios').classList.remove('active');
+  });
+
+  document.getElementById('tabComercios').addEventListener('click', () => {
+    radiosSection.style.display = 'none';
+    comerciosSection.style.display = 'block';
+    document.getElementById('tabComercios').classList.add('active');
+    document.getElementById('tabRadios').classList.remove('active');
+  });
+
+  // Reproducción
+  document.querySelectorAll('.card[data-stream]').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      currentRadioName.innerText = "Reproduciendo: " + card.getAttribute('data-name');
+      mainAudio.src = card.getAttribute('data-stream');
+      mainAudio.play();
     });
   });
 
-  // Botón Flotante
-  playButton.addEventListener("click", () => {
-    if (audio.src) {
-      if (audio.paused) { audio.play(); playButton.textContent = "⏸"; }
-      else { audio.pause(); playButton.textContent = "▶"; }
-    }
-  });
-
-  // Control Volumen
-  volume.addEventListener("input", () => { audio.volume = volume.value; });
-
-  // Cambio de Pestañas (Tabs)
-  document.getElementById("tabRadios").onclick = function() {
-    radiosSection.style.display = "block";
-    comerciosSection.style.display = "none";
-    this.classList.add("active");
-    document.getElementById("tabComercios").classList.remove("active");
-  };
-
-  document.getElementById("tabComercios").onclick = function() {
-    radiosSection.style.display = "none";
-    comerciosSection.style.display = "block";
-    this.classList.add("active");
-    document.getElementById("tabRadios").classList.remove("active");
-  };
-
-  // Funciones de Categorías
+  // Comercios funciones
   function mostrarCategoria(id) {
-    document.getElementById("menuCategorias").style.display = "none";
-    document.getElementById(id).style.display = "block";
+    document.getElementById('menuCategorias').style.display = 'none';
+    document.getElementById(id).style.display = 'block';
   }
 
   function volverCategorias() {
-    const categorias = ["ferreterias", "verdulerias", "pinturerias", "electricistas"];
-    categorias.forEach(c => document.getElementById(c).style.display = "none");
-    document.getElementById("menuCategorias").style.display = "grid";
+    document.querySelectorAll('.seccion-detalle').forEach(s => s.style.display = 'none');
+    document.getElementById('menuCategorias').style.display = 'grid';
   }
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
-  }
+  // --- LOGICA PARA CONTROL REMOTO (TV) ---
+  document.addEventListener('keydown', function(e) {
+    const focusables = document.querySelectorAll('.card, .tab, .btn-volver, a');
+    let index = Array.from(focusables).indexOf(document.activeElement);
+
+    if (e.key === 'ArrowRight') {
+      index = (index + 1) % focusables.length;
+      focusables[index].focus();
+    } else if (e.key === 'ArrowLeft') {
+      index = (index - 1 + focusables.length) % focusables.length;
+      focusables[index].focus();
+    } else if (e.key === 'ArrowDown') {
+      index = (index + 4) % focusables.length; // Salto aproximado de fila
+      focusables[index].focus();
+    } else if (e.key === 'ArrowUp') {
+      index = (index - 4 + focusables.length) % focusables.length;
+      focusables[index].focus();
+    } else if (e.key === 'Enter') {
+      document.activeElement.click();
+    }
+  });
 </script>
 
 </body>
