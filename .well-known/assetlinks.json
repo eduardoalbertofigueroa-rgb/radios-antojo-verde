@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "ar.com.juninconecta.twa",
+        "sha256_cert_fingerprints": ["DB:4E:C9:AF:52:9F:53:F0:15:31:C9:5A:DC:37:82:10:E4:4A:FE:38:8C:A6:DF:1A:7A:E6:B3:0F:CC:3F:D6:2D"]
+      }
+    }]
