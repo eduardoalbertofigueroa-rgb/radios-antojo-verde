@@ -1,21 +1,22 @@
 {
-"name": "Junin Conecta",
-"short_name": "Junin Conecta",
-"start_url": "index.html",
-"display": "standalone",
-"background_color": "#0f1f16",
-"theme_color": "#4ade80",
-"icons": [
-{
-"src": "icono.png",
-"sizes": "192x192",
-"type": "image/png"
-},
-{
-"src": "icono.png",
-"sizes": "512x512",
-"type": "image/png"
+  "name": "Junín Conecta",
+  "short_name": "Junín Conecta",
+  "description": "Radios de Junín en vivo y Guía Comercial completa de la ciudad.",
+  "start_url": "https://juninconecta.com.ar/",
+  "display": "standalone",
+  "background_color": "#0f1f16",
+  "theme_color": "#4ade80",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icono.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icono.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
-]
-}
-
