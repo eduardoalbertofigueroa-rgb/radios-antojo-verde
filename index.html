@@ -332,14 +332,14 @@
       document.activeElement.click();
     }
   });
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=csv";
+ const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=csv";
 
 fetch(CSV_URL)
   .then(r => r.text())
   .then(csv => {
     const filas = csv.split('\n').slice(1);
     filas.forEach(fila => {
-      const [nombre, telefono, direccion, whatsapp, categoria] = fila.split(',');
+      const [nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
       if (!nombre || !categoria) return;
       const cat = categoria.trim().toLowerCase();
       const contenedor = document.getElementById('lista-' + cat);
