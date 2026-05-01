@@ -237,21 +237,25 @@
       <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
   </div>
   <div id="ferreterias" class="seccion-detalle" style="display:none">
-      <h3>🛠 Nuestras Ferreterías</h3>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
-  <div id="verdulerias" class="seccion-detalle" style="display:none">
-      <h3>🥦 Nuestras Verdulerías</h3>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
-  <div id="pinturerias" class="seccion-detalle" style="display:none">
-      <h3>🎨 Nuestras Pinturerías</h3>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
-  <div id="electricistas" class="seccion-detalle" style="display:none">
-      <h3>⚡ Nuestros Electricistas</h3>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-  </div>
+  <h3>🛠 Nuestras Ferreterías</h3>
+  <div id="lista-ferreterias"></div>
+  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+</div>
+<div id="verdulerias" class="seccion-detalle" style="display:none">
+  <h3>🥦 Nuestras Verdulerías</h3>
+  <div id="lista-verdulerias"></div>
+  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+</div>
+<div id="pinturerias" class="seccion-detalle" style="display:none">
+  <h3>🎨 Nuestras Pinturerías</h3>
+  <div id="lista-pinturerias"></div>
+  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+</div>
+<div id="electricistas" class="seccion-detalle" style="display:none">
+  <h3>⚡ Nuestros Electricistas</h3>
+  <div id="lista-electricistas"></div>
+  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+</div>
 </div>
 
 <div class="player-bar">
@@ -327,6 +331,27 @@
     } else if (e.key === 'Enter') {
       document.activeElement.click();
     }
+  });
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=csv";
+
+fetch(CSV_URL)
+  .then(r => r.text())
+  .then(csv => {
+    const filas = csv.split('\n').slice(1);
+    filas.forEach(fila => {
+      const [nombre, telefono, direccion, whatsapp, categoria] = fila.split(',');
+      if (!nombre || !categoria) return;
+      const cat = categoria.trim().toLowerCase();
+      const contenedor = document.getElementById('lista-' + cat);
+      if (!contenedor) return;
+      contenedor.innerHTML += `
+        <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center;">
+          <strong>${nombre}</strong><br>
+          <small>📍 ${direccion}</small><br>
+          <small>📞 ${telefono}</small><br><br>
+          <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
+        </div>`;
+    });
   });
 </script>
 
