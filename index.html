@@ -39,7 +39,6 @@
     position: relative;
   }
 
-  /* ====== ATARDECER PAMPEANO DE FONDO ====== */
   body::before {
     content: '';
     position: fixed;
@@ -65,9 +64,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 0 24px;
+    padding: 12px 0 16px;
     flex-wrap: wrap;
     gap: 16px;
+    border-bottom: 1px solid var(--border);
   }
 
   .logo-wrap { display: flex; align-items: center; gap: 14px; }
@@ -126,6 +126,75 @@
   .info-chip svg { width: 14px; height: 14px; color: var(--green-primary); }
   .info-chip strong { color: var(--text); }
 
+  /* ====== MENÚ DE PESTAÑAS (RECUPERADO) ====== */
+  .nav-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 20px 0 28px;
+    background: rgba(15, 31, 22, 0.6);
+    padding: 6px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nav-btn:hover {
+    color: var(--text);
+    background: rgba(74, 222, 128, 0.05);
+  }
+
+  .nav-btn.active {
+    background: var(--bg-card);
+    color: var(--green-primary);
+    border: 1px solid rgba(74, 222, 128, 0.15);
+  }
+
+  .nav-btn svg { width: 16px; height: 16px; }
+
+  .nav-btn.install-btn {
+    margin-left: auto;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(34, 197, 94, 0.05));
+    color: var(--green-primary);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+  }
+  .nav-btn.install-btn:hover {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.25), rgba(34, 197, 94, 0.1));
+    transform: translateY(-1px);
+  }
+
+  /* Vistas de contenido */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* VISTA COMERCIOS TRABAJO EN PROGRESO */
+  .placeholder-view {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(20, 41, 34, 0.3);
+    border: 1px dashed var(--border);
+    border-radius: 24px;
+  }
+  .placeholder-view svg { width: 48px; height: 48px; color: var(--green-soft); margin-bottom: 16px; opacity: 0.7; }
+  .placeholder-view h4 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .placeholder-view p { color: var(--text-dim); font-size: 14px; max-width: 400px; margin: 0 auto; }
+
   /* ====== HERO CON SILUETA ====== */
   .hero {
     background: linear-gradient(180deg, rgba(74, 222, 128, 0.05), rgba(14, 116, 144, 0.08));
@@ -157,7 +226,6 @@
   .hero h2 .accent { color: var(--green-primary); font-style: italic; }
   .hero p.subtitle { color: var(--text-dim); font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
 
-  /* SKYLINE SVG DE LA BASÍLICA */
   .skyline-wrap { position: relative; margin-top: 24px; margin-left: -32px; margin-right: -32px; height: 180px; overflow: hidden; }
   .skyline-svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; display: block; }
   
@@ -235,7 +303,7 @@
   .card .name { font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 2px; color: white; }
   .card .freq { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
 
-  /* ====== PLAYER BAR DEL VIDEO ====== */
+  /* ====== PLAYER BAR DEFINITIVA ====== */
   .player-bar {
     position: fixed;
     bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -269,7 +337,6 @@
 
   @keyframes pulseLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  /* Ecualizador de barritas flotantes */
   .visualizer { display: flex; align-items: center; gap: 3px; height: 20px; margin-left: 8px; }
   .visualizer span { width: 3px; background: var(--green-primary); border-radius: 100px; height: 4px; }
   .visualizer.playing span { animation: wave 1.2s ease infinite; }
@@ -289,19 +356,19 @@
   .player-btn:hover { transform: scale(1.06); background: var(--green-soft); }
   .player-btn svg { width: 20px; height: 20px; }
 
-  /* ====== RESPONSIVE MEDIA QUERIES ====== */
   @media (max-width: 720px) {
     .header { justify-content: center; flex-direction: column; gap: 12px; }
     .header-info { justify-content: center; width: 100%; }
+    .nav-tabs { width: 100%; justify-content: center; font-size: 13px; }
+    .nav-btn.install-btn { margin-left: 0; }
     .hero { padding: 28px 20px 0; }
     .skyline-wrap { height: 140px; margin-left: -20px; margin-right: -20px; }
-    .moon { width: 30px; height: 30px; top: 15px; right: 30px; }
   }
 
   @media (max-width: 440px) {
+    .nav-tabs { flex-wrap: wrap; }
     .radio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .card { padding: 14px 10px; }
-    .card img { width: 48px; height: 48px; }
     .player-bar { padding: 10px 14px; gap: 12px; }
     .visualizer { display: none; }
   }
@@ -326,104 +393,123 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-text">
-      <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
-      <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
-      <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local integrados en un solo lugar.</p>
+  <nav class="nav-tabs">
+    <button class="nav-btn active" data-target="tab-radios"><i data-lucide="radio"></i> Radios</button>
+    <button class="nav-btn" data-target="tab-comercios"><i data-lucide="store"></i> Comercios</button>
+    <button class="nav-btn install-btn" id="pwaInstallBtn"><i data-lucide="download"></i> Instalar App</button>
+  </nav>
+
+  <div id="tab-radios" class="tab-content active">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
+        <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
+        <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local integrados en un solo lugar.</p>
+      </div>
+
+      <div class="skyline-wrap">
+        <div class="moon"></div>
+        <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#1a3a2a" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4">
+            <rect x="540" y="110" width="120" height="60"/>
+            <polygon points="540,110 600,75 660,110"/>
+            <rect x="510" y="80" width="30" height="90"/>
+            <polygon points="510,80 525,55 540,80"/>
+            <line x1="525" y1="55" x2="525" y2="45" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="521" y1="49" x2="529" y2="49" stroke="#4ade80" stroke-width="1.5"/>
+            <rect x="660" y="80" width="30" height="90"/>
+            <polygon points="660,80 675,55 690,80"/>
+            <line x1="675" y1="55" x2="675" y2="45" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="671" y1="49" x2="679" y2="49" stroke="#4ade80" stroke-width="1.5"/>
+          </g>
+          <path d="M 0 165 Q 300 162 600 168 T 1200 165 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
+        </svg>
+        <div class="laguna"></div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h3>📡 Emisoras Locales</h3>
+      <span class="count">1 estación</span>
+    </div>
+    <div class="radio-grid">
+      <div class="card local-label" data-name="LT20 Radio Junín AM 1470" data-logo="logo/radiojunin.png" data-stream="https://01.solumedia.com.ar:8260/stream">
+        <img src="logo/radiojunin.png">
+        <div class="name">LT20 Radio Junín</div>
+        <div class="freq">AM 1470</div>
+      </div>
     </div>
 
-    <div class="skyline-wrap">
-      <div class="moon"></div>
-      <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#1a3a2a" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4">
-          <rect x="540" y="110" width="120" height="60"/>
-          <polygon points="540,110 600,75 660,110"/>
-          <rect x="510" y="80" width="30" height="90"/>
-          <polygon points="510,80 525,55 540,80"/>
-          <line x1="525" y1="55" x2="525" y2="45" stroke="#4ade80" stroke-width="1.5"/>
-          <line x1="521" y1="49" x2="529" y2="49" stroke="#4ade80" stroke-width="1.5"/>
-          <rect x="660" y="80" width="30" height="90"/>
-          <polygon points="660,80 675,55 690,80"/>
-          <line x1="675" y1="55" x2="675" y2="45" stroke="#4ade80" stroke-width="1.5"/>
-          <line x1="671" y1="49" x2="679" y2="49" stroke="#4ade80" stroke-width="1.5"/>
-        </g>
-        <path d="M 0 165 Q 300 162 600 168 T 1200 165 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
-      </svg>
-      <div class="laguna"></div>
+    <div class="section-title">
+      <h3>🇦🇷 Estaciones Nacionales</h3>
+      <span class="count">19 estaciones</span>
     </div>
-  </section>
+    <div class="radio-grid">
+      <div class="card" data-name="Radio Mitre AM 790" data-logo="logo/mitre.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
+        <img src="logo/mitre.png"><div class="name">Radio Mitre</div><div class="freq">AM 790</div>
+      </div>
+      <div class="card" data-name="Continental AM 590" data-logo="logo/continental.png" data-stream="https://frontend.radiohdvivo.com/continental/live">
+        <img src="logo/continental.png"><div class="name">Continental</div><div class="freq">AM 590</div>
+      </div>
+      <div class="card" data-name="Radio La Red AM 910" data-logo="logo/lared.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
+        <img src="logo/lared.png"><div class="name">Radio La Red</div><div class="freq">AM 910</div>
+      </div>
+      <div class="card" data-name="Los 40 FM 105.5" data-logo="logo/los40principales.png" data-stream="https://edge02.radiohdvivo.com/los40">
+        <img src="logo/los40principales.png"><div class="name">Los 40</div><div class="freq">FM 105.5</div>
+      </div>
+      <div class="card" data-name="Mucha Radio FM 94.7" data-logo="logo/mucharadio.png" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
+        <img src="logo/mucharadio.png"><div class="name">Mucha Radio</div><div class="freq">FM 94.7</div>
+      </div>
+      <div class="card" data-name="Pop FM 101.5" data-logo="logo/pop101.5.png" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
+        <img src="logo/pop101.5.png"><div class="name">Pop Radio</div><div class="freq">FM 101.5</div>
+      </div>
+      <div class="card" data-name="Vorterix" data-logo="logo/vorterix.png" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
+        <img src="logo/vorterix.png"><div class="name">Vorterix</div><div class="freq">En Vivo</div>
+      </div>
+      <div class="card" data-name="Mega FM 98.3" data-logo="logo/mega.png" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
+        <img src="logo/mega.png"><div class="name">Mega</div><div class="freq">FM 98.3</div>
+      </div>
+      <div class="card" data-name="Metro FM 95.1" data-logo="logo/metro.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
+        <img src="logo/metro.png"><div class="name">Metro</div><div class="freq">FM 95.1</div>
+      </div>
+      <div class="card" data-name="Aspen FM 102.3" data-logo="logo/aspen.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
+        <img src="logo/aspen.png"><div class="name">Aspen</div><div class="freq">FM 102.3</div>
+      </div>
+      <div class="card" data-name="La Nación FM 104.9" data-logo="logo/lanacion.png" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
+        <img src="logo/lanacion.png"><div class="name">La Nación</div><div class="freq">FM 104.9</div>
+      </div>
+      <div class="card" data-name="Infobae FM 97.1" data-logo="logo/infobae.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
+        <img src="logo/infobae.png"><div class="name">Infobae</div><div class="freq">FM 97.1</div>
+      </div>
+      <div class="card" data-name="La 100" data-logo="logo/la100.png" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
+        <img src="logo/la100.png"><div class="name">La 100</div><div class="freq">FM 99.9</div>
+      </div>
+      <div class="card" data-name="Vale FM 97.5" data-logo="logo/vale.png" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
+        <img src="logo/vale.png"><div class="name">Vale</div><div class="freq">FM 97.5</div>
+      </div>
+      <div class="card" data-name="Rock & Pop FM 95.9" data-logo="logo/rockpop.png" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
+        <img src="logo/rockpop.png"><div class="name">Rock & Pop</div><div class="freq">FM 95.9</div>
+      </div>
+      <div class="card" data-name="Radio Disney" data-logo="logo/disney.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
+        <img src="logo/disney.png"><div class="name">Radio Disney</div><div class="freq">En Vivo</div>
+      </div>
+      <div class="card" data-name="Urbana Play FM 104.3" data-logo="logo/urbana.png" data-stream="https://cdn.instream.audio:9660/stream">
+        <img src="logo/urbana.png"><div class="name">Urbana Play</div><div class="freq">FM 104.3</div>
+      </div>
+      <div class="card" data-name="Radio Rivadavia AM 630" data-logo="logo/rivadavia.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
+        <img src="logo/rivadavia.png"><div class="name">Rivadavia</div><div class="freq">AM 630</div>
+      </div>
+      <div class="card" data-name="EO Junín FM 104.9" data-logo="logo/eojunin.png" data-stream="https://streaming01.enlacehost.com.ar:2000/stream/eojunin/">
+        <img src="logo/eojunin.png"><div class="name">EO Junín</div><div class="freq">FM 104.9</div>
+      </div>
+    </div>
+  </div>
 
-  <div class="section-title">
-    <h3>📡 Emisoras Locales</h3>
-    <span class="count">1 estación</span>
-  </div>
-  <div class="radio-grid">
-    <div class="card local-label" data-name="LT20 Radio Junín AM 1470" data-logo="logo/radiojunin.png" data-stream="https://01.solumedia.com.ar:8260/stream">
-      <img src="logo/radiojunin.png">
-      <div class="name">LT20 Radio Junín</div>
-      <div class="freq">AM 1470</div>
-    </div>
-  </div>
-
-  <div class="section-title">
-    <h3>🇦🇷 Estaciones Nacionales</h3>
-    <span class="count">18 estaciones</span>
-  </div>
-  <div class="radio-grid">
-    <div class="card" data-name="Radio Mitre AM 790" data-logo="logo/mitre.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
-      <img src="logo/mitre.png"><div class="name">Radio Mitre</div><div class="freq">AM 790</div>
-    </div>
-    <div class="card" data-name="Continental AM 590" data-logo="logo/continental.png" data-stream="https://frontend.radiohdvivo.com/continental/live">
-      <img src="logo/continental.png"><div class="name">Continental</div><div class="freq">AM 590</div>
-    </div>
-    <div class="card" data-name="Radio La Red AM 910" data-logo="logo/lared.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
-      <img src="logo/lared.png"><div class="name">Radio La Red</div><div class="freq">AM 910</div>
-    </div>
-    <div class="card" data-name="Los 40 FM 105.5" data-logo="logo/los40principales.png" data-stream="https://edge02.radiohdvivo.com/los40">
-      <img src="logo/los40principales.png"><div class="name">Los 40</div><div class="freq">FM 105.5</div>
-    </div>
-    <div class="card" data-name="Mucha Radio FM 94.7" data-logo="logo/mucharadio.png" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
-      <img src="logo/mucharadio.png"><div class="name">Mucha Radio</div><div class="freq">FM 94.7</div>
-    </div>
-    <div class="card" data-name="Pop FM 101.5" data-logo="logo/pop101.5.png" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
-      <img src="logo/pop101.5.png"><div class="name">Pop Radio</div><div class="freq">FM 101.5</div>
-    </div>
-    <div class="card" data-name="Vorterix" data-logo="logo/vorterix.png" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
-      <img src="logo/vorterix.png"><div class="name">Vorterix</div><div class="freq">En Vivo</div>
-    </div>
-    <div class="card" data-name="Mega FM 98.3" data-logo="logo/mega.png" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-      <img src="logo/mega.png"><div class="name">Mega</div><div class="freq">FM 98.3</div>
-    </div>
-    <div class="card" data-name="Metro FM 95.1" data-logo="logo/metro.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-      <img src="logo/metro.png"><div class="name">Metro</div><div class="freq">FM 95.1</div>
-    </div>
-    <div class="card" data-name="Aspen FM 102.3" data-logo="logo/aspen.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
-      <img src="logo/aspen.png"><div class="name">Aspen</div><div class="freq">FM 102.3</div>
-    </div>
-    <div class="card" data-name="La Nación FM 104.9" data-logo="logo/lanacion.png" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
-      <img src="logo/lanacion.png"><div class="name">La Nación</div><div class="freq">FM 104.9</div>
-    </div>
-    <div class="card" data-name="Infobae FM 97.1" data-logo="logo/infobae.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
-      <img src="logo/infobae.png"><div class="name">Infobae</div><div class="freq">FM 97.1</div>
-    </div>
-    <div class="card" data-name="La 100" data-logo="logo/la100.png" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
-      <img src="logo/la100.png"><div class="name">La 100</div><div class="freq">FM 99.9</div>
-    </div>
-    <div class="card" data-name="Vale FM 97.5" data-logo="logo/vale.png" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
-      <img src="logo/vale.png"><div class="name">Vale</div><div class="freq">FM 97.5</div>
-    </div>
-    <div class="card" data-name="Rock & Pop FM 95.9" data-logo="logo/rockpop.png" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
-      <img src="logo/rockpop.png"><div class="name">Rock & Pop</div><div class="freq">FM 95.9</div>
-    </div>
-    <div class="card" data-name="Radio Disney" data-logo="logo/disney.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
-      <img src="logo/disney.png"><div class="name">Radio Disney</div><div class="freq">En Vivo</div>
-    </div>
-    <div class="card" data-name="Urbana Play FM 104.3" data-logo="logo/urbana.png" data-stream="https://cdn.instream.audio:9660/stream">
-      <img src="logo/urbana.png"><div class="name">Urbana Play</div><div class="freq">FM 104.3</div>
-    </div>
-    <div class="card" data-name="Radio Rivadavia AM 630" data-logo="logo/rivadavia.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
-      <img src="logo/rivadavia.png"><div class="name">Rivadavia</div><div class="freq">AM 630</div>
+  <div id="tab-comercios" class="tab-content">
+    <div class="placeholder-view">
+      <i data-lucide="store"></i>
+      <h4>Guía Comercial de Junín</h4>
+      <p>Próximamente vas a poder cargar los datos de tu negocio en tiempo real y conectarte de forma directa con los vecinos de la zona.</p>
     </div>
   </div>
 
@@ -462,7 +548,7 @@
   updateClock();
   setInterval(updateClock, 30000);
 
-  // Elementos del DOM
+  // Elementos multimedia e interfaz
   const audioEngine = document.getElementById('audioEngine');
   const playerName = document.getElementById('playerName');
   const playerStatusText = document.getElementById('playerStatusText');
@@ -474,7 +560,57 @@
 
   let activeRadio = null;
 
-  // Interacción con las tarjetas
+  // LÓGICA DE INTERCAMBIO DE PESTAÑAS (RECUPERADO)
+  document.querySelectorAll('.nav-btn[data-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-target')).classList.add('active');
+    });
+  });
+
+  // MANEJO DE INSTALACIÓN DE APLICACIÓN (PWA)
+  let deferredPrompt;
+  const installBtn = document.getElementById('pwaInstallBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'flex'; // Mostrar si es instalable
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('App instalada con éxito');
+      }
+      deferredPrompt = null;
+    } else {
+      alert('Para instalar esta aplicación, tocá en el menú de tu navegador (los tres puntitos) y seleccioná "Agregar a la pantalla principal".');
+    }
+  });
+
+  // CONTROL REMOTO / SOPORTE MULTIMEDIA TV
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('play', () => {
+      if (activeRadio && audioEngine.paused) {
+        audioEngine.play();
+        setPlayingState(true);
+      }
+    });
+    navigator.mediaSession.setActionHandler('pause', () => {
+      if (!audioEngine.paused) {
+        audioEngine.pause();
+        setPlayingState(false);
+      }
+    });
+  }
+
+  // Interacción de grilla de radios
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
@@ -486,19 +622,17 @@
         logo: card.getAttribute('data-logo')
       };
 
-      // Cargar info en reproductor
       playerName.textContent = activeRadio.name;
       playerLogoBox.innerHTML = `<img src="${activeRadio.logo}">`;
       
-      // Iniciar el Stream
       audioEngine.src = activeRadio.stream;
       audioEngine.play();
 
       setPlayingState(true);
+      updateMediaSession();
     });
   });
 
-  // Botón Play/Pausa principal
   playBtn.addEventListener('click', () => {
     if (!activeRadio) return;
 
@@ -517,19 +651,33 @@
       playerDot.classList.add('animated');
       visualizer.classList.add('playing');
       playerStatusText.textContent = "EN VIVO · 128 KBPS · JUNÍN, BA";
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
     } else {
       playIcon.setAttribute('data-lucide', 'play');
       playerDot.classList.remove('animated');
       visualizer.classList.remove('playing');
       playerStatusText.textContent = "TRANSMISIÓN PAUSADA";
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "paused";
     }
     lucide.createIcons();
+  }
+
+  function updateMediaSession() {
+    if ('mediaSession' in navigator && activeRadio) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: activeRadio.name,
+        artist: 'Junín Conecta',
+        album: 'Radios en Vivo',
+        artwork: [
+          { src: activeRadio.logo, sizes: '512x512', type: 'image/png' }
+        ]
+      });
+    }
   }
 </script>
 
 </body>
 </html>
-
 
 
 
