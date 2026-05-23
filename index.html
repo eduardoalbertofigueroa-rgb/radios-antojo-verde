@@ -35,9 +35,8 @@
     background: var(--bg-deep);
     color: var(--text);
     min-height: 100vh;
-    padding-bottom: 160px;
+    padding-bottom: 140px;
     position: relative;
-    text-align: center;
   }
 
   /* ====== ATARDECER PAMPEANO DE FONDO ====== */
@@ -53,16 +52,6 @@
     z-index: 0;
   }
 
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='2' cy='2' r='0.5' fill='%234ade80' opacity='0.08'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -71,7 +60,7 @@
     z-index: 2;
   }
 
-  /* ====== HEADER ====== */
+  /* ====== HEADER RESPONSIVE ====== */
   .header {
     display: flex;
     align-items: center;
@@ -102,7 +91,6 @@
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1;
-    color: var(--green-primary);
   }
 
   .logo-text .tagline {
@@ -110,15 +98,15 @@
     font-size: 16px;
     color: var(--green-soft);
     margin-top: 2px;
-    transform: rotate(-1deg);
     display: inline-block;
   }
 
   .header-info {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     font-family: 'JetBrains Mono', monospace;
+    flex-wrap: wrap;
   }
 
   .info-chip {
@@ -138,15 +126,7 @@
   .info-chip svg { width: 14px; height: 14px; color: var(--green-primary); }
   .info-chip strong { color: var(--text); }
 
-  /* ====== EFECTO CONTROL REMOTO TV ====== */
-  .card:focus, .tab:focus, .btn-volver:focus, a:focus, .modern-play-btn:focus {
-    outline: 4px solid var(--green-primary) !important;
-    background: var(--bg-card-hover) !important;
-    transform: scale(1.06);
-    transition: 0.2s;
-  }
-
-  /* ====== HERO ====== */
+  /* ====== HERO CON SILUETA ====== */
   .hero {
     background: linear-gradient(180deg, rgba(74, 222, 128, 0.05), rgba(14, 116, 144, 0.08));
     border: 1px solid var(--border);
@@ -155,15 +135,9 @@
     margin-bottom: 32px;
     position: relative;
     overflow: hidden;
-    text-align: left;
   }
 
-  .hero-text {
-    position: relative;
-    z-index: 3;
-    max-width: 580px;
-  }
-
+  .hero-text { position: relative; z-index: 3; max-width: 580px; text-align: left; }
   .hero-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -174,370 +148,165 @@
     border-radius: 100px;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-bottom: 16px;
     font-family: 'JetBrains Mono', monospace;
   }
 
-  .hero-eyebrow::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green-primary);
-    animation: pulse 1.5s ease infinite;
-  }
-
-  .hero h2 {
-    font-size: clamp(28px, 5vw, 52px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
-    color: white;
-  }
-
-  .hero h2 .accent {
-    color: var(--green-primary);
-    font-style: italic;
-    position: relative;
-    display: inline-block;
-  }
-
-  .hero p.subtitle {
-    color: var(--text-dim);
-    font-size: 16px;
-    line-height: 1.55;
-    max-width: 460px;
-    margin-bottom: 24px;
-  }
+  .hero h2 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+  .hero h2 .accent { color: var(--green-primary); font-style: italic; }
+  .hero p.subtitle { color: var(--text-dim); font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
 
   /* SKYLINE SVG DE LA BASÍLICA */
-  .skyline-wrap {
-    position: relative;
-    margin-top: 24px;
-    margin-left: -32px;
-    margin-right: -32px;
-    height: 220px;
-    overflow: hidden;
-  }
-
-  .skyline-svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
+  .skyline-wrap { position: relative; margin-top: 24px; margin-left: -32px; margin-right: -32px; height: 180px; overflow: hidden; }
+  .skyline-svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; display: block; }
+  
   .laguna {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 38%;
+    bottom: 0; left: 0; right: 0; height: 35%;
     background: linear-gradient(180deg, rgba(14, 116, 144, 0.3), rgba(14, 116, 144, 0.5));
-    overflow: hidden;
-  }
-
-  .laguna::before, .laguna::after {
-    content: '';
-    position: absolute;
-    left: -50%;
-    width: 200%;
-    height: 12px;
-    background: repeating-linear-gradient(90deg, transparent 0, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 12px, transparent 12px, transparent 26px);
-    animation: waveMove 8s linear infinite;
-  }
-
-  .laguna::before { top: 4px; opacity: 0.6; }
-  .laguna::after { top: 18px; opacity: 0.3; animation-duration: 12s; animation-direction: reverse; }
-
-  @keyframes waveMove {
-    from { transform: translateX(0); }
-    to { transform: translateX(120px); }
-  }
-
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle 3s ease infinite;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
   }
 
   .moon {
-    position: absolute;
-    top: 30px;
-    right: 60px;
-    width: 50px;
-    height: 50px;
+    position: absolute; top: 20px; right: 60px; width: 40px; height: 40px;
     background: radial-gradient(circle at 35% 35%, #fef3c7, #fbbf24);
-    border-radius: 50%;
-    box-shadow: 0 0 40px rgba(251, 191, 36, 0.4);
-    z-index: 1;
+    border-radius: 50%; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
   }
 
-  /* ====== DATO CURIOSO BANNER ====== */
-  .curiosidad {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(251, 113, 133, 0.05));
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    border-radius: 18px;
-    padding: 18px 22px;
-    margin: 12px 0 32px 0;
+  /* ====== SECCIONES DE GRIDS ====== */
+  .section-title {
     display: flex;
     align-items: center;
-    gap: 16px;
-    text-align: left;
+    justify-content: space-between;
+    margin: 32px 0 16px;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.08);
+    padding-bottom: 8px;
   }
 
-  .curiosidad-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--sunset);
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-  }
+  .section-title h3 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+  .section-title .count { font-family: 'JetBrains Mono', monospace; color: var(--green-primary); font-size: 12px; }
 
-  .curiosidad-text strong { color: var(--sunset); font-weight: 700; }
-  .curiosidad-text { font-size: 14px; line-height: 1.5; color: var(--text-dim); }
-
-  /* ====== TABS ====== */
-  .tabs {
-    display: flex;
-    gap: 8px;
-    background: rgba(20, 41, 34, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    padding: 6px;
-    border-radius: 100px;
-    width: fit-content;
-    margin: 0 auto 32px;
-  }
-
-  .tab {
-    background: transparent;
-    border: none;
-    color: var(--text-dim);
-    padding: 12px 24px;
-    border-radius: 100px;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-  }
-
-  .tab:hover { color: var(--text); }
-  .tab.active {
-    background: var(--green-primary);
-    color: #051209;
-    box-shadow: 0 4px 16px -4px var(--green-primary);
-  }
-
-  /* ====== GRIDS DE TU CÓDIGO ORIGINAL ====== */
   .radio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-    max-width: 900px;
-    margin: auto;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
   }
 
   .card {
     background: rgba(20, 41, 34, 0.5);
     backdrop-filter: blur(8px);
-    border: 2px solid transparent;
+    border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 16px;
+    padding: 18px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     position: relative;
   }
 
   .card:hover {
     transform: translateY(-4px);
+    border-color: rgba(74, 222, 128, 0.4);
     background: rgba(26, 58, 46, 0.7);
-    border-color: rgba(74, 222, 128, 0.2);
   }
 
   .card.active {
-    border: 2px solid var(--green-primary);
-    box-shadow: 0 0 16px rgba(74, 222, 128, 0.3);
-    background: rgba(26, 58, 46, 0.9);
+    border-color: var(--green-primary);
+    background: linear-gradient(135deg, rgba(26, 58, 46, 0.9), rgba(74, 222, 128, 0.1));
+    box-shadow: 0 8px 24px -8px rgba(74, 222, 128, 0.5);
   }
 
-  /* Marcadores especiales para las de Junín */
   .card.local-label {
-    border-color: rgba(245, 158, 11, 0.3);
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(20, 41, 34, 0.5));
+    border-color: rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(20, 41, 34, 0.4));
   }
-  .card.local-label::after {
+
+  .card.local-label::before {
     content: '★ JUNÍN';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: var(--sunset);
-    color: #1a0f00;
-    font-size: 8px;
-    font-weight: 800;
-    padding: 2px 6px;
-    border-radius: 100px;
-    letter-spacing: 0.05em;
+    position: absolute; top: 10px; right: 10px;
+    background: var(--sunset); color: #1a0f00;
+    font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 100px;
     font-family: 'JetBrains Mono', monospace;
   }
 
-  .card img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 12px; border-radius: 10px; }
-  .card p { font-size: 14px; font-weight: 700; line-height: 1.3; }
+  .card img { width: 56px; height: 56px; object-fit: contain; margin-bottom: 12px; border-radius: 12px; background: rgba(0,0,0,0.2); padding: 4px; }
+  .card .name { font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 2px; color: white; }
+  .card .freq { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
 
-  .seccion-title-grid {
-    text-align: left;
-    max-width: 900px;
-    margin: 0 auto 16px;
-    font-size: 14px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  /* ====== REPRODUCTOR PREMIUM ====== */
+  /* ====== PLAYER BAR DEL VIDEO ====== */
   .player-bar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(10, 20, 16, 0.94);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    padding: 16px 24px;
-    border-top: 2px solid var(--green-primary);
-    z-index: 100;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    bottom: 16px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 32px); max-width: 720px;
+    background: rgba(15, 31, 22, 0.88);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border); border-radius: 24px;
+    padding: 14px 20px; z-index: 100;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.7);
   }
 
-  .player-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .player-logo-box {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+  }
+  .player-logo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+  .player-info { flex: 1; min-width: 0; text-align: left; }
+  .player-name { font-size: 14px; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  
+  .player-status {
+    font-size: 11px; color: var(--text-dim);
+    display: flex; align-items: center; gap: 6px; margin-top: 3px;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
   }
 
-  .live-indicator {
-    width: 8px;
-    height: 8px;
-    background-color: var(--red-live);
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .live-indicator.animated {
-    animation: pulse 1.5s infinite;
-  }
+  .player-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-primary); }
+  .player-status .dot.animated { animation: pulseLive 1.2s ease infinite; }
 
-  @keyframes pulse {
-    0% { transform: scale(0.9); opacity: 0.6; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.9); opacity: 0.6; }
-  }
+  @keyframes pulseLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  #currentRadioName {
-    font-weight: 700;
-    color: var(--green-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-  }
+  /* Ecualizador de barritas flotantes */
+  .visualizer { display: flex; align-items: center; gap: 3px; height: 20px; margin-left: 8px; }
+  .visualizer span { width: 3px; background: var(--green-primary); border-radius: 100px; height: 4px; }
+  .visualizer.playing span { animation: wave 1.2s ease infinite; }
+  .visualizer.playing span:nth-child(1) { animation-delay: 0s; }
+  .visualizer.playing span:nth-child(2) { animation-delay: 0.15s; }
+  .visualizer.playing span:nth-child(3) { animation-delay: 0.3s; }
+  .visualizer.playing span:nth-child(4) { animation-delay: 0.45s; }
 
-  .player-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    width: 100%;
-    max-width: 400px;
-  }
+  @keyframes wave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(4); } }
 
-  .modern-play-btn {
-    background: var(--green-primary);
-    color: #051209;
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.4);
-    transition: transform 0.2s, background-color 0.2s;
+  .player-btn {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--green-primary); border: none; color: #051209;
+    cursor: pointer; display: grid; place-items: center; flex-shrink: 0;
+    transition: all 0.2s; box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
   }
-  .modern-play-btn:hover {
-    transform: scale(1.05);
-    background: var(--green-soft);
-  }
+  .player-btn:hover { transform: scale(1.06); background: var(--green-soft); }
+  .player-btn svg { width: 20px; height: 20px; }
 
-  .volume-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-dim);
-  }
-
-  .volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 80px;
-    height: 4px;
-    background: rgba(232, 245, 236, 0.2);
-    border-radius: 2px;
-    outline: none;
-  }
-
-  .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--green-primary);
-    cursor: pointer;
-  }
-
-  /* ====== RESPONSIVE ====== */
+  /* ====== RESPONSIVE MEDIA QUERIES ====== */
   @media (max-width: 720px) {
-    .hero { padding: 28px 22px 0; }
-    .skyline-wrap { margin-left: -22px; margin-right: -22px; height: 160px; }
-    .header { justify-content: center; text-align: center; }
-    .logo-text { text-align: center; }
-    .moon { width: 36px; height: 36px; top: 20px; right: 30px; }
+    .header { justify-content: center; flex-direction: column; gap: 12px; }
+    .header-info { justify-content: center; width: 100%; }
+    .hero { padding: 28px 20px 0; }
+    .skyline-wrap { height: 140px; margin-left: -20px; margin-right: -20px; }
+    .moon { width: 30px; height: 30px; top: 15px; right: 30px; }
   }
 
-  @media (max-width: 480px) {
-    .radio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-    .header-info { display: none; }
-    .player-bar { padding: 12px; }
+  @media (max-width: 440px) {
+    .radio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .card { padding: 14px 10px; }
+    .card img { width: 48px; height: 48px; }
+    .player-bar { padding: 10px 14px; gap: 12px; }
+    .visualizer { display: none; }
   }
 </style>
 </head>
-
 <body>
 
 <div class="container">
@@ -551,18 +320,9 @@
       </div>
     </div>
     <div class="header-info">
-      <div class="info-chip">
-        <i data-lucide="map-pin"></i>
-        <span>Junín, <strong>BA</strong></span>
-      </div>
-      <div class="info-chip">
-        <i data-lucide="sun"></i>
-        <span><strong>22°C</strong> · Despejado</span>
-      </div>
-      <div class="info-chip">
-        <i data-lucide="clock"></i>
-        <strong id="clock">00:00</strong>
-      </div>
+      <div class="info-chip"><i data-lucide="map-pin"></i><span>Junín, <strong>BA</strong></span></div>
+      <div class="info-chip"><i data-lucide="sun"></i><span><strong>22°C</strong> · Despejado</span></div>
+      <div class="info-chip"><i data-lucide="clock"></i><strong id="clock">00:00</strong></div>
     </div>
   </header>
 
@@ -570,28 +330,12 @@
     <div class="hero-text">
       <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
       <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
-      <p class="subtitle">Las radios de siempre, los comercios del barrio y la información de la zona unificados en una sola app del pueblo.</p>
+      <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local integrados en un solo lugar.</p>
     </div>
 
     <div class="skyline-wrap">
       <div class="moon"></div>
-      <div class="star" style="top:20px; left:15%;"></div>
-      <div class="star" style="top:40px; left:25%; animation-delay:0.5s;"></div>
-      <div class="star" style="top:15px; left:45%; animation-delay:1s;"></div>
-      <div class="star" style="top:50px; left:60%; animation-delay:1.5s;"></div>
-      <div class="star" style="top:25px; left:75%; animation-delay:2s;"></div>
-
       <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.5" fill="#0a1a14">
-          <ellipse cx="40" cy="160" rx="22" ry="18"/>
-          <ellipse cx="75" cy="158" rx="18" ry="15"/>
-        </g>
-        <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
-          <rect x="140" y="130" width="40" height="35"/>
-          <polygon points="140,130 160,115 180,130"/>
-          <rect x="185" y="125" width="50" height="40"/>
-          <polygon points="185,125 210,108 235,125"/>
-        </g>
         <g fill="#1a3a2a" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4">
           <rect x="540" y="110" width="120" height="60"/>
           <polygon points="540,110 600,75 660,110"/>
@@ -604,124 +348,112 @@
           <line x1="675" y1="55" x2="675" y2="45" stroke="#4ade80" stroke-width="1.5"/>
           <line x1="671" y1="49" x2="679" y2="49" stroke="#4ade80" stroke-width="1.5"/>
         </g>
-        <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
-          <line x1="800" y1="170" x2="800" y2="100" stroke="#1f3b2a" stroke-width="2"/>
-          <rect x="778" y="85" width="44" height="20"/>
-        </g>
         <path d="M 0 165 Q 300 162 600 168 T 1200 165 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
       </svg>
       <div class="laguna"></div>
     </div>
   </section>
 
-  <div class="curiosidad">
-    <div class="curiosidad-icon">
-      <i data-lucide="sparkles"></i>
-    </div>
-    <div class="curiosidad-text">
-      <strong>¿Sabías que...?</strong> Junín fue fundada en 1827 como un fuerte de frontera y su nombre rinde homenaje a la célebre <strong>Batalla de Junín</strong>. Hoy late con fuerza en el noroeste bonaerense.
+  <div class="section-title">
+    <h3>📡 Emisoras Locales</h3>
+    <span class="count">1 estación</span>
+  </div>
+  <div class="radio-grid">
+    <div class="card local-label" data-name="LT20 Radio Junín AM 1470" data-logo="logo/radiojunin.png" data-stream="https://01.solumedia.com.ar:8260/stream">
+      <img src="logo/radiojunin.png">
+      <div class="name">LT20 Radio Junín</div>
+      <div class="freq">AM 1470</div>
     </div>
   </div>
 
-  <div class="tabs">
-    <button id="tabRadios" class="tab active" tabindex="0">📻 RADIOS</button>
+  <div class="section-title">
+    <h3>🇦🇷 Estaciones Nacionales</h3>
+    <span class="count">18 estaciones</span>
   </div>
-
-  <div id="radiosSection">
-    <div class="seccion-title-grid">Estaciones de Junín y el País</div>
-    <div class="radio-grid">
-      
-      <div class="card local-label" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
-        <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
-      </div>
-      <div class="card local-label" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
-        <img src="logo/eo.png"><p>EO 107.9</p>
-      </div>
-
-      <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
-        <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
-        <img src="logo/continental.png"><p>Continental Am 590</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
-        <img src="logo/lared.png"><p>Radio la Red Am 910</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
-        <img src="logo/los40principales.png"><p>Los 40 - 105.5</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
-        <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
-        <img src="logo/pop101.5.png"><p>Pop 101.5</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
-        <img src="logo/vorterix.png"><p>Vorterix</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-        <img src="logo/mega.png"><p>Mega 98.3</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-        <img src="logo/metro.png"><p>Metro 95.1</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
-        <img src="logo/aspen.png"><p>Aspen 102.3</p>
-      </div>
-      <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
-        <img src="logo/lanacion.png"><p>La Nación 104.9</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
-        <img src="logo/infobae.png"><p>Infobae 97.1</p>
-      </div>
-      <div class="card" tabindex="0" data-name="La 100" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
-        <img src="logo/la100.png"><p>La 100</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
-        <img src="logo/vale.png"><p>Vale 97.5</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
-        <img src="logo/rockpop.png"><p>Rock & Pop 95.5</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
-        <img src="logo/disney.png"><p>Radio Disney</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
-        <img src="logo/urbana.png"><p>Urbana Play 104.3</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
-        <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
-      </div>
-
+  <div class="radio-grid">
+    <div class="card" data-name="Radio Mitre AM 790" data-logo="logo/mitre.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
+      <img src="logo/mitre.png"><div class="name">Radio Mitre</div><div class="freq">AM 790</div>
+    </div>
+    <div class="card" data-name="Continental AM 590" data-logo="logo/continental.png" data-stream="https://frontend.radiohdvivo.com/continental/live">
+      <img src="logo/continental.png"><div class="name">Continental</div><div class="freq">AM 590</div>
+    </div>
+    <div class="card" data-name="Radio La Red AM 910" data-logo="logo/lared.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
+      <img src="logo/lared.png"><div class="name">Radio La Red</div><div class="freq">AM 910</div>
+    </div>
+    <div class="card" data-name="Los 40 FM 105.5" data-logo="logo/los40principales.png" data-stream="https://edge02.radiohdvivo.com/los40">
+      <img src="logo/los40principales.png"><div class="name">Los 40</div><div class="freq">FM 105.5</div>
+    </div>
+    <div class="card" data-name="Mucha Radio FM 94.7" data-logo="logo/mucharadio.png" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
+      <img src="logo/mucharadio.png"><div class="name">Mucha Radio</div><div class="freq">FM 94.7</div>
+    </div>
+    <div class="card" data-name="Pop FM 101.5" data-logo="logo/pop101.5.png" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
+      <img src="logo/pop101.5.png"><div class="name">Pop Radio</div><div class="freq">FM 101.5</div>
+    </div>
+    <div class="card" data-name="Vorterix" data-logo="logo/vorterix.png" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
+      <img src="logo/vorterix.png"><div class="name">Vorterix</div><div class="freq">En Vivo</div>
+    </div>
+    <div class="card" data-name="Mega FM 98.3" data-logo="logo/mega.png" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
+      <img src="logo/mega.png"><div class="name">Mega</div><div class="freq">FM 98.3</div>
+    </div>
+    <div class="card" data-name="Metro FM 95.1" data-logo="logo/metro.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
+      <img src="logo/metro.png"><div class="name">Metro</div><div class="freq">FM 95.1</div>
+    </div>
+    <div class="card" data-name="Aspen FM 102.3" data-logo="logo/aspen.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
+      <img src="logo/aspen.png"><div class="name">Aspen</div><div class="freq">FM 102.3</div>
+    </div>
+    <div class="card" data-name="La Nación FM 104.9" data-logo="logo/lanacion.png" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
+      <img src="logo/lanacion.png"><div class="name">La Nación</div><div class="freq">FM 104.9</div>
+    </div>
+    <div class="card" data-name="Infobae FM 97.1" data-logo="logo/infobae.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
+      <img src="logo/infobae.png"><div class="name">Infobae</div><div class="freq">FM 97.1</div>
+    </div>
+    <div class="card" data-name="La 100" data-logo="logo/la100.png" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
+      <img src="logo/la100.png"><div class="name">La 100</div><div class="freq">FM 99.9</div>
+    </div>
+    <div class="card" data-name="Vale FM 97.5" data-logo="logo/vale.png" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
+      <img src="logo/vale.png"><div class="name">Vale</div><div class="freq">FM 97.5</div>
+    </div>
+    <div class="card" data-name="Rock & Pop FM 95.9" data-logo="logo/rockpop.png" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
+      <img src="logo/rockpop.png"><div class="name">Rock & Pop</div><div class="freq">FM 95.9</div>
+    </div>
+    <div class="card" data-name="Radio Disney" data-logo="logo/disney.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
+      <img src="logo/disney.png"><div class="name">Radio Disney</div><div class="freq">En Vivo</div>
+    </div>
+    <div class="card" data-name="Urbana Play FM 104.3" data-logo="logo/urbana.png" data-stream="https://cdn.instream.audio:9660/stream">
+      <img src="logo/urbana.png"><div class="name">Urbana Play</div><div class="freq">FM 104.3</div>
+    </div>
+    <div class="card" data-name="Radio Rivadavia AM 630" data-logo="logo/rivadavia.png" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
+      <img src="logo/rivadavia.png"><div class="name">Rivadavia</div><div class="freq">AM 630</div>
     </div>
   </div>
 
 </div>
 
 <div class="player-bar">
-  <div class="player-info">
-    <span id="liveIndicator" class="live-indicator"></span>
-    <div id="currentRadioName">Seleccioná una radio para escuchar</div>
+  <div class="player-logo-box" id="playerLogoBox">
+    <i data-lucide="radio" style="color:var(--text-dim); width:20px;"></i>
   </div>
-  
-  <div class="player-controls">
-    <button id="btnPlayPause" class="modern-play-btn" tabindex="0" aria-label="Reproducir o Pausar">
-      <i id="playIcon" data-lucide="play"></i>
-    </button>
-    
-    <div class="volume-container">
-      <i data-lucide="volume-2" style="width:16px; height:16px;"></i>
-      <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.8">
+  <div class="player-info">
+    <div class="player-name" id="playerName">Seleccioná una emisora</div>
+    <div class="player-status">
+      <span class="dot" id="playerDot"></span>
+      <span id="playerStatusText">LISTO PARA REPRODUCIR</span>
+      <div class="visualizer" id="visualizer">
+        <span></span><span></span><span></span><span></span>
+      </div>
     </div>
   </div>
-
-  <audio id="mainAudio" autoplay style="display:none;"></audio>
+  <button class="player-btn" id="playBtn">
+    <i data-lucide="play" id="playIcon"></i>
+  </button>
 </div>
+
+<audio id="audioEngine" autoplay style="display:none;"></audio>
 
 <script>
   lucide.createIcons();
 
-  // RELOJ EN HORA LOCAL
+  // Reloj digital
   function updateClock() {
     const now = new Date();
     const opts = { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -730,75 +462,69 @@
   updateClock();
   setInterval(updateClock, 30000);
 
-  // LOGICA DEL REPRODUCTOR SOBRE TUS ENLACES ORIGINALES
-  const mainAudio = document.getElementById('mainAudio');
-  const currentRadioName = document.getElementById('currentRadioName');
-  const btnPlayPause = document.getElementById('btnPlayPause');
+  // Elementos del DOM
+  const audioEngine = document.getElementById('audioEngine');
+  const playerName = document.getElementById('playerName');
+  const playerStatusText = document.getElementById('playerStatusText');
+  const playerLogoBox = document.getElementById('playerLogoBox');
+  const playerDot = document.getElementById('playerDot');
+  const visualizer = document.getElementById('visualizer');
+  const playBtn = document.getElementById('playBtn');
   const playIcon = document.getElementById('playIcon');
-  const liveIndicator = document.getElementById('liveIndicator');
-  const volumeSlider = document.getElementById('volumeSlider');
 
-  // Evento al presionar en las tarjetas
-  document.querySelectorAll('.card[data-stream]').forEach(card => {
+  let activeRadio = null;
+
+  // Interacción con las tarjetas
+  document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      currentRadioName.innerText = "Reproduciendo: " + card.getAttribute('data-name');
+
+      activeRadio = {
+        name: card.getAttribute('data-name'),
+        stream: card.getAttribute('data-stream'),
+        logo: card.getAttribute('data-logo')
+      };
+
+      // Cargar info en reproductor
+      playerName.textContent = activeRadio.name;
+      playerLogoBox.innerHTML = `<img src="${activeRadio.logo}">`;
       
-      mainAudio.src = card.getAttribute('data-stream');
-      mainAudio.play();
-      
-      playIcon.setAttribute('data-lucide', 'pause');
-      liveIndicator.classList.add('animated');
-      lucide.createIcons();
+      // Iniciar el Stream
+      audioEngine.src = activeRadio.stream;
+      audioEngine.play();
+
+      setPlayingState(true);
     });
   });
 
-  // Botón central Play/Pausa
-  btnPlayPause.addEventListener('click', () => {
-    if (!mainAudio.src) return; 
-    
-    if (mainAudio.paused) {
-      mainAudio.play();
-      playIcon.setAttribute('data-lucide', 'pause');
-      liveIndicator.classList.add('animated');
+  // Botón Play/Pausa principal
+  playBtn.addEventListener('click', () => {
+    if (!activeRadio) return;
+
+    if (audioEngine.paused) {
+      audioEngine.play();
+      setPlayingState(true);
     } else {
-      mainAudio.pause();
+      audioEngine.pause();
+      setPlayingState(false);
+    }
+  });
+
+  function setPlayingState(isPlaying) {
+    if (isPlaying) {
+      playIcon.setAttribute('data-lucide', 'pause');
+      playerDot.classList.add('animated');
+      visualizer.classList.add('playing');
+      playerStatusText.textContent = "EN VIVO · 128 KBPS · JUNÍN, BA";
+    } else {
       playIcon.setAttribute('data-lucide', 'play');
-      liveIndicator.classList.remove('animated');
+      playerDot.classList.remove('animated');
+      visualizer.classList.remove('playing');
+      playerStatusText.textContent = "TRANSMISIÓN PAUSADA";
     }
     lucide.createIcons();
-  });
-
-  // Deslizador de volumen
-  volumeSlider.addEventListener('input', (e) => {
-    mainAudio.volume = e.target.value;
-  });
-
-  // NAVEGACIÓN COMPATIBLE CON SMART TV / CONTROL REMOTO
-  document.addEventListener('keydown', function(e) {
-    const focusables = Array.from(document.querySelectorAll('.tab, .card, a, .modern-play-btn'))
-      .filter(el => el.offsetParent !== null);
-    
-    let index = focusables.indexOf(document.activeElement);
-
-    if (e.key === 'ArrowRight') {
-      index = (index + 1) % focusables.length;
-      focusables[index].focus();
-    } else if (e.key === 'ArrowLeft') {
-      index = (index - 1 + focusables.length) % focusables.length;
-      focusables[index].focus();
-    } else if (e.key === 'ArrowDown') {
-      index = (index + 4) % focusables.length;
-      if (index >= focusables.length) index = focusables.length - 1;
-      focusables[index].focus();
-    } else if (e.key === 'ArrowUp') {
-      index = (index - 4 + focusables.length) % focusables.length;
-      focusables[index].focus();
-    } else if (e.key === 'Enter') {
-      document.activeElement.click();
-    }
-  });
+  }
 </script>
 
 </body>
