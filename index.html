@@ -4,16 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Junín Conecta — Con identidad local</title>
-<meta name="description" content="Escuchá las radios de Junín en vivo y encontrá los mejores comercios y servicios locales en un solo lugar. La app de los vecinos de Junín.">
-<meta name="keywords" content="Junín, radios de Junín, comercios Junín, guía comercial Junín, LT20 Junín, radios en vivo">
-<link rel="manifest" href="manifest.json">
-<meta name="google-site-verification" content="2RQPUsi0Rt1-eqZ7By2UOdX5DPcuE-wA6BDy2M8b7pM" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
 <style>
   :root {
     --bg-deep: #0a1410;
@@ -144,34 +138,8 @@
   .info-chip svg { width: 14px; height: 14px; color: var(--green-primary); }
   .info-chip strong { color: var(--text); }
 
-  /* ====== APK DOWNLOAD ====== */
-  .container-download {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-
-  .btn-apk {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: #000;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 100px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    box-shadow: 0 8px 20px -6px rgba(46, 204, 113, 0.4);
-    transition: 0.2s;
-  }
-
-  .btn-apk:hover { transform: scale(1.05); }
-
   /* ====== EFECTO CONTROL REMOTO TV ====== */
-  .card:focus, .tab:focus, .btn-volver:focus, .btn-apk:focus, a:focus, .modern-play-btn:focus {
+  .card:focus, .tab:focus, .btn-volver:focus, a:focus, .modern-play-btn:focus {
     outline: 4px solid var(--green-primary) !important;
     background: var(--bg-card-hover) !important;
     transform: scale(1.06);
@@ -245,7 +213,7 @@
     margin-bottom: 24px;
   }
 
-  /* SKYLINE SVG */
+  /* SKYLINE SVG DE LA BASÍLICA */
   .skyline-wrap {
     position: relative;
     margin-top: 24px;
@@ -318,6 +286,33 @@
     z-index: 1;
   }
 
+  /* ====== DATO CURIOSO BANNER ====== */
+  .curiosidad {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(251, 113, 133, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 12px 0 32px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .curiosidad-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--sunset);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .curiosidad-text strong { color: var(--sunset); font-weight: 700; }
+  .curiosidad-text { font-size: 14px; line-height: 1.5; color: var(--text-dim); }
+
   /* ====== TABS ====== */
   .tabs {
     display: flex;
@@ -354,18 +349,13 @@
     box-shadow: 0 4px 16px -4px var(--green-primary);
   }
 
-  /* ====== GRIDS ====== */
-  .radio-grid, .categorias-grid {
+  /* ====== GRIDS DE TU CÓDIGO ORIGINAL ====== */
+  .radio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 16px;
     max-width: 900px;
     margin: auto;
-  }
-
-  .categorias-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    max-width: 700px;
   }
 
   .card {
@@ -380,6 +370,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
   .card:hover {
@@ -394,24 +385,28 @@
     background: rgba(26, 58, 46, 0.9);
   }
 
-  .card img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 12px; }
+  /* Marcadores especiales para las de Junín */
+  .card.local-label {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(20, 41, 34, 0.5));
+  }
+  .card.local-label::after {
+    content: '★ JUNÍN';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--sunset);
+    color: #1a0f00;
+    font-size: 8px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .card img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 12px; border-radius: 10px; }
   .card p { font-size: 14px; font-weight: 700; line-height: 1.3; }
-
-  /* Tarjetas específicas de comercio */
-  .card-comercio {
-    background: rgba(20, 41, 34, 0.6);
-    border: 1px solid var(--border);
-    min-height: 70px;
-    font-size: 15px;
-    font-weight: 700;
-  }
-
-  /* ====== SECCIONES ====== */
-  .seccion-detalle {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
-  }
 
   .seccion-title-grid {
     text-align: left;
@@ -423,20 +418,7 @@
     letter-spacing: 0.08em;
   }
 
-  .btn-volver {
-    background: var(--green-primary);
-    border: none;
-    padding: 10px 24px;
-    border-radius: 100px;
-    margin-top: 24px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #051209;
-    transition: 0.2s;
-  }
-  .btn-volver:hover { transform: scale(1.05); }
-
-  /* ====== REPRODUCTOR MODERNO PERSONALIZADO ====== */
+  /* ====== REPRODUCTOR PREMIUM ====== */
   .player-bar {
     position: fixed;
     bottom: 0;
@@ -550,7 +532,6 @@
 
   @media (max-width: 480px) {
     .radio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-    .categorias-grid { grid-template-columns: 1fr; gap: 10px; }
     .header-info { display: none; }
     .player-bar { padding: 12px; }
   }
@@ -584,12 +565,6 @@
       </div>
     </div>
   </header>
-
-  <div class="container-download">
-    <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" tabindex="0">
-      <span>📥</span> Descargar Aplicación Android
-    </a>
-  </div>
 
   <section class="hero">
     <div class="hero-text">
@@ -639,22 +614,35 @@
     </div>
   </section>
 
+  <div class="curiosidad">
+    <div class="curiosidad-icon">
+      <i data-lucide="sparkles"></i>
+    </div>
+    <div class="curiosidad-text">
+      <strong>¿Sabías que...?</strong> Junín fue fundada en 1827 como un fuerte de frontera y su nombre rinde homenaje a la célebre <strong>Batalla de Junín</strong>. Hoy late con fuerza en el noroeste bonaerense.
+    </div>
+  </div>
+
   <div class="tabs">
     <button id="tabRadios" class="tab active" tabindex="0">📻 RADIOS</button>
-    <button id="tabComercios" class="tab" tabindex="0">🛒 COMERCIOS</button>
   </div>
 
   <div id="radiosSection">
-    <div class="seccion-title-grid">Estaciones Disponibles</div>
+    <div class="seccion-title-grid">Estaciones de Junín y el País</div>
     <div class="radio-grid">
+      
+      <div class="card local-label" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
+        <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
+      </div>
+      <div class="card local-label" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
+        <img src="logo/eo.png"><p>EO 107.9</p>
+      </div>
+
       <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
         <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
       </div>
       <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
         <img src="logo/continental.png"><p>Continental Am 590</p>
-      </div>
-      <div class="card" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
-        <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
         <img src="logo/lared.png"><p>Radio la Red Am 910</p>
@@ -704,61 +692,7 @@
       <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
         <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
       </div>
-      <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
-        <img src="logo/eo.png"><p>EO 107.9</p>
-      </div>
-    </div>
-  </div>
 
-  <div id="comerciosSection" style="display:none">
-    <div id="menuCategorias" class="categorias-grid">
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('Contacto')">📞 Contacto</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('lavaderos')">🧼 Lavaderos de Autos</div>
-      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('talleres')">🧑‍🔧 Talleres Mecánicos</div>
-      <div class="card card-comercio" tabindex="0" onclick="maybe-mostrarCategoria('torneriasmetalurgicas')">⛓️ Tornerías y Metalúrgicas</div>
-    </div>
-
-    <div id="Contacto" class="seccion-detalle" style="display:none">
-      <h3>Contacto</h3>
-      <div style="background:rgba(20, 41, 34, 0.8); border:1px solid var(--border); padding:20px; border-radius:15px; margin-top:15px;">
-        <strong>Eduardo - Junín Conecta</strong><br>
-        <small>Tel: 2364316208</small><br><br>
-        <a href="https://wa.me/5492364316208?text=Hola%20Eduardo%20Vengo%20de%20la%20aplicacion%20de%20radio%20%20quiero%20hacer%20una%20Consulta" tabindex="0" target="_blank" style="background:#25d366; color:white; padding:10px 20px; border-radius:100px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
-      </div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-
-    <div id="ferreterias" class="seccion-detalle" style="display:none">
-      <h3>🛠 Nuestras Ferreterías</h3><div id="lista-ferreterias" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="verdulerias" class="seccion-detalle" style="display:none">
-      <h3>🥦 Nuestras Verdulerías</h3><div id="lista-verdulerias" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="pinturerias" class="seccion-detalle" style="display:none">
-      <h3>🎨 Nuestras Pinturerías</h3><div id="lista-pinturerias" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="electricistas" class="seccion-detalle" style="display:none">
-      <h3>⚡ Nuestros Electricistas</h3><div id="lista-electricistas" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="lavaderos" class="seccion-detalle" style="display:none">
-      <h3>🧼 Nuestros Lavaderos de Autos 🚗</h3><div id="lista-lavaderos" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="talleres" class="seccion-detalle" style="display:none">
-      <h3>🧑‍🔧 Nuestros Talleres Mecánicos 🔧</h3><div id="lista-talleres" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-    </div>
-    <div id="torneriasmetalurgicas" class="seccion-detalle" style="display:none">
-      <h3>⛓️ Nuestras Tornerías y Metalúrgicas</h3><div id="lista-torneriasmetalurgicas" style="margin-top:15px;"></div>
-      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
     </div>
   </div>
 
@@ -787,7 +721,7 @@
 <script>
   lucide.createIcons();
 
-  // RELOJ LOCAL
+  // RELOJ EN HORA LOCAL
   function updateClock() {
     const now = new Date();
     const opts = { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -796,31 +730,15 @@
   updateClock();
   setInterval(updateClock, 30000);
 
-  // LOGICA REPRODUCTOR E INTERFACES
+  // LOGICA DEL REPRODUCTOR SOBRE TUS ENLACES ORIGINALES
   const mainAudio = document.getElementById('mainAudio');
   const currentRadioName = document.getElementById('currentRadioName');
-  const radiosSection = document.getElementById('radiosSection');
-  const comerciosSection = document.getElementById('comerciosSection');
   const btnPlayPause = document.getElementById('btnPlayPause');
   const playIcon = document.getElementById('playIcon');
   const liveIndicator = document.getElementById('liveIndicator');
   const volumeSlider = document.getElementById('volumeSlider');
 
-  document.getElementById('tabRadios').addEventListener('click', () => {
-    radiosSection.style.display = 'block';
-    comerciosSection.style.display = 'none';
-    document.getElementById('tabRadios').classList.add('active');
-    document.getElementById('tabComercios').classList.remove('active');
-  });
-
-  document.getElementById('tabComercios').addEventListener('click', () => {
-    radiosSection.style.display = 'none';
-    comerciosSection.style.display = 'block';
-    document.getElementById('tabComercios').classList.add('active');
-    document.getElementById('tabRadios').classList.remove('active');
-  });
-
-  // Evento al hacer click en las tarjetas de radio
+  // Evento al presionar en las tarjetas
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
@@ -830,16 +748,15 @@
       mainAudio.src = card.getAttribute('data-stream');
       mainAudio.play();
       
-      // Actualiza botonera moderna
       playIcon.setAttribute('data-lucide', 'pause');
       liveIndicator.classList.add('animated');
       lucide.createIcons();
     });
   });
 
-  // Botón Play/Pausa Personalizado
+  // Botón central Play/Pausa
   btnPlayPause.addEventListener('click', () => {
-    if (!mainAudio.src) return; // Si no hay radio cargada, no hace nada
+    if (!mainAudio.src) return; 
     
     if (mainAudio.paused) {
       mainAudio.play();
@@ -853,29 +770,14 @@
     lucide.createIcons();
   });
 
-  // Control del Slider de Volumen
+  // Deslizador de volumen
   volumeSlider.addEventListener('input', (e) => {
     mainAudio.volume = e.target.value;
   });
 
-  function mostrarCategoria(id) {
-    document.getElementById('menuCategorias').style.display = 'none';
-    document.getElementById(id).style.display = 'block';
-    setTimeout(() => { 
-        const btn = document.querySelector('#' + id + ' .btn-volver');
-        if(btn) btn.focus(); 
-    }, 100);
-  }
-
-  function volverCategorias() {
-    document.querySelectorAll('.seccion-detalle').forEach(s => s.style.display = 'none');
-    document.getElementById('menuCategorias').style.display = 'grid';
-    setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
-  }
-
-  // NAVEGACIÓN CONTROL REMOTO (TELEVISORES)
+  // NAVEGACIÓN COMPATIBLE CON SMART TV / CONTROL REMOTO
   document.addEventListener('keydown', function(e) {
-    const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, .btn-apk, a, .modern-play-btn'))
+    const focusables = Array.from(document.querySelectorAll('.tab, .card, a, .modern-play-btn'))
       .filter(el => el.offsetParent !== null);
     
     let index = focusables.indexOf(document.activeElement);
@@ -897,29 +799,6 @@
       document.activeElement.click();
     }
   });
-
-  // CARGA BASE DE DATOS DESDE GOOGLE SHEETS (TSV)
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=tsv";
-
-  fetch(CSV_URL)
-    .then(r => r.text())
-    .then(csv => {
-      const filas = csv.split('\n').slice(1);
-      filas.forEach(fila => {
-        const [nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
-        if (!nombre || !categoria) return;
-        const cat = categoria.trim().toLowerCase();
-        const contenedor = document.getElementById('lista-' + cat);
-        if (!contenedor) return;
-        contenedor.innerHTML += `
-          <div style="background:rgba(20, 41, 34, 0.8); border:1px solid var(--border); padding:16px; border-radius:12px; margin-bottom:12px; text-align:center;">
-            <strong style="color:var(--green-primary); font-size:16px;">${nombre}</strong><br>
-            <small style="color:var(--text-dim);">📍 ${direccion}</small><br>
-            <small style="color:var(--text-dim);">📞 ${telefono}</small><br><br>
-            <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 16px; radius:100px; text-decoration:none; font-weight:bold; display:inline-block; font-size:13px;">💬 WhatsApp</a>
-          </div>`;
-      });
-    });
 </script>
 
 </body>
