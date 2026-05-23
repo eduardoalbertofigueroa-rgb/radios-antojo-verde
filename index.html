@@ -3,286 +3,707 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Junín Conecta | Radios en Vivo y Guía de Comercios de Junín</title>
+<title>Junín Conecta — Con identidad local</title>
 <meta name="description" content="Escuchá las radios de Junín en vivo y encontrá los mejores comercios y servicios locales en un solo lugar. La app de los vecinos de Junín.">
 <meta name="keywords" content="Junín, radios de Junín, comercios Junín, guía comercial Junín, LT20 Junín, radios en vivo">
 <link rel="manifest" href="manifest.json">
 <meta name="google-site-verification" content="2RQPUsi0Rt1-eqZ7By2UOdX5DPcuE-wA6BDy2M8b7pM" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
 <style>
+  :root {
+    --bg-deep: #0a1410;
+    --bg-base: #0f1f16;
+    --bg-card: #142922;
+    --bg-card-hover: #1a3a2e;
+    --green-primary: #4ade80;
+    --green-glow: #22c55e;
+    --green-soft: #86efac;
+    --sunset: #f59e0b;
+    --sunset-pink: #fb7185;
+    --sky-blue: #60a5fa;
+    --laguna: #0e7490;
+    --red-live: #ef4444;
+    --text: #e8f5ec;
+    --text-dim: #8aa89a;
+    --border: rgba(74, 222, 128, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; }
+
   body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f1f16;
-    color: white;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 160px;
+    position: relative;
     text-align: center;
-    padding-bottom: 140px;
   }
 
-  h1 { margin-top: 20px; color: #4ade80; }
+  /* ====== ATARDECER PAMPEANO DE FONDO ====== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 1200px 600px at 20% -20%, rgba(245, 158, 11, 0.18), transparent 60%),
+      radial-gradient(ellipse 800px 400px at 80% -10%, rgba(251, 113, 133, 0.12), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 50% 100%, rgba(14, 116, 144, 0.15), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-  .tabs {
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='2' cy='2' r='0.5' fill='%234ade80' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ====== HEADER ====== */
+  .header {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0 10px 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 24px;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
-  .tab {
-    background: #162a1c;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  .logo-wrap { display: flex; align-items: center; gap: 14px; }
+
+  .logo-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-primary), var(--green-glow));
+    display: grid;
+    place-items: center;
+    color: #051209;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: 0 8px 24px -8px var(--green-primary);
   }
 
-  .tab.active { background: #4ade80; color: black; }
+  .logo-text { text-align: left; }
+  .logo-text h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--green-primary);
+  }
 
-  /* BOTÓN DESCARGA APK */
+  .logo-text .tagline {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--green-soft);
+    margin-top: 2px;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  .header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .info-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(20, 41, 34, 0.6);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    backdrop-filter: blur(12px);
+  }
+
+  .info-chip svg { width: 14px; height: 14px; color: var(--green-primary); }
+  .info-chip strong { color: var(--text); }
+
+  /* ====== APK DOWNLOAD ====== */
   .container-download {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .btn-apk {
-    background-color: #2ecc71;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
     color: #000;
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 0.9rem;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 20px -6px rgba(46, 204, 113, 0.4);
     transition: 0.2s;
   }
 
-  .btn-apk:hover { background-color: #27ae60; transform: scale(1.05); }
+  .btn-apk:hover { transform: scale(1.05); }
 
-  /* EFECTO PARA CONTROL REMOTO (TV) */
+  /* ====== EFECTO CONTROL REMOTO TV ====== */
   .card:focus, .tab:focus, .btn-volver:focus, .btn-apk:focus, a:focus {
-    outline: 5px solid #4ade80 !important;
-    background: #1f3b2a !important;
-    transform: scale(1.1);
+    outline: 4px solid var(--green-primary) !important;
+    background: var(--bg-card-hover) !important;
+    transform: scale(1.06);
     transition: 0.2s;
   }
 
-  .radio-grid {
+  /* ====== HERO ====== */
+  .hero {
+    background: linear-gradient(180deg, rgba(74, 222, 128, 0.05), rgba(14, 116, 144, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 40px 32px 0;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 3;
+    max-width: 580px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(74, 222, 128, 0.12);
+    color: var(--green-primary);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-primary);
+    animation: pulse 1.5s ease infinite;
+  }
+
+  .hero h2 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .hero h2 .accent {
+    color: var(--green-primary);
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero p.subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.55;
+    max-width: 460px;
+    margin-bottom: 24px;
+  }
+
+  /* SKYLINE SVG */
+  .skyline-wrap {
+    position: relative;
+    margin-top: 24px;
+    margin-left: -32px;
+    margin-right: -32px;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .skyline-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .laguna {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38%;
+    background: linear-gradient(180deg, rgba(14, 116, 144, 0.3), rgba(14, 116, 144, 0.5));
+    overflow: hidden;
+  }
+
+  .laguna::before, .laguna::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    width: 200%;
+    height: 12px;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 12px, transparent 12px, transparent 26px);
+    animation: waveMove 8s linear infinite;
+  }
+
+  .laguna::before { top: 4px; opacity: 0.6; }
+  .laguna::after { top: 18px; opacity: 0.3; animation-duration: 12s; animation-direction: reverse; }
+
+  @keyframes waveMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(120px); }
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s ease infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .moon {
+    position: absolute;
+    top: 30px;
+    right: 60px;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 35% 35%, #fef3c7, #fbbf24);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.4);
+    z-index: 1;
+  }
+
+  /* ====== TABS ====== */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    background: rgba(20, 41, 34, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 6px;
+    border-radius: 100px;
+    width: fit-content;
+    margin: 0 auto 32px;
+  }
+
+  .tab {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    background: var(--green-primary);
+    color: #051209;
+    box-shadow: 0 4px 16px -4px var(--green-primary);
+  }
+
+  /* ====== GRIDS ====== */
+  .radio-grid, .categorias-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    max-width: 800px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    max-width: 900px;
     margin: auto;
   }
 
   .categorias-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    max-width: 700px;
   }
 
   .card {
-    background: #162a1c;
-    border-radius: 15px;
-    padding: 15px;
-    cursor: pointer;
-    transition: 0.2s;
+    background: rgba(20, 41, 34, 0.5);
+    backdrop-filter: blur(8px);
     border: 2px solid transparent;
+    border-radius: 18px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
-  .card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; }
-  .card p { margin: 0; font-weight: bold; font-size: 14px; }
-  .card:hover { transform: scale(1.05); background: #1f3b2a; }
-  .card.active { border: 2px solid #4ade80; box-shadow: 0 0 15px #4ade80; }
+  .card:hover {
+    transform: translateY(-4px);
+    background: rgba(26, 58, 46, 0.7);
+    border-color: rgba(74, 222, 128, 0.2);
+  }
 
+  .card.active {
+    border: 2px solid var(--green-primary);
+    box-shadow: 0 0 16px rgba(74, 222, 128, 0.3);
+    background: rgba(26, 58, 46, 0.9);
+  }
+
+  .card img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 12px; }
+  .card p { font-size: 14px; font-weight: 700; line-height: 1.3; }
+
+  /* Tarjetas específicas de comercio */
+  .card-comercio {
+    background: rgba(20, 41, 34, 0.6);
+    border: 1px solid var(--border);
+    min-height: 70px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  /* ====== SECCIONES ====== */
+  .seccion-detalle {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .seccion-title-grid {
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto 16px;
+    font-size: 14px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .btn-volver {
+    background: var(--green-primary);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    margin-top: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #051209;
+    transition: 0.2s;
+  }
+  .btn-volver:hover { transform: scale(1.05); }
+
+  /* ====== PLAYER BAR ====== */
   .player-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #111;
-    padding: 15px;
-    border-top: 2px solid #4ade80;
+    background: rgba(10, 20, 16, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 16px 20px;
+    border-top: 2px solid var(--green-primary);
     z-index: 100;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
   }
 
-  #currentRadioName { margin-bottom: 10px; font-weight: bold; color: #4ade80; }
-  audio { width: 90%; max-width: 400px; height: 35px; }
-
-  .btn-volver {
-    background: #4ade80;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 20px;
-    cursor: pointer;
-    font-weight: bold;
+  #currentRadioName {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: var(--green-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: -0.01em;
   }
 
-  .seccion-detalle { padding: 20px; }
+  audio { width: 100%; max-width: 500px; height: 40px; }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 720px) {
+    .hero { padding: 28px 22px 0; }
+    .skyline-wrap { margin-left: -22px; margin-right: -22px; height: 160px; }
+    .header { justify-content: center; text-align: center; }
+    .logo-text { text-align: center; }
+    .moon { width: 36px; height: 36px; top: 20px; right: 30px; }
+  }
+
+  @media (max-width: 480px) {
+    .radio-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+    .categorias-grid { grid-template-columns: 1fr; gap: 10px; }
+    .header-info { display: none; }
+  }
 </style>
 </head>
 
 <body>
 
-<img src="logo.png" style="width:200px; display:block; margin:25px auto 15px;">
+<div class="container">
 
-<div class="tabs">
-  <button id="tabRadios" class="tab active" tabindex="0">📻 RADIOS</button>
-  <button id="tabComercios" class="tab" tabindex="0">🛒 COMERCIOS</button>
-</div>
+  <header class="header">
+    <div class="logo-wrap">
+      <div class="logo-circle">JC</div>
+      <div class="logo-text">
+        <h1>Junín Conecta</h1>
+        <span class="tagline">~ hecho con cariño en la Pampa ~</span>
+      </div>
+    </div>
+    <div class="header-info">
+      <div class="info-chip">
+        <i data-lucide="map-pin"></i>
+        <span>Junín, <strong>BA</strong></span>
+      </div>
+      <div class="info-chip">
+        <i data-lucide="sun"></i>
+        <span><strong>22°C</strong> · Despejado</span>
+      </div>
+      <div class="info-chip">
+        <i data-lucide="clock"></i>
+        <strong id="clock">00:00</strong>
+      </div>
+    </div>
+  </header>
 
-<div class="container-download">
+  <div class="container-download">
     <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" tabindex="0">
-        <span>📥</span> Descargar Aplicación Android
+      <span>📥</span> Descargar Aplicación Android
     </a>
-</div>
+  </div>
 
-<div id="radiosSection">
-  <div class="radio-grid">
-    <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
-      <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
+      <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
+      <p class="subtitle">Las radios de siempre, los comercios del barrio y la información de la zona unificados en una sola app del pueblo.</p>
     </div>
-    <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
-      <img src="logo/continental.png"><p>Continental Am 590</p>
+
+    <div class="skyline-wrap">
+      <div class="moon"></div>
+      <div class="star" style="top:20px; left:15%;"></div>
+      <div class="star" style="top:40px; left:25%; animation-delay:0.5s;"></div>
+      <div class="star" style="top:15px; left:45%; animation-delay:1s;"></div>
+      <div class="star" style="top:50px; left:60%; animation-delay:1.5s;"></div>
+      <div class="star" style="top:25px; left:75%; animation-delay:2s;"></div>
+
+      <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.5" fill="#0a1a14">
+          <ellipse cx="40" cy="160" rx="22" ry="18"/>
+          <ellipse cx="75" cy="158" rx="18" ry="15"/>
+        </g>
+        <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
+          <rect x="140" y="130" width="40" height="35"/>
+          <polygon points="140,130 160,115 180,130"/>
+          <rect x="185" y="125" width="50" height="40"/>
+          <polygon points="185,125 210,108 235,125"/>
+        </g>
+        <g fill="#1a3a2a" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4">
+          <rect x="540" y="110" width="120" height="60"/>
+          <polygon points="540,110 600,75 660,110"/>
+          <rect x="510" y="80" width="30" height="90"/>
+          <polygon points="510,80 525,55 540,80"/>
+          <line x1="525" y1="55" x2="525" y2="45" stroke="#4ade80" stroke-width="1.5"/>
+          <line x1="521" y1="49" x2="529" y2="49" stroke="#4ade80" stroke-width="1.5"/>
+          <rect x="660" y="80" width="30" height="90"/>
+          <polygon points="660,80 675,55 690,80"/>
+          <line x1="675" y1="55" x2="675" y2="45" stroke="#4ade80" stroke-width="1.5"/>
+          <line x1="671" y1="49" x2="679" y2="49" stroke="#4ade80" stroke-width="1.5"/>
+        </g>
+        <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
+          <line x1="800" y1="170" x2="800" y2="100" stroke="#1f3b2a" stroke-width="2"/>
+          <rect x="778" y="85" width="44" height="20"/>
+        </g>
+        <path d="M 0 165 Q 300 162 600 168 T 1200 165 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
+      </svg>
+      <div class="laguna"></div>
     </div>
-    <div class="card" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
-      <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
-      <img src="logo/lared.png"><p>Radio la Red Am 910</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
-      <img src="logo/los40principales.png"><p>Los 40 - 105.5</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
-      <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
-      <img src="logo/pop101.5.png"><p>Pop 101.5</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
-      <img src="logo/vorterix.png"><p>Vorterix</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-      <img src="logo/mega.png"><p>Mega 98.3</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-      <img src="logo/metro.png"><p>Metro 95.1</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
-      <img src="logo/aspen.png"><p>Aspen 102.3</p>
-    </div>
-    <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
-      <img src="logo/lanacion.png"><p>La Nación 104.9</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
-      <img src="logo/infobae.png"><p>Infobae 97.1</p>
-    </div>
-    <div class="card" tabindex="0" data-name="La 100" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
-      <img src="logo/la100.png"><p>La 100</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
-      <img src="logo/vale.png"><p>Vale 97.5</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
-      <img src="logo/rockpop.png"><p>Rock & Pop 95.5</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
-      <img src="logo/disney.png"><p>Radio Disney</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
-      <img src="logo/urbana.png"><p>Urbana Play 104.3</p>
-    </div>
-    <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
-      <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
-    </div>
-    <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
-      <img src="logo/eo.png"><p>EO 107.9</p>
+  </section>
+
+  <div class="tabs">
+    <button id="tabRadios" class="tab active" tabindex="0">📻 RADIOS</button>
+    <button id="tabComercios" class="tab" tabindex="0">🛒 COMERCIOS</button>
+  </div>
+
+  <div id="radiosSection">
+    <div class="seccion-title-grid">Estaciones Disponibles</div>
+    <div class="radio-grid">
+      <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
+        <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
+        <img src="logo/continental.png"><p>Continental Am 590</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
+        <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac??">
+        <img src="logo/lared.png"><p>Radio la Red Am 910</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
+        <img src="logo/los40principales.png"><p>Los 40 - 105.5</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3?">
+        <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
+        <img src="logo/pop101.5.png"><p>Pop 101.5</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
+        <img src="logo/vorterix.png"><p>Vorterix</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
+        <img src="logo/mega.png"><p>Mega 98.3</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
+        <img src="logo/metro.png"><p>Metro 95.1</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
+        <img src="logo/aspen.png"><p>Aspen 102.3</p>
+      </div>
+      <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
+        <img src="logo/lanacion.png"><p>La Nación 104.9</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
+        <img src="logo/infobae.png"><p>Infobae 97.1</p>
+      </div>
+      <div class="card" tabindex="0" data-name="La 100" data-stream="https://29320.live.streamtheworld.com/FM999_56.mp3?">
+        <img src="logo/la100.png"><p>La 100</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
+        <img src="logo/vale.png"><p>Vale 97.5</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac?">
+        <img src="logo/rockpop.png"><p>Rock & Pop 95.5</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
+        <img src="logo/disney.png"><p>Radio Disney</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
+        <img src="logo/urbana.png"><p>Urbana Play 104.3</p>
+      </div>
+      <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
+        <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
+      </div>
+      <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
+        <img src="logo/eo.png"><p>EO 107.9</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="comerciosSection" style="display:none">
-  <div id="menuCategorias" class="categorias-grid">
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('Contacto')">Contacto</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('lavaderos')">🧼 Lavadero de Autos 🚗</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('talleres')">🧑‍🔧 Talleres Mecánicos 🔧</div>
-    <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('torneriasmetalurgicas')">⛓️ Tornerías y Metalúrgicas</div>
-  </div>
-  <div id="Contacto" class="seccion-detalle" style="display:none">
+  <div id="comerciosSection" style="display:none">
+    <div id="menuCategorias" class="categorias-grid">
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('Contacto')">📞 Contacto</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('ferreterias')">🔧 Ferreterías</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('verdulerias')">🥦 Verdulerías</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('pinturerias')">🎨 Pinturerías</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('electricistas')">⚡ Electricistas</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('lavaderos')">🧼 Lavaderos de Autos</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('talleres')">🧑‍🔧 Talleres Mecánicos</div>
+      <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('torneriasmetalurgicas')">⛓️ Tornerías y Metalúrgicas</div>
+    </div>
+
+    <div id="Contacto" class="seccion-detalle" style="display:none">
       <h3>Contacto</h3>
-      <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center;">
-          <strong>Eduardo - Junín Conecta</strong><br>
-          <small> Tel: 2364316208</small><br><br>
-          <a href="https://wa.me/5492364316208?text=Hola%20Eduardo%20Vengo%20de%20la%20aplicacion%20de%20radio%20%20quiero%20hacer%20una%20Consulta" tabindex="0" target="_blank" style="background:#25d366; color:white; padding:10px 15px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
+      <div style="background:rgba(20, 41, 34, 0.8); border:1px solid var(--border); padding:20px; border-radius:15px; margin-top:15px;">
+        <strong>Eduardo - Junín Conecta</strong><br>
+        <small>Tel: 2364316208</small><br><br>
+        <a href="https://wa.me/5492364316208?text=Hola%20Eduardo%20Vengo%20de%20la%20aplicacion%20de%20radio%20%20quiero%20hacer%20una%20Consulta" tabindex="0" target="_blank" style="background:#25d366; color:white; padding:10px 20px; border-radius:100px; text-decoration:none; display:inline-block; font-weight:bold;">💬 Pedir por WhatsApp</a>
       </div>
       <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+
+    <div id="ferreterias" class="seccion-detalle" style="display:none">
+      <h3>🛠 Nuestras Ferreterías</h3><div id="lista-ferreterias" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="verdulerias" class="seccion-detalle" style="display:none">
+      <h3>🥦 Nuestras Verdulerías</h3><div id="lista-verdulerias" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="pinturerias" class="seccion-detalle" style="display:none">
+      <h3>🎨 Nuestras Pinturerías</h3><div id="lista-pinturerias" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="electricistas" class="seccion-detalle" style="display:none">
+      <h3>⚡ Nuestros Electricistas</h3><div id="lista-electricistas" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="lavaderos" class="seccion-detalle" style="display:none">
+      <h3>🧼 Nuestros Lavaderos de Autos 🚗</h3><div id="lista-lavaderos" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="talleres" class="seccion-detalle" style="display:none">
+      <h3>🧑‍🔧 Nuestros Talleres Mecánicos 🔧</h3><div id="lista-talleres" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
+    <div id="torneriasmetalurgicas" class="seccion-detalle" style="display:none">
+      <h3>⛓️ Nuestras Tornerías y Metalúrgicas</h3><div id="lista-torneriasmetalurgicas" style="margin-top:15px;"></div>
+      <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+    </div>
   </div>
-  <div id="ferreterias" class="seccion-detalle" style="display:none">
-  <h3>🛠 Nuestras Ferreterías</h3>
-  <div id="lista-ferreterias"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-<div id="verdulerias" class="seccion-detalle" style="display:none">
-  <h3>🥦 Nuestras Verdulerías</h3>
-  <div id="lista-verdulerias"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-<div id="pinturerias" class="seccion-detalle" style="display:none">
-  <h3>🎨 Nuestras Pinturerías</h3>
-  <div id="lista-pinturerias"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-<div id="electricistas" class="seccion-detalle" style="display:none">
-  <h3>⚡ Nuestros Electricistas</h3>
-  <div id="lista-electricistas"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
- <div id="lavaderos" class="seccion-detalle" style="display:none">
-  <h3>🧼 Nuestros Lavaderos de Autos 🚗</h3>
-  <div id="lista-lavaderos"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-<div id="talleres" class="seccion-detalle" style="display:none">
-  <h3>🧑‍🔧 Nuestros Talleres Mecánicos 🔧</h3>
-  <div id="lista-talleres"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-<div id="torneriasmetalurgicas" class="seccion-detalle" style="display:none">
-  <h3>⛓️ Nuestras Tornerías y Metalúrgicas</h3>
-  <div id="lista-torneriasmetalurgicas"></div>
-  <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
-</div>
-  
+
 </div>
 
 <div class="player-bar">
-    <div id="currentRadioName">Seleccioná una radio</div>
-    <audio id="mainAudio" controls autoplay></audio>
+  <div id="currentRadioName">Seleccioná una radio</div>
+  <audio id="mainAudio" controls autoplay></audio>
 </div>
 
 <script>
+  lucide.createIcons();
+
+  // RELOJ LOCAL
+  function updateClock() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false };
+    document.getElementById('clock').textContent = now.toLocaleTimeString('es-AR', opts);
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // LOGICA REPRODUCTOR E INTERFACES
   const mainAudio = document.getElementById('mainAudio');
   const currentRadioName = document.getElementById('currentRadioName');
   const radiosSection = document.getElementById('radiosSection');
@@ -327,7 +748,7 @@
     setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
-  // LÓGICA CONTROL REMOTO MEJORADA
+  // NAVEGACIÓN CONTROL REMOTO (TELEVISORES)
   document.addEventListener('keydown', function(e) {
     const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, .btn-apk, a'))
       .filter(el => el.offsetParent !== null);
@@ -351,27 +772,29 @@
       document.activeElement.click();
     }
   });
- const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=tsv";
 
-fetch(CSV_URL)
-  .then(r => r.text())
-  .then(csv => {
-    const filas = csv.split('\n').slice(1);
-    filas.forEach(fila => {
-      const [nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
-      if (!nombre || !categoria) return;
-      const cat = categoria.trim().toLowerCase();
-      const contenedor = document.getElementById('lista-' + cat);
-      if (!contenedor) return;
-      contenedor.innerHTML += `
-        <div style="background:#1a3a2a; padding:15px; border-radius:10px; margin-bottom:10px; text-align:center;">
-          <strong>${nombre}</strong><br>
-          <small>📍 ${direccion}</small><br>
-          <small>📞 ${telefono}</small><br><br>
-          <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
-        </div>`;
+  // CARGA BASE DE DATOS DESDE GOOGLE SHEETS (TSV)
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=tsv";
+
+  fetch(CSV_URL)
+    .then(r => r.text())
+    .then(csv => {
+      const filas = csv.split('\n').slice(1);
+      filas.forEach(fila => {
+        const [nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
+        if (!nombre || !categoria) return;
+        const cat = categoria.trim().toLowerCase();
+        const contenedor = document.getElementById('lista-' + cat);
+        if (!contenedor) return;
+        contenedor.innerHTML += `
+          <div style="background:rgba(20, 41, 34, 0.8); border:1px solid var(--border); padding:16px; border-radius:12px; margin-bottom:12px; text-align:center;">
+            <strong style="color:var(--green-primary); font-size:16px;">${nombre}</strong><br>
+            <small style="color:var(--text-dim);">📍 ${direccion}</small><br>
+            <small style="color:var(--text-dim);">📞 ${telefono}</small><br><br>
+            <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 16px; radius:100px; text-decoration:none; font-weight:bold; display:inline-block; font-size:13px;">💬 WhatsApp</a>
+          </div>`;
+      });
     });
-  });
 </script>
 
 </body>
