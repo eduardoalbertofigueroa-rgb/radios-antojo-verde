@@ -626,7 +626,6 @@
 
 <div class="container">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="logo-wrap">
       <img src="logo.png" alt="Junín Conecta" class="logo-img-header">
@@ -647,14 +646,13 @@
     </div>
   </header>
 
-  <!-- HERO con SKYLINE de JUNÍN -->
   <section class="hero">
     <div class="hero-text">
       <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
       <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
       <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local. Una app hecha por juninenses, para juninenses.</p>
       <div class="hero-meta">
-        <div><i data-lucide="radio"></i> <strong>20</strong> radios en vivo</div>
+        <div><i data-lucide="radio"></i> <strong>22</strong> radios en vivo</div>
         <div><i data-lucide="store"></i> comercios locales</div>
       </div>
     </div>
@@ -735,14 +733,12 @@
     </div>
   </section>
 
-  <!-- BOTÓN APK -->
   <div class="container-download">
     <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" tabindex="0">
       <span>📥</span> Descargar Aplicación Android
     </a>
   </div>
 
-  <!-- DATO CURIOSO -->
   <div class="curiosidad">
     <div class="curiosidad-icon">
       <i data-lucide="sparkles"></i>
@@ -752,7 +748,6 @@
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button id="tabRadios" class="tab active" tabindex="0">
       <i data-lucide="radio"></i> RADIOS
@@ -762,7 +757,6 @@
     </button>
   </div>
 
-  <!-- SECCIÓN RADIOS -->
   <div id="radiosSection">
     <div class="section-title">
       <h3>⭐ Radio local de Junín</h3>
@@ -779,6 +773,9 @@
       <span class="count">21 estaciones</span>
     </div>
     <div class="radio-grid">
+      <div class="card" tabindex="0" data-name="Radio Latina FM 101.1" data-stream="https://stream-gtlc.telecentro.net.ar/hls/latinatvhls/main.m3u8">
+        <img src="logo/latina.png"><p>Radio Latina FM 101.1</p>
+      </div>
       <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
         <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
       </div>
@@ -793,9 +790,6 @@
       </div>
       <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3">
         <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
-        <div class="radio-grid">
-  
-
       </div>
       <div class="card" tabindex="0" data-name="FutuRock" data-stream="https://us-b4-p-e-qg12-audio.cdn.mdstrm.com/live-audio/5942a3a05fa68cca2efb4264/5d9d019112cbbb45d6a50960/chunks.m3u8">
         <img src="logo/futurock.png"><p>FutuRock</p>
@@ -845,10 +839,9 @@
       <div class="card" tabindex="0" data-name="Radio 10 AM 710" data-stream="https://radio10.stweb.tv/radio10/live/playlist.m3u8">
         <img src="logo/radio10.png"><p>Radio 10 AM 710</p>
       </div>
+    </div>
   </div>
-     </div>
 
-  <!-- SECCIÓN COMERCIOS -->
   <div id="comerciosSection" style="display:none">
     <div id="menuCategorias" class="categorias-grid">
       <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('Contacto')">📞 Contacto</div>
@@ -910,7 +903,6 @@
 
 </div>
 
-<!-- PLAYER BAR -->
 <div class="player-bar">
   <div class="player-top">
     <div class="player-info">
@@ -931,101 +923,74 @@
   function updateClock() {
     const now = new Date();
     const opts = { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false };
-    document.getElementById('clock').textContent = now.toLocaleTimeString('es-AR', opts);
+    document.getElementById('clock').innerText = now.toLocaleTimeString('es-AR', opts).substring(0, 5);
   }
+  setInterval(updateClock, 1000);
   updateClock();
-  setInterval(updateClock, 10000);
 
-  // TABS
-  const mainAudio = document.getElementById('mainAudio');
-  const currentRadioName = document.getElementById('currentRadioName');
+  // INTERCAMBIO DE TABS (RADIOS / COMERCIOS)
+  const tabRadios = document.getElementById('tabRadios');
+  const tabComercios = document.getElementById('tabComercios');
   const radiosSection = document.getElementById('radiosSection');
   const comerciosSection = document.getElementById('comerciosSection');
-  const visualizer = document.getElementById('visualizer');
 
-  document.getElementById('tabRadios').addEventListener('click', () => {
+  tabRadios.addEventListener('click', () => {
+    tabRadios.classList.add('active');
+    tabComercios.classList.remove('active');
     radiosSection.style.display = 'block';
     comerciosSection.style.display = 'none';
-    document.getElementById('tabRadios').classList.add('active');
-    document.getElementById('tabComercios').classList.remove('active');
-    lucide.createIcons();
   });
 
-  document.getElementById('tabComercios').addEventListener('click', () => {
-    radiosSection.style.display = 'none';
+  tabComercios.addEventListener('click', () => {
+    tabComercios.classList.add('active');
+    tabRadios.classList.remove('active');
     comerciosSection.style.display = 'block';
-    document.getElementById('tabComercios').classList.add('active');
-    document.getElementById('tabRadios').classList.remove('active');
-    lucide.createIcons();
+    radiosSection.style.display = 'none';
   });
 
-  // PLAYER
-  document.querySelectorAll('.card[data-stream]').forEach(card => {
+  // LÓGICA DE REPRODUCCIÓN
+  const audioPlayer = document.getElementById('mainAudio');
+  const radioCards = document.querySelectorAll('.card[data-stream]');
+  const currentRadioNameText = document.getElementById('currentRadioName');
+  const visualizer = document.getElementById('visualizer');
+
+  radioCards.forEach(card => {
     card.addEventListener('click', () => {
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      // Quitar clase activa previa
+      radioCards.forEach(c => c.classList.remove('active'));
+      
+      // Activar la tarjeta seleccionada
       card.classList.add('active');
-      currentRadioName.innerText = "▶ " + card.getAttribute('data-name');
-      mainAudio.src = card.getAttribute('data-stream');
-      mainAudio.play();
+      
+      // Cambiar fuente y reproducir
+      const streamUrl = card.getAttribute('data-stream');
+      const radioName = card.getAttribute('data-name');
+      
+      currentRadioNameText.innerText = radioName;
+      audioPlayer.src = streamUrl;
+      audioPlayer.load();
+      audioPlayer.play();
       visualizer.classList.add('active');
     });
   });
 
-  // COMERCIOS
+  audioPlayer.addEventListener('pause', () => visualizer.classList.remove('active'));
+  audioPlayer.addEventListener('playing', () => visualizer.classList.add('active'));
+
+  // FUNCIONES PARA CATEGORÍAS COMERCIALES
   function mostrarCategoria(id) {
     document.getElementById('menuCategorias').style.display = 'none';
     document.getElementById(id).style.display = 'block';
-    setTimeout(() => {
-      const btn = document.querySelector('#' + id + ' .btn-volver');
-      if(btn) btn.focus();
-    }, 100);
   }
 
   function volverCategorias() {
-    document.querySelectorAll('.seccion-detalle').forEach(s => s.style.display = 'none');
+    const detalles = document.querySelectorAll('.seccion-detalle');
+    detalles.forEach(d => d.style.display = 'none');
     document.getElementById('menuCategorias').style.display = 'grid';
-    setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
-
-  // CONTROL REMOTO TV
-  document.addEventListener('keydown', function(e) {
-    const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, .btn-apk, a'))
-      .filter(el => el.offsetParent !== null);
-    let index = focusables.indexOf(document.activeElement);
-    if (e.key === 'ArrowRight') { index = (index + 1) % focusables.length; focusables[index].focus(); }
-    else if (e.key === 'ArrowLeft') { index = (index - 1 + focusables.length) % focusables.length; focusables[index].focus(); }
-    else if (e.key === 'ArrowDown') { index = Math.min((index + 4), focusables.length - 1); focusables[index].focus(); }
-    else if (e.key === 'ArrowUp') { index = Math.max((index - 4), 0); focusables[index].focus(); }
-    else if (e.key === 'Enter') { document.activeElement.click(); }
-  });
-
-  // GOOGLE SHEETS COMERCIOS
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=tsv";
-
-  fetch(CSV_URL)
-    .then(r => r.text())
-    .then(csv => {
-      const filas = csv.split('\n').slice(1);
-      filas.forEach(fila => {
-        const [nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
-        if (!nombre || !categoria) return;
-        const cat = categoria.trim().toLowerCase();
-        const contenedor = document.getElementById('lista-' + cat);
-        if (!contenedor) return;
-        contenedor.innerHTML += `
-          <div style="background:#1a3a2a; padding:15px; border-radius:14px; margin-bottom:10px; text-align:center; border:1px solid rgba(74,222,128,0.1);">
-            <strong>${nombre}</strong><br>
-            <small>📍 ${direccion}</small><br>
-            <small>📞 ${telefono}</small><br><br>
-            <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:100px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
-          </div>`;
-      });
-    });
 </script>
-
 </body>
 </html>
-
 
 
 
