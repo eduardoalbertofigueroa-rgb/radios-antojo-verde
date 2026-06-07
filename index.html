@@ -8,10 +8,11 @@
 <meta name="keywords" content="Junín, radios de Junín, comercios Junín, guía comercial Junín, LT20 Junín, radios en vivo">
 <link rel="manifest" href="manifest.json">
 <meta name="google-site-verification" content="2RQPUsi0Rt1-eqZ7By2UOdX5DPcuE-wA6BDy2M8b7pM" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
 <style>
   :root {
     --bg-deep: #0a1410;
@@ -131,7 +132,7 @@
     backdrop-filter: blur(12px);
   }
 
-  .info-chip svg { width: 14px; height: 14px; color: var(--green-primary); }
+  .info-chip svg { width: 14px; height: 14px; stroke: var(--green-primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .info-chip strong { color: var(--text); font-weight: 700; }
 
   /* ====== HERO ====== */
@@ -143,12 +144,6 @@
     margin-bottom: 32px;
     position: relative;
     overflow: hidden;
-  }
-
-  .hero-text {
-    position: relative;
-    z-index: 3;
-    max-width: 580px;
   }
 
   .hero-text {
@@ -213,7 +208,7 @@
   }
 
   .hero-meta div { display: flex; align-items: center; gap: 6px; }
-  .hero-meta svg { width: 14px; height: 14px; color: var(--green-primary); }
+  .hero-meta svg { width: 14px; height: 14px; stroke: var(--green-primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .hero-meta strong { color: var(--text); font-weight: 700; }
 
   /* SKYLINE */
@@ -338,6 +333,7 @@
     place-items: center;
     flex-shrink: 0;
   }
+  .curiosidad-icon svg { width: 20px; height: 20px; stroke: var(--sunset); fill: none; stroke-width: 2; }
 
   .curiosidad-text { font-size: 14px; line-height: 1.5; color: var(--text-dim); }
   .curiosidad-text strong { color: var(--sunset); font-weight: 700; }
@@ -378,7 +374,7 @@
     box-shadow: 0 4px 16px -4px var(--green-primary);
   }
 
-  .tab svg { width: 16px; height: 16px; }
+  .tab svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
   /* ====== CONTROL REMOTO (TV) ====== */
   .card:focus, .tab:focus, .btn-volver:focus, .btn-apk:focus, a:focus {
@@ -642,11 +638,11 @@
     </div>
     <div class="header-info">
       <div class="info-chip">
-        <i data-lucide="map-pin"></i>
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
         <span>Junín, <strong>BA</strong></span>
       </div>
       <div class="info-chip">
-        <i data-lucide="clock"></i>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         <strong id="clock">--:--</strong>
       </div>
     </div>
@@ -660,8 +656,8 @@
         <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
         <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local. Una app hecha por juninenses, para juninenses.</p>
         <div class="hero-meta">
-          <div><i data-lucide="radio"></i> <strong>22</strong> radios en vivo</div>
-          <div><i data-lucide="store"></i> comercios locales</div>
+          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg> <strong>22</strong> radios en vivo</div>
+          <div><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> comercios locales</div>
         </div>
       </div>
 
@@ -749,7 +745,7 @@
 
     <div class="curiosidad">
       <div class="curiosidad-icon">
-        <i data-lucide="sparkles"></i>
+        <svg viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"></path></svg>
       </div>
       <div class="curiosidad-text">
         <strong>¿Sabías que...?</strong> Junín fue fundada en 1827 y su nombre rinde homenaje a la <strong>Batalla de Junín</strong> en Perú. Hoy es la ciudad más importante del noroeste bonaerense.
@@ -758,10 +754,10 @@
 
     <div class="tabs">
       <button id="tabRadios" class="tab active" tabindex="0">
-        <i data-lucide="radio"></i> RADIOS
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg> RADIOS
       </button>
       <button id="tabComercios" class="tab" tabindex="0">
-        <i data-lucide="store"></i> COMERCIOS
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> COMERCIOS
       </button>
     </div>
 
@@ -848,7 +844,6 @@
     </div>
 
     <div id="comerciosSection" style="display:none">
-
       <div style="text-align:center; margin-bottom:20px;">
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeI6UeOma-Px-LeUDftci8TZSasPMPM7RCPmr_osoM6qwEofA/viewform" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, #4ade80, #22c55e); color:#0a1410; padding:14px 28px; border-radius:100px; text-decoration:none; font-weight:800; font-size:15px; box-shadow:0 4px 20px rgba(74,222,128,0.3); transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
           🏪 Registrá tu comercio gratis
@@ -914,7 +909,9 @@
       </div>
     </div>
 
-  </main> </div>
+  </main>
+
+</div>
 
 <div class="player-bar" role="region" aria-label="Reproductor de audio">
   <div class="player-top">
@@ -930,8 +927,6 @@
 </div>
 
 <script>
-  lucide.createIcons();
-
   // RELOJ EN VIVO
   function updateClock() {
     const now = new Date();
@@ -953,7 +948,6 @@
     comerciosSection.style.display = 'none';
     document.getElementById('tabRadios').classList.add('active');
     document.getElementById('tabComercios').classList.remove('active');
-    lucide.createIcons();
   });
 
   document.getElementById('tabComercios').addEventListener('click', () => {
@@ -961,7 +955,6 @@
     comerciosSection.style.display = 'block';
     document.getElementById('tabComercios').classList.add('active');
     document.getElementById('tabRadios').classList.remove('active');
-    lucide.createIcons();
   });
 
   // PLAYER
@@ -1031,7 +1024,6 @@
 
 </body>
 </html>
-
 
 
 
