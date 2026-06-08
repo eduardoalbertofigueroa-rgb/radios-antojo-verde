@@ -271,6 +271,10 @@
     50% { opacity: 1; }
   }
 
+  .moon {
+    display: none; /* reemplazado por el escudo */
+  }
+
   .escudo-hero {
     position: absolute;
     top: 18px;
@@ -631,9 +635,10 @@
 
 <div class="container">
 
+  <!-- HEADER -->
   <header class="header">
     <div class="logo-wrap">
-      <img src="logo.webp" alt="Junín Conecta" class="logo-img-header">
+      <img src="logo.png" alt="Junín Conecta" class="logo-img-header">
       <div class="logo-text">
         <h1>Junín Conecta</h1>
         <span class="tagline">~ hecho con cariño en la Pampa ~</span>
@@ -651,6 +656,7 @@
     </div>
   </header>
 
+  <!-- HERO con SKYLINE de JUNÍN -->
   <section class="hero">
     <div class="hero-text">
       <span class="hero-eyebrow">Desde el corazón de la Pampa</span>
@@ -664,44 +670,82 @@
 
     <div class="skyline-wrap">
       <img src="escudo-sarmiento.webp" alt="Escudo Club Atlético Sarmiento Junín" class="escudo-hero">
-      
       <div class="star" style="top:20px; left:15%;"></div>
       <div class="star" style="top:40px; left:25%; animation-delay:0.5s;"></div>
       <div class="star" style="top:15px; left:45%; animation-delay:1s;"></div>
       <div class="star" style="top:50px; left:60%; animation-delay:1.5s;"></div>
+      <div class="star" style="top:25px; left:75%; animation-delay:2s;"></div>
+      <div class="star" style="top:35px; left:85%; animation-delay:0.3s;"></div>
+      <div class="star" style="top:60px; left:10%; animation-delay:1.8s;"></div>
+      <div class="star" style="top:30px; left:35%; animation-delay:0.8s;"></div>
 
-      <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0 165 Q 300 160 600 165 T 1200 160 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
-        
+      <svg class="skyline-svg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.5" fill="#0a1a14">
+          <ellipse cx="40" cy="160" rx="22" ry="18"/>
+          <ellipse cx="75" cy="158" rx="18" ry="15"/>
+          <ellipse cx="105" cy="160" rx="20" ry="17"/>
+        </g>
         <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
           <rect x="140" y="130" width="40" height="35"/>
+          <polygon points="140,130 160,115 180,130"/>
+          <rect x="155" y="145" width="8" height="12" fill="#4ade80" opacity="0.6"/>
           <rect x="185" y="125" width="50" height="40"/>
+          <polygon points="185,125 210,108 235,125"/>
+          <rect x="195" y="140" width="8" height="10" fill="#fbbf24" opacity="0.7"/>
+          <rect x="215" y="140" width="8" height="10" fill="#fbbf24" opacity="0.7"/>
           <rect x="240" y="135" width="35" height="30"/>
+          <polygon points="240,135 257,122 275,135"/>
         </g>
-        
+        <!-- ESTADIO SARMIENTO -->
         <g fill="#1a3a2a" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.6">
-          <rect x="480" y="140" width="240" height="30"/>
-          <line x1="492" y1="140" x2="492" y2="80" stroke-opacity="0.4"/>
-          <line x1="708" y1="140" x2="708" y2="80" stroke-opacity="0.4"/>
-          <text x="600" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-family="monospace" opacity="0.8">ESTADIO SARMIENTO</text>
+          <rect x="480" y="145" width="240" height="25"/>
+          <polygon points="480,145 455,100 480,100" fill="#142922" stroke="#4ade80" stroke-opacity="0.5"/>
+          <polygon points="720,145 745,100 720,100" fill="#142922" stroke="#4ade80" stroke-opacity="0.5"/>
+          <rect x="450" y="94" width="35" height="7" fill="#4ade80" opacity="0.5"/>
+          <rect x="715" y="94" width="35" height="7" fill="#4ade80" opacity="0.5"/>
+          <line x1="492" y1="145" x2="492" y2="72" stroke="#4ade80" stroke-width="2" stroke-opacity="0.8"/>
+          <line x1="708" y1="145" x2="708" y2="72" stroke="#4ade80" stroke-width="2" stroke-opacity="0.8"/>
+          <line x1="492" y1="72" x2="535" y2="65" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.8"/>
+          <line x1="708" y1="72" x2="665" y2="65" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.8"/>
+          <circle cx="535" cy="65" r="4" fill="#fbbf24" opacity="1"/>
+          <circle cx="665" cy="65" r="4" fill="#fbbf24" opacity="1"/>
+          <rect x="485" y="150" width="230" height="18" fill="#0f2a18" stroke="#4ade80" stroke-opacity="0.3"/>
+          <line x1="600" y1="150" x2="600" y2="168" stroke="#4ade80" stroke-width="1" stroke-opacity="0.4"/>
+          <ellipse cx="600" cy="159" rx="28" ry="7" fill="none" stroke="#4ade80" stroke-width="1" stroke-opacity="0.4"/>
+          <text x="600" y="142" text-anchor="middle" fill="#4ade80" font-size="9" font-family="monospace" opacity="0.9" font-weight="bold">ESTADIO SARMIENTO</text>
         </g>
-
         <g fill="#142922" stroke="#1f3b2a" stroke-width="1">
           <rect x="850" y="135" width="40" height="30"/>
+          <polygon points="850,135 870,120 890,135"/>
+          <rect x="862" y="148" width="8" height="10" fill="#fbbf24" opacity="0.6"/>
           <rect x="895" y="128" width="55" height="38"/>
+          <polygon points="895,128 922,112 950,128"/>
+          <rect x="905" y="142" width="8" height="12" fill="#4ade80" opacity="0.7"/>
+          <rect x="930" y="142" width="8" height="12" fill="#fbbf24" opacity="0.6"/>
           <rect x="955" y="138" width="35" height="28"/>
+          <polygon points="955,138 972,124 990,138"/>
         </g>
+        <g opacity="0.5" fill="#0a1a14">
+          <ellipse cx="1010" cy="158" rx="20" ry="17"/>
+          <ellipse cx="1045" cy="160" rx="22" ry="18"/>
+          <ellipse cx="1080" cy="158" rx="18" ry="16"/>
+          <ellipse cx="1115" cy="160" rx="20" ry="17"/>
+          <ellipse cx="1150" cy="158" rx="18" ry="16"/>
+        </g>
+        <path d="M 0 165 Q 300 162 600 168 T 1200 165 L 1200 220 L 0 220 Z" fill="#0f1f16"/>
       </svg>
       <div class="laguna"></div>
     </div>
   </section>
 
+  <!-- BOTÓN APK -->
   <div class="container-download">
     <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" tabindex="0">
       <span>📥</span> Descargar Aplicación Android
     </a>
   </div>
 
+  <!-- DATO CURIOSO -->
   <div class="curiosidad">
     <div class="curiosidad-icon">
       <i data-lucide="sparkles"></i>
@@ -711,6 +755,7 @@
     </div>
   </div>
 
+  <!-- TABS -->
   <div class="tabs">
     <button id="tabRadios" class="tab active" tabindex="0">
       <i data-lucide="radio"></i> RADIOS
@@ -720,6 +765,7 @@
     </button>
   </div>
 
+  <!-- SECCIÓN RADIOS -->
   <div id="radiosSection">
     <div class="section-title">
       <h3>⭐ Radio local de Junín</h3>
@@ -727,7 +773,7 @@
     </div>
     <div class="radio-grid">
       <div class="card local" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
-        <img src="logo/radiojunin.webp"><p>Lt20 Radio Junin Am 1470</p>
+        <img src="logo/radiojunin.png"><p>Lt20 Radio Junin Am 1470</p>
       </div>
     </div>
 
@@ -737,74 +783,76 @@
     </div>
     <div class="radio-grid">
       <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
-        <img src="logo/mitre.webp"><p>Radio Mitre Am 790</p>
+        <img src="logo/mitre.png"><p>Radio Mitre Am 790</p>
       </div>
       <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
-        <img src="logo/continental.webp"><p>Continental Am 590</p>
+        <img src="logo/continental.png"><p>Continental Am 590</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac">
-        <img src="logo/lared.webp"><p>Radio la Red Am 910</p>
+        <img src="logo/lared.png"><p>Radio la Red Am 910</p>
       </div>
       <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
-        <img src="logo/los40principales.webp"><p>Los 40 - 105.5</p>
+        <img src="logo/los40principales.png"><p>Los 40 - 105.5</p>
       </div>
       <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3">
-        <img src="logo/mucharadio.webp"><p>Mucha Radio 94.7</p>
+        <img src="logo/mucharadio.png"><p>Mucha Radio 94.7</p>
       </div>
       <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
-        <img src="logo/pop101.5.webp"><p>Pop 101.5</p>
+        <img src="logo/pop101.5.png"><p>Pop 101.5</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
-        <img src="logo/vorterix.webp"><p>Vorterix</p>
+        <img src="logo/vorterix.png"><p>Vorterix</p>
       </div>
       <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
-        <img src="logo/mega.webp"><p>Mega 98.3</p>
+        <img src="logo/mega.png"><p>Mega 98.3</p>
       </div>
-      <div class="card" tabindex="0" data-name="Fm Vida 97.9" data-stream="https://streaming450tb.locucionar.com/proxy/fmvida979?mp=/stream">
-        <img src="logo/fm-vida.webp" alt="Logo de Fm Vida 97.9" loading="lazy"><p>Fm Vida 97.9</p>
       </div>
+        <div class="card" tabindex="0" data-name="Fm Vida 97.9" data-stream="https://streaming450tb.locucionar.com/proxy/fmvida979?mp=/stream">
+          <img src="logo/fm-vida.webp" alt="Logo de Fm Vida 97.9" loading="lazy"><p>Fm Vida 97.9</p>
+        </div>
       <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
-        <img src="logo/metro.webp"><p>Metro 95.1</p>
+        <img src="logo/metro.png"><p>Metro 95.1</p>
       </div>
       <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
-        <img src="logo/aspen.webp"><p>Aspen 102.3</p>
+        <img src="logo/aspen.png"><p>Aspen 102.3</p>
       </div>
       <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
-        <img src="logo/lanacion.webp"><p>La Nación 104.9</p>
+        <img src="logo/lanacion.png"><p>La Nación 104.9</p>
       </div>
       <div class="card" tabindex="0" data-name="Infobae 97.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/INFOBAE.mp3">
-        <img src="logo/infobae.webp"><p>Infobae 97.1</p>
+        <img src="logo/infobae.png"><p>Infobae 97.1</p>
       </div>
       <div class="card" tabindex="0" data-name="La 100" data-stream="https://27573.live.streamtheworld.com/FM999_56AAC.aac">
-        <img src="logo/la100.webp"><p>La 100</p>
+        <img src="logo/la100.png"><p>La 100</p>
       </div>
       <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
-        <img src="logo/vale.webp"><p>Vale 97.5</p>
+        <img src="logo/vale.png"><p>Vale 97.5</p>
       </div>
       <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://29326.live.streamtheworld.com/ROCKANDPOPAAC.aac">
-        <img src="logo/rockpop.webp"><p>Rock & Pop 95.9</p>
+        <img src="logo/rockpop.png"><p>Rock & Pop 95.9</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
-        <img src="logo/disney.webp"><p>Radio Disney</p>
+        <img src="logo/disney.png"><p>Radio Disney</p>
       </div>
       <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://cdn.instream.audio:9660/stream">
-        <img src="logo/urbana.webp"><p>Urbana Play 104.3</p>
+        <img src="logo/urbana.png"><p>Urbana Play 104.3</p>
       </div>
       <div class="card" tabindex="0" data-name="Futurock" data-stream="https://us-b4-p-e-jn18-audio.cdn.mdstrm.com/live-audio/5942a3a05fa68cca2efb4264/5d9d019112cbbb45d6a50960/chunks.m3u8">
-        <img src="logo/futurock.webp"><p>Futurock</p>
+        <img src="logo/futurock.png"><p>Futurock</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
-        <img src="logo/rivadavia.webp"><p>Rivadavia Am 630</p>
+        <img src="logo/rivadavia.png"><p>Rivadavia Am 630</p>
       </div>
       <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
-        <img src="logo/eo.webp"><p>EO 107.9</p>
+        <img src="logo/eo.png"><p>EO 107.9</p>
       </div>
       <div class="card" tabindex="0" data-name="Radio 10 AM 710" data-stream="https://radio10.stweb.tv/radio10/live/playlist.m3u8">
-        <img src="logo/radio10.webp"><p>Radio 10 AM 710</p>
+        <img src="logo/radio10.png"><p>Radio 10 AM 710</p>
       </div>
     </div>
   </div>
 
+  <!-- SECCIÓN COMERCIOS -->
   <div id="comerciosSection" style="display:none">
     <div id="menuCategorias" class="categorias-grid">
       <div class="card card-comercio" tabindex="0" onclick="mostrarCategoria('Contacto')">📞 Contacto</div>
@@ -866,6 +914,7 @@
 
 </div>
 
+<!-- PLAYER BAR -->
 <div class="player-bar">
   <div class="player-top">
     <div class="player-info">
@@ -882,6 +931,7 @@
 <script>
   lucide.createIcons();
 
+  // RELOJ EN VIVO
   function updateClock() {
     const now = new Date();
     const opts = { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -890,6 +940,7 @@
   updateClock();
   setInterval(updateClock, 10000);
 
+  // TABS
   const mainAudio = document.getElementById('mainAudio');
   const currentRadioName = document.getElementById('currentRadioName');
   const radiosSection = document.getElementById('radiosSection');
@@ -912,6 +963,7 @@
     lucide.createIcons();
   });
 
+  // PLAYER
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
@@ -923,6 +975,7 @@
     });
   });
 
+  // COMERCIOS
   function mostrarCategoria(id) {
     document.getElementById('menuCategorias').style.display = 'none';
     document.getElementById(id).style.display = 'block';
@@ -938,6 +991,7 @@
     setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
+  // CONTROL REMOTO TV
   document.addEventListener('keydown', function(e) {
     const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, .btn-apk, a'))
       .filter(el => el.offsetParent !== null);
@@ -949,6 +1003,7 @@
     else if (e.key === 'Enter') { document.activeElement.click(); }
   });
 
+  // GOOGLE SHEETS COMERCIOS
   const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaD0ENZuTnryCil-5hfyLqczhcwZsiuEk6RgOiwwa0frF-GpU1_QKpzgDpo63R2ew_4WGMIR9Ykjav/pub?gid=0&single=true&output=tsv";
 
   fetch(CSV_URL)
@@ -974,6 +1029,39 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
