@@ -1101,27 +1101,34 @@
     else if (e.key === 'Enter') { document.activeElement.click(); }
   });
 
-  // GOOGLE SHEETS COMERCIOS
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQmNxIP1Mm8RUFx8463vHel4uS3TE0S2akX_koOfAJdGTrEwwm9vPzgFYYj-RL3MxFYsSItDEgz0PYP/pub?gid=0&single=true&output=tsv";
+ // SUPABASE COMERCIOS
+const SUPABASE_URL = "https://chtpiyddqjcpbpxpnolo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_PqTfEpdmzLj42gBvUqM1qQ_YQQA9d0W";
 
-  fetch(CSV_URL)
-    .then(r => r.text())
-    .then(csv => {
-      const filas = csv.split('\n').slice(1);
-      filas.forEach(fila => {
-        const [estado, nombre, telefono, direccion, whatsapp, categoria] = fila.split('\t');
-        if (!nombre || !categoria) return;
-        if (!estado || estado.trim().toLowerCase() !== 'aprobado') return;
-        const cat = categoria.trim().toLowerCase();
-        const contenedor = document.getElementById('lista-' + cat);
-        if (!contenedor) return;
-        contenedor.innerHTML += `
-          <div style="background:#1a3a2a; padding:15px; border-radius:14px; margin-bottom:10px; text-align:center; border:1px solid rgba(74,222,128,0.1);">
-            <strong>${nombre}</strong><br>
-            <small>📍 ${direccion}</small><br>
-            <small>📞 ${telefono}</small><br><br>
-            <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:100px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
-          </div>`;
+fetch(`${SUPABASE_URL}/rest/v1/comercios?select=*`, {
+  headers: {
+    "apikey": SUPABASE_KEY,
+    "Authorization": `Bearer ${SUPABASE_KEY}`
+  }
+})
+  .then(r => r.json())
+  .then(comercios => {
+    comercios.forEach(comercio => {
+      const { nombre, telefono, direccion, whatsapp, categoria } = comercio;
+      if (!nombre || !categoria) return;
+      const cat = categoria.trim().toLowerCase();
+      const contenedor = document.getElementById('lista-' + cat);
+      if (!contenedor) return;
+      contenedor.innerHTML += `
+        <div style="background:#1a3a2a; padding:15px; border-radius:14px; margin-bottom:10px; text-align:center; border:1px solid rgba(74,222,128,0.1);">
+          <strong>${nombre}</strong><br>
+          <small>📍 ${direccion}</small><br>
+          <small>📞 ${telefono}</small><br><br>
+          <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:100px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
+        </div>`;
+    });
+  })
+  .catch(err => console.error("Error cargando comercios:", err));
       });
     });
 </script>
