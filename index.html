@@ -133,6 +133,7 @@
 }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap">
@@ -597,6 +598,26 @@
   .card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; border-radius: 10px; }
   .card p { margin: 0; font-weight: 700; font-size: 13px; text-align: center; color: var(--text); }
 
+  .btn-favorito {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(10, 20, 16, 0.55);
+    border: none;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--text-dim);
+    z-index: 2;
+    transition: 0.2s;
+  }
+  .btn-favorito:hover { transform: scale(1.15); }
+  .btn-favorito.marcado { color: var(--sunset); }
+
   /* ====== COMERCIOS ====== */
   .categorias-grid {
     display: grid;
@@ -887,6 +908,14 @@
     </div>
 
     <div id="radiosSection">
+      <div id="favoritosSection" style="display:none;">
+        <div class="section-title">
+          <h3>⭐ Mis favoritas</h3>
+          <span class="count" id="countFavoritos">0</span>
+        </div>
+        <div class="radio-grid" id="favoritosGrid" style="margin-bottom:28px;"></div>
+      </div>
+
       <div class="section-title">
         <h3>⭐ Radio local de Junín</h3>
         <span class="count">2 estaciones</span>
@@ -1072,7 +1101,8 @@
       <span></span><span></span><span></span><span></span><span></span>
     </div>
   </div>
-  <audio id="mainAudio" controls autoplay></audio>
+  <audio id="mainAudio" controls></audio>
+  <div id="playerError" style="display:none; color:var(--sunset); font-size:12px; font-family:'JetBrains Mono',monospace; text-align:center;"></div>
 </div>
 
 <script>
@@ -1104,19 +1134,127 @@
     comerciosSection.style.display = 'block';
     document.getElementById('tabComercios').classList.add('active');
     document.getElementById('tabRadios').classList.remove('active');
+    cargarComercios();
   });
 
-  // PLAYER
+  // PLAYER (con soporte HLS para streams .m3u8 en Chrome/Firefox/Android)
+  const playerError = document.getElementById('playerError');
+  let hlsInstance = null;
+
+  function reproducirStream(nombre, url) {
+    playerError.style.display = 'none';
+    currentRadioName.innerText = "▶ " + nombre;
+
+    // Limpiar instancia previa de hls.js si existía
+    if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
+
+    const esM3u8 = url.includes('.m3u8');
+    const soportaHlsNativo = mainAudio.canPlayType('application/vnd.apple.mpegurl');
+
+    if (esM3u8 && !soportaHlsNativo && window.Hls && Hls.isSupported()) {
+      // Chrome/Firefox/Android: usar hls.js
+      hlsInstance = new Hls();
+      hlsInstance.loadSource(url);
+      hlsInstance.attachMedia(mainAudio);
+      hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => mainAudio.play());
+      hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+        if (data.fatal) mostrarErrorPlayer(nombre);
+      });
+    } else {
+      // Safari (HLS nativo) o streams normales (mp3/aac)
+      mainAudio.src = url;
+      mainAudio.play().catch(() => mostrarErrorPlayer(nombre));
+    }
+    visualizer.classList.add('active');
+  }
+
+  function mostrarErrorPlayer(nombre) {
+    visualizer.classList.remove('active');
+    playerError.style.display = 'block';
+    playerError.textContent = `⚠ No pudimos conectar con "${nombre}". Probá con otra radio o más tarde.`;
+  }
+
+  mainAudio.addEventListener('error', () => {
+    const activa = document.querySelector('.card.active');
+    if (activa) mostrarErrorPlayer(activa.getAttribute('data-name'));
+  });
+
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      currentRadioName.innerText = "▶ " + card.getAttribute('data-name');
-      mainAudio.src = card.getAttribute('data-stream');
-      mainAudio.play();
-      visualizer.classList.add('active');
+      reproducirStream(card.getAttribute('data-name'), card.getAttribute('data-stream'));
     });
   });
+
+  // ===== FAVORITOS =====
+  function getFavoritos() {
+    return JSON.parse(localStorage.getItem('favoritos') || '[]');
+  }
+
+  function guardarFavoritos(favs) {
+    localStorage.setItem('favoritos', JSON.stringify(favs));
+  }
+
+  function toggleFavorito(nombre, e) {
+    e.stopPropagation();
+    let favs = getFavoritos();
+    favs = favs.includes(nombre) ? favs.filter(f => f !== nombre) : [...favs, nombre];
+    guardarFavoritos(favs);
+    pintarEstrellas();
+    renderFavoritos();
+  }
+
+  function pintarEstrellas() {
+    const favs = getFavoritos();
+    document.querySelectorAll('.card[data-stream]').forEach(card => {
+      const nombre = card.getAttribute('data-name');
+      const btn = card.querySelector('.btn-favorito');
+      if (btn) {
+        const activo = favs.includes(nombre);
+        btn.textContent = activo ? '★' : '☆';
+        btn.classList.toggle('marcado', activo);
+      }
+    });
+  }
+
+  function renderFavoritos() {
+    const favs = getFavoritos();
+    const grid = document.getElementById('favoritosGrid');
+    const seccion = document.getElementById('favoritosSection');
+    document.getElementById('countFavoritos').textContent = favs.length;
+
+    if (favs.length === 0) { seccion.style.display = 'none'; grid.innerHTML = ''; return; }
+
+    seccion.style.display = 'block';
+    grid.innerHTML = '';
+    favs.forEach(nombre => {
+      const original = document.querySelector(`.card[data-name="${CSS.escape(nombre)}"]`);
+      if (!original) return;
+      const clon = original.cloneNode(true);
+      clon.addEventListener('click', () => {
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        original.classList.add('active');
+        reproducirStream(nombre, original.getAttribute('data-stream'));
+      });
+      grid.appendChild(clon);
+    });
+    pintarEstrellas();
+  }
+
+  // Agrega el botón de estrella a cada tarjeta de radio
+  document.querySelectorAll('.card[data-stream]').forEach(card => {
+    card.style.position = 'relative';
+    const btn = document.createElement('button');
+    btn.className = 'btn-favorito';
+    btn.setAttribute('aria-label', 'Marcar como favorita');
+    btn.textContent = '☆';
+    btn.addEventListener('click', (e) => toggleFavorito(card.getAttribute('data-name'), e));
+    card.appendChild(btn);
+  });
+
+  pintarEstrellas();
+  renderFavoritos();
 
   // COMERCIOS
   function mostrarCategoria(id) {
@@ -1146,39 +1284,60 @@
     else if (e.key === 'Enter') { document.activeElement.click(); }
   });
 
-  // SUPABASE COMERCIOS
+  // SUPABASE COMERCIOS (se carga recién al abrir la pestaña, una sola vez)
   const SUPABASE_URL = "https://chtpiyddqjcpbpxpnolo.supabase.co";
   const SUPABASE_KEY = "sb_publishable_PqTfEpdmzLj42gBvUqM1qQ_YQQA9d0W";
+  let comerciosCargados = false;
 
-  fetch(`${SUPABASE_URL}/rest/v1/comercios?select=*`, {
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`
-    }
-  })
-    .then(r => r.json())
-    .then(comercios => {
-      comercios.forEach(comercio => {
-        const { nombre, telefono, direccion, whatsapp, categoria } = comercio;
-        if (!nombre || !categoria) return;
-        const cat = categoria.trim().toLowerCase();
-        const contenedor = document.getElementById('lista-' + cat);
-        if (!contenedor) return;
-        contenedor.innerHTML += `
-          <div style="background:#1a3a2a; padding:15px; border-radius:14px; margin-bottom:10px; text-align:center; border:1px solid rgba(74,222,128,0.1);">
-            <strong>${nombre}</strong><br>
-            <small>📍 ${direccion}</small><br>
-            <small>📞 ${telefono}</small><br><br>
-            <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:100px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
-          </div>`;
-      });
+  function cargarComercios() {
+    if (comerciosCargados) return;
+    comerciosCargados = true;
+
+    fetch(`${SUPABASE_URL}/rest/v1/comercios?select=*`, {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
+      }
     })
-    .catch(err => console.error("Error cargando comercios:", err));
+      .then(r => {
+        if (!r.ok) throw new Error('Respuesta no OK: ' + r.status);
+        return r.json();
+      })
+      .then(comercios => {
+        comercios.forEach(comercio => {
+          const { nombre, telefono, direccion, whatsapp, categoria } = comercio;
+          if (!nombre || !categoria) return;
+          const cat = categoria.trim().toLowerCase();
+          const contenedor = document.getElementById('lista-' + cat);
+          if (!contenedor) return;
+          contenedor.innerHTML += `
+            <div style="background:#1a3a2a; padding:15px; border-radius:14px; margin-bottom:10px; text-align:center; border:1px solid rgba(74,222,128,0.1);">
+              <strong>${nombre}</strong><br>
+              <small>📍 ${direccion}</small><br>
+              <small>📞 ${telefono}</small><br><br>
+              <a href="https://wa.me/${whatsapp}" target="_blank" style="background:#25d366; color:white; padding:8px 15px; border-radius:100px; text-decoration:none; font-weight:bold;">💬 WhatsApp</a>
+            </div>`;
+        });
+      })
+      .catch(err => {
+        console.error("Error cargando comercios:", err);
+        comerciosCargados = false; // permite reintentar si vuelve a abrir la pestaña
+        document.querySelectorAll('[id^="lista-"]').forEach(c => {
+          c.innerHTML = '<p style="color:var(--sunset); font-size:13px; text-align:center;">⚠ No pudimos cargar los comercios. Revisá tu conexión e intentá de nuevo.</p>';
+        });
+      });
+  }
+
+  // ===== SERVICE WORKER (offline + instalación como app) =====
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(err => console.error('Error registrando SW:', err));
+    });
+  }
 </script>
 
 </body>
 </html>
-
 
 
 
