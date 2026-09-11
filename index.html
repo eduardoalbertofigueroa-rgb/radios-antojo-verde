@@ -437,6 +437,41 @@
 
   .btn-apk:hover { background-color: var(--green-glow); transform: scale(1.05); }
 
+  /* ====== CARTEL DE INSTALACIÓN iOS ====== */
+  .ios-install-card {
+    display: none;
+    max-width: 480px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(20, 41, 34, 0.6));
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 18px;
+    padding: 18px 22px;
+    text-align: left;
+  }
+
+  .ios-install-card.visible { display: block; }
+
+  .ios-install-card h4 {
+    color: var(--sky-blue);
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ios-install-card ol {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .ios-install-card strong { color: var(--text); }
+  .ios-install-card .icono-compartir { font-size: 15px; }
+
   /* ====== DATO CURIOSO ====== */
   .curiosidad {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(251, 113, 133, 0.05));
@@ -884,9 +919,20 @@
     </section>
 
     <div class="container-download">
-      <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" tabindex="0">
+      <a href="junin-conecta.apk" download="JuninConecta.apk" class="btn-apk" id="btnApk" tabindex="0">
         <span>📥</span> Descargar Aplicación Android
       </a>
+    </div>
+
+    <div class="container-download" style="margin-top:-8px;">
+      <div class="ios-install-card" id="iosInstallCard">
+        <h4>📱 Instalá Junín Conecta en tu iPhone</h4>
+        <ol>
+          <li>Tocá el ícono <strong>Compartir</strong> <span class="icono-compartir">⬆️</span> abajo en Safari</li>
+          <li>Elegí <strong>"Agregar a pantalla de inicio"</strong></li>
+          <li>Confirmá tocando <strong>"Agregar"</strong> arriba a la derecha</li>
+        </ol>
+      </div>
     </div>
 
     <div class="curiosidad">
@@ -1106,6 +1152,20 @@
 </div>
 
 <script>
+  // DETECCIÓN DE iOS: reemplaza el botón de descarga .apk por instrucciones de instalación
+  function esIOS() {
+    const ua = navigator.userAgent;
+    const esIphoneIpad = /iPad|iPhone|iPod/.test(ua);
+    // iPadOS 13+ se identifica como Mac, pero tiene soporte táctil
+    const esIpadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    return esIphoneIpad || esIpadOS13Plus;
+  }
+
+  if (esIOS()) {
+    document.getElementById('btnApk').style.display = 'none';
+    document.getElementById('iosInstallCard').classList.add('visible');
+  }
+
   // RELOJ EN VIVO
   function updateClock() {
     const now = new Date();
@@ -1338,7 +1398,6 @@
 
 </body>
 </html>
-
 
 
 
