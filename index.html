@@ -1331,7 +1331,7 @@
   // ===== SERVICE WORKER (offline + instalación como app) =====
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch(err => console.error('Error registrando SW:', err));
+      navigator.serviceWorker.register('service-worker.js').catch(err => console.error('Error registrando SW:', err));
     });
   }
 </script>
