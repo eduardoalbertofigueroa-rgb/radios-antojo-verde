@@ -23,7 +23,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://juninconecta.com.ar/">
 <meta property="og:title" content="Junín Conecta | Radios en Vivo y Guía de Comercios de Junín">
-<meta property="og:description" content="Escuchá LT20 Radio Junín AM 1470, 89.5 FM Junín (con las transmisiones de básquet de Argentino de Junín) y otras 25 radios en vivo, totalmente gratis. Encontrá los mejores comercios y servicios locales de Junín en un solo lugar.">
+<meta property="og:description" content="Escuchá LT20 Radio Junín AM 1470, 89.5 FM Junín (con las transmisiones de básquet de Argentino de Junín) y otras 27 radios en vivo, totalmente gratis. Encontrá los mejores comercios y servicios locales de Junín en un solo lugar.">
 <meta property="og:image" content="https://juninconecta.com.ar/icono.webp">
 <meta property="og:locale" content="es_AR">
 <meta property="og:site_name" content="Junín Conecta">
@@ -31,7 +31,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Junín Conecta | Radios en Vivo y Guía de Comercios de Junín">
-<meta name="twitter:description" content="Escuchá LT20 Radio Junín AM 1470, 89.5 FM Junín y otras 25 radios en vivo, totalmente gratis. Encontrá los mejores comercios y servicios locales de Junín.">
+<meta name="twitter:description" content="Escuchá LT20 Radio Junín AM 1470, 89.5 FM Junín y otras 27 radios en vivo, totalmente gratis. Encontrá los mejores comercios y servicios locales de Junín.">
 <meta name="twitter:image" content="https://juninconecta.com.ar/icono.webp">
 
 <!-- JSON-LD: Sitio / App -->
@@ -837,7 +837,7 @@
         <h2>La voz de <span class="accent">Junín</span><br>en tu bolsillo.</h2>
         <p class="subtitle">Las radios de siempre, los comercios del barrio y la información local. Una app hecha por juninenses, para juninenses.</p>
         <div class="hero-meta">
-          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg> <strong>28</strong> radios en vivo</div>
+          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg> <strong id="countTotalRadios">29</strong> radios en vivo</div>
           <div><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> comercios locales</div>
         </div>
       </div>
@@ -964,12 +964,12 @@
 
       <div class="section-title">
         <h3>⭐ Radio local de Junín</h3>
-        <span class="count">2 estaciones</span>
+        <span class="count" id="countLocales">2 estaciones</span>
       </div>
       <p style="color:var(--text-dim); font-size:13px; margin:-10px 0 16px; max-width:480px;">
         Escuchá <strong style="color:var(--text)">LT20 Radio Junín AM 1470</strong> y <strong style="color:var(--text)">89.5 FM Junín</strong> en vivo y gratis, las radios de siempre para los vecinos de Junín, Buenos Aires. Por 89.5 FM Junín además podés seguir las transmisiones de básquet de Argentino de Junín. Tocá la tarjeta para sintonizar al instante.
       </p>
-      <div class="radio-grid">
+      <div class="radio-grid" id="gridLocales">
         <div class="card local" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
           <img src="logo/radiojunin.webp" alt="Logo de LT20 Radio Junín AM 1470" loading="lazy"><p>Lt20 Radio Junin Am 1470</p>
         </div>
@@ -980,9 +980,9 @@
 
       <div class="section-title" style="margin-top:28px;">
         <h3>🇦🇷 Radios nacionales</h3>
-        <span class="count">26 estaciones</span>
+        <span class="count" id="countNacionales">27 estaciones</span>
       </div>
-      <div class="radio-grid">
+      <div class="radio-grid" id="gridNacionales">
         <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
           <img src="logo/mitre.webp" alt="Logo de Radio Mitre AM 790" loading="lazy"><p>Radio Mitre Am 790</p>
         </div>
@@ -1061,7 +1061,7 @@
         <div class="card" tabindex="0" data-name="LV4 Radio San Rafael" data-stream="https://ohradio.cc/8140/stream">
           <img src="logo/lv4.webp" alt="Logo de LV4 Radio San Rafael" loading="lazy"><p>LV4 Radio San Rafael</p>
         </div>
-          <div class="card" tabindex="0" data-name="Lentos De Todos Los Tiempos" data-stream="https://s3.conectarmedia.com:8016/stream">
+        <div class="card" tabindex="0" data-name="Lentos De Todos Los Tiempos" data-stream="https://s3.conectarmedia.com:8016/stream">
           <img src="logo/lentosdetodoslostiempos.webp" alt="Logo de Lentos De Todos Los Tiempos" loading="lazy"><p>Lentos De Todos Los Tiempos</p>
         </div>
       </div>
@@ -1168,6 +1168,24 @@
     document.getElementById('btnApk').style.display = 'none';
     document.getElementById('iosInstallCard').classList.add('visible');
   }
+
+  // ===== CONTADORES AUTOMÁTICOS DE RADIOS =====
+  // Cuenta las tarjetas de cada grid y actualiza los números solo,
+  // así no hay que tocarlos a mano cada vez que se agrega una radio.
+  function actualizarContadores() {
+    const cantLocales = document.querySelectorAll('#gridLocales .card[data-stream]').length;
+    const cantNacionales = document.querySelectorAll('#gridNacionales .card[data-stream]').length;
+    const total = cantLocales + cantNacionales;
+
+    const elLocales = document.getElementById('countLocales');
+    const elNacionales = document.getElementById('countNacionales');
+    const elTotal = document.getElementById('countTotalRadios');
+
+    if (elLocales) elLocales.textContent = cantLocales + (cantLocales === 1 ? ' estación' : ' estaciones');
+    if (elNacionales) elNacionales.textContent = cantNacionales + (cantNacionales === 1 ? ' estación' : ' estaciones');
+    if (elTotal) elTotal.textContent = total;
+  }
+  actualizarContadores();
 
   // RELOJ EN VIVO
   function updateClock() {
@@ -1401,8 +1419,6 @@
 
 </body>
 </html>
-
-
 
 
 
