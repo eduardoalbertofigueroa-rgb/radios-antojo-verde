@@ -3,7 +3,7 @@
 // instantáneo y funcione offline. Los streams de radio en vivo y los
 // datos de comercios (Supabase) NUNCA se cachean acá: siempre van a la red.
 
-const CACHE_NAME = 'junin-conecta-v1';
+const CACHE_NAME = 'junin-conecta-v2';
 
 // Archivos base de la interfaz. Agregá acá cada logo de radio (logo/*.webp)
 // si querés que las tarjetas se vean completas también sin conexión.
