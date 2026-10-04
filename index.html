@@ -871,6 +871,18 @@
     background: none; font-size: 18px; transform: translateY(-50%);
   }
   .radio-grid .btn-favorito:hover { transform: translateY(-50%) scale(1.15); }
+
+  /* espacio entre "Junín" y "en tu bolsillo" al ocultar el salto de línea */
+  .hero h2 .accent { margin-right: 0.25em; }
+
+  /* ====== FILTROS DE RADIOS (AM / FM / Noticias / Música) ====== */
+  .filtros-radio { display: flex; gap: 8px; overflow-x: auto; padding: 0 0 14px; }
+  .chip-filtro {
+    flex-shrink: 0; height: 36px; padding: 0 16px; border-radius: 100px;
+    background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim);
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+  .chip-filtro.activo { background: var(--green-primary); border-color: var(--green-primary); color: #08110e; }
 </style>
 </head>
 <body>
@@ -1022,7 +1034,14 @@
     </div>
 
     <div id="radiosSection">
-      <div id="favoritosSection" style="display:none;">
+      <div class="filtros-radio" id="filtrosRadio" role="group" aria-label="Filtrar radios">
+        <button class="chip-filtro activo" data-filtro="todas" type="button">Todas</button>
+        <button class="chip-filtro" data-filtro="am" type="button">AM</button>
+        <button class="chip-filtro" data-filtro="fm" type="button">FM</button>
+        <button class="chip-filtro" data-filtro="noticias" type="button">Noticias</button>
+        <button class="chip-filtro" data-filtro="musica" type="button">Música</button>
+      </div>
+            <div id="favoritosSection" style="display:none;">
         <div class="section-title">
           <h3>⭐ Mis favoritas</h3>
           <span class="count" id="countFavoritos">0</span>
@@ -1038,10 +1057,10 @@
         Escuchá <strong style="color:var(--text)">LT20 Radio Junín AM 1470</strong> y <strong style="color:var(--text)">89.5 FM Junín</strong> en vivo y gratis, las radios de siempre para los vecinos de Junín, Buenos Aires. Por 89.5 FM Junín además podés seguir las transmisiones de básquet de Argentino de Junín. Tocá la tarjeta para sintonizar al instante.
       </p>
       <div class="radio-grid" id="gridLocales">
-        <div class="card local" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream">
+        <div class="card local" tabindex="0" data-name="Lt20 Radio Junin Am 1470" data-stream="https://01.solumedia.com.ar:8260/stream" data-band="AM" data-genre="noticias">
           <img src="logo/radiojunin.webp" alt="Logo de LT20 Radio Junín AM 1470" loading="lazy"><p>Lt20 Radio Junin Am 1470</p>
         </div>
-        <div class="card local" tabindex="0" data-name="89.5 FM Junin" data-stream="https://s2.servicioderadio.com:7274/stream">
+        <div class="card local" tabindex="0" data-name="89.5 FM Junin" data-stream="https://s2.servicioderadio.com:7274/stream" data-band="FM" data-genre="folklore">
           <img src="logo/89.5Fmjunin.webp" alt="Logo de 89.5 FM Junín" loading="lazy"><p>89.5 FM Junin</p>
         </div>
       </div>
@@ -1051,88 +1070,88 @@
         <span class="count" id="countNacionales">28 estaciones</span>
       </div>
       <div class="radio-grid" id="gridNacionales">
-        <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3">
+        <div class="card" tabindex="0" data-name="Radio Mitre Am 790" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/AM790_56_SC.mp3" data-band="AM" data-genre="noticias">
           <img src="logo/mitre.webp" alt="Logo de Radio Mitre AM 790" loading="lazy"><p>Radio Mitre Am 790</p>
         </div>
-        <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live">
+        <div class="card" tabindex="0" data-name="Continental Am 590" data-stream="https://frontend.radiohdvivo.com/continental/live" data-band="AM" data-genre="noticias">
           <img src="logo/continental.webp" alt="Logo de Radio Continental AM 590" loading="lazy"><p>Continental Am 590</p>
         </div>
-        <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac">
+        <div class="card" tabindex="0" data-name="Radio la Red Am 910" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/LA_RED_AM910AAC.aac" data-band="AM" data-genre="noticias">
           <img src="logo/lared.webp" alt="Logo de Radio La Red AM 910" loading="lazy"><p>Radio la Red Am 910</p>
         </div>
-        <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40">
+        <div class="card" tabindex="0" data-name="Los 40 - 105.5" data-stream="https://edge02.radiohdvivo.com/los40" data-band="FM" data-genre="musica">
           <img src="logo/los40principales.webp" alt="Logo de Los 40 Principales FM 105.5" loading="lazy"><p>Los 40 - 105.5</p>
         </div>
-        <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3">
+        <div class="card" tabindex="0" data-name="Mucha Radio 94.7" data-stream="https://24463.live.streamtheworld.com/MUCHA_RADIO.mp3" data-band="FM" data-genre="musica">
           <img src="logo/mucharadio.webp" alt="Logo de Mucha Radio FM 94.7" loading="lazy"><p>Mucha Radio 94.7</p>
         </div>
-        <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8">
+        <div class="card" tabindex="0" data-name="Pop 101.5" data-stream="https://popradio.stweb.tv/popradio/live/chunks.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/pop101.5.webp" alt="Logo de Pop Radio FM 101.5" loading="lazy"><p>Pop 101.5</p>
         </div>
-        <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio">
+        <div class="card" tabindex="0" data-name="Radio Vorterix" data-stream="https://ice2.edge-apps.net/radio1_high-20057.audio" data-band="FM" data-genre="musica">
           <img src="logo/vorterix.webp" alt="Logo de Radio Vorterix" loading="lazy"><p>Vorterix</p>
         </div>
-        <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8">
+        <div class="card" tabindex="0" data-name="Mega 98.3" data-stream="https://mega.stweb.tv/mega983/live/chunks.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/mega.webp" alt="Logo de Mega 98.3 FM" loading="lazy"><p>Mega 98.3</p>
         </div>
-        <div class="card" tabindex="0" data-name="Fm Vida 97.9" data-stream="https://streaming450tb.locucionar.com/proxy/fmvida979?mp=/stream">
+        <div class="card" tabindex="0" data-name="Fm Vida 97.9" data-stream="https://streaming450tb.locucionar.com/proxy/fmvida979?mp=/stream" data-band="FM" data-genre="folklore">
           <img src="logo/fm-vida.webp" alt="Logo de Fm Vida 97.9" loading="lazy"><p>Fm Vida 97.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3">
+        <div class="card" tabindex="0" data-name="Metro 95.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/METRO.mp3" data-band="FM" data-genre="musica">
           <img src="logo/metro.webp" alt="Logo de Radio Metro FM 95.1" loading="lazy"><p>Metro 95.1</p>
         </div>
-        <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3">
+        <div class="card" tabindex="0" data-name="Aspen 102.3" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/ASPEN.mp3" data-band="FM" data-genre="musica">
           <img src="logo/aspen.webp" alt="Logo de Aspen FM 102.3" loading="lazy"><p>Aspen 102.3</p>
         </div>
-        <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen">
+        <div class="card" tabindex="0" data-name="La Nación 104.9" data-stream="https://stream.radio.co/s2ed3bec0a/listen" data-band="FM" data-genre="noticias">
           <img src="logo/lanacion.webp" alt="Logo de Radio La Nación FM 104.9" loading="lazy"><p>La Nación 104.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="horizonte-101.9" data-stream="https://jireh-1-hls-audio-br-isp.dps.live/hls-audio/4e252a65837b69e349d5d8c1033152b4/hztear/playlist/manifest/gotardisz/audio/now/livestream1.m3u8">
+        <div class="card" tabindex="0" data-name="horizonte-101.9" data-stream="https://jireh-1-hls-audio-br-isp.dps.live/hls-audio/4e252a65837b69e349d5d8c1033152b4/hztear/playlist/manifest/gotardisz/audio/now/livestream1.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/horizonte-101.9.webp" alt="Logo de horizonte-101.9" loading="lazy"><p>horizonte-101.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="Now 97.9" data-stream="https://ipanel.instream.audio:7002/stream">
+        <div class="card" tabindex="0" data-name="Now 97.9" data-stream="https://ipanel.instream.audio:7002/stream" data-band="FM" data-genre="musica">
           <img src="logo/now979.webp" alt="Logo de Now 97.9" loading="lazy"><p>Now 97.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="La 100" data-stream="https://27573.live.streamtheworld.com/FM999_56AAC.aac">
+        <div class="card" tabindex="0" data-name="La 100" data-stream="https://27573.live.streamtheworld.com/FM999_56AAC.aac" data-band="FM" data-genre="musica">
           <img src="logo/la100.webp" alt="Logo de La 100 FM 99.9" loading="lazy"><p>La 100</p>
         </div>
-        <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8">
+        <div class="card" tabindex="0" data-name="Vale 97.5" data-stream="https://vale.stweb.tv/vale/live/chunks.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/vale.webp" alt="Logo de Vale FM 97.5" loading="lazy"><p>Vale 97.5</p>
         </div>
-        <div class="card" tabindex="0" data-name="Latina 101.1" data-stream="https://stream-gtlc.telecentro.net.ar/hls/radiolatinahls/0/playlist.m3u8?uid=370566ffdba5915e8b0347827f02d596">
+        <div class="card" tabindex="0" data-name="Latina 101.1" data-stream="https://stream-gtlc.telecentro.net.ar/hls/radiolatinahls/0/playlist.m3u8?uid=370566ffdba5915e8b0347827f02d596" data-band="FM" data-genre="musica">
           <img src="logo/latina.webp" alt="Logo de Latina 101.1" loading="lazy"><p>Latina 101.1</p>
         </div>
-        <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://24383.live.streamtheworld.com/ROCKANDPOPAAC.aac">
+        <div class="card" tabindex="0" data-name="Rock & Pop 95.9" data-stream="https://24383.live.streamtheworld.com/ROCKANDPOPAAC.aac" data-band="FM" data-genre="musica">
           <img src="logo/rockpop.webp" alt="Logo de Rock & Pop FM 95.9" loading="lazy"><p>Rock & Pop 95.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3">
+        <div class="card" tabindex="0" data-name="Radio Disney" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DISNEY_ARG_BA.mp3" data-band="FM" data-genre="musica">
           <img src="logo/disney.webp" alt="Logo de Radio Disney Argentina" loading="lazy"><p>Radio Disney</p>
         </div>
-        <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://live-ar1.cdnrad.com/hls/urbanaplay/live.m3u8">
+        <div class="card" tabindex="0" data-name="Urbana Play 104.3" data-stream="https://live-ar1.cdnrad.com/hls/urbanaplay/live.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/urbana.webp" alt="Logo de Urbana Play FM 104.3" loading="lazy"><p>Urbana Play 104.3</p>
         </div>
-        <div class="card" tabindex="0" data-name="Futurock" data-stream="https://us-b4-p-e-jn18-audio.cdn.mdstrm.com/live-audio/5942a3a05fa68cca2efb4264/5d9d019112cbbb45d6a50960/chunks.m3u8">
+        <div class="card" tabindex="0" data-name="Futurock" data-stream="https://us-b4-p-e-jn18-audio.cdn.mdstrm.com/live-audio/5942a3a05fa68cca2efb4264/5d9d019112cbbb45d6a50960/chunks.m3u8" data-band="FM" data-genre="musica">
           <img src="logo/futurock.webp" alt="Logo de Futurock Radio" loading="lazy"><p>Futurock</p>
         </div>
-        <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3">
+        <div class="card" tabindex="0" data-name="Radio Rivadavia Am 630" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/RIVADAVIA.mp3" data-band="AM" data-genre="noticias">
           <img src="logo/rivadavia.webp" alt="Logo de Radio Rivadavia AM 630" loading="lazy"><p>Rivadavia Am 630</p>
         </div>
-        <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio">
+        <div class="card" tabindex="0" data-name="EO 107.9" data-stream="https://unlimited5-us.dps.live/observador/aac/icecast.audio" data-band="FM" data-genre="noticias">
           <img src="logo/eo.webp" alt="Logo de El Observador FM 107.9" loading="lazy"><p>EO 107.9</p>
         </div>
-        <div class="card" tabindex="0" data-name="Radio 10 AM 710" data-stream="https://radio10.stweb.tv/radio10/live/playlist.m3u8">
+        <div class="card" tabindex="0" data-name="Radio 10 AM 710" data-stream="https://radio10.stweb.tv/radio10/live/playlist.m3u8" data-band="AM" data-genre="noticias">
           <img src="logo/radio10.webp" alt="Logo de Radio 10 AM 710" loading="lazy"><p>Radio 10 AM 710</p>
         </div>
-        <div class="card" tabindex="0" data-name="cadena3" data-stream="https://24453.live.streamtheworld.com/RADIO3.mp3">
+        <div class="card" tabindex="0" data-name="cadena3" data-stream="https://24453.live.streamtheworld.com/RADIO3.mp3" data-band="AM" data-genre="noticias">
           <img src="logo/cadena3.webp" alt="Logo de Radio 10 AM 710" loading="lazy"><p>Cadena3</p>
         </div>
-        <div class="card" tabindex="0" data-name="LV4 Radio San Rafael" data-stream="https://ohradio.cc/8140/stream">
+        <div class="card" tabindex="0" data-name="LV4 Radio San Rafael" data-stream="https://ohradio.cc/8140/stream" data-band="AM" data-genre="variada">
           <img src="logo/lv4.webp" alt="Logo de LV4 Radio San Rafael" loading="lazy"><p>LV4 Radio San Rafael</p>
         </div>
-        <div class="card" tabindex="0" data-name="Lentos De Todos Los Tiempos" data-stream="https://s3.conectarmedia.com:8016/stream">
+        <div class="card" tabindex="0" data-name="Lentos De Todos Los Tiempos" data-stream="https://s3.conectarmedia.com:8016/stream" data-band="FM" data-genre="musica">
           <img src="logo/lentosdetodoslostiempos.webp" alt="Logo de Lentos De Todos Los Tiempos" loading="lazy"><p>Lentos De Todos Los Tiempos</p>
         </div>
-          <div class="card" tabindex="0" data-name="DSPORT Radio Fm 103.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DSPORTSRADIOAAC_SC">
+          <div class="card" tabindex="0" data-name="DSPORT Radio Fm 103.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DSPORTSRADIOAAC_SC" data-band="FM" data-genre="deportes">
           <img src="logo/DSPORT.webp" alt="DSPORT Radio Fm 103.1" loading="lazy"><p>DSPORT Radio Fm 103.1</p>
         </div>
       </div>
@@ -1488,10 +1507,40 @@
   }
 </script>
 
+<script>
+  // ===== FILTROS DE RADIOS =====
+  // Cada tarjeta tiene data-band (AM/FM) y data-genre (noticias, musica, folklore, deportes, variada).
+  // Para sumar una radio nueva, agregá esos dos atributos a su tarjeta.
+  function coincideFiltro(card, filtro) {
+    const banda = card.dataset.band, genero = card.dataset.genre;
+    if (filtro === 'am') return banda === 'AM';
+    if (filtro === 'fm') return banda === 'FM';
+    if (filtro === 'noticias') return genero === 'noticias';
+    if (filtro === 'musica') return genero === 'musica' || genero === 'folklore';
+    return true;
+  }
+
+  function aplicarFiltroRadios(filtro) {
+    [['gridLocales', 'countLocales'], ['gridNacionales', 'countNacionales']].forEach(([gridId, countId]) => {
+      let visibles = 0;
+      document.querySelectorAll('#' + gridId + ' .card[data-stream]').forEach(card => {
+        const ok = coincideFiltro(card, filtro);
+        card.style.display = ok ? '' : 'none';
+        if (ok) visibles++;
+      });
+      document.getElementById(countId).textContent = visibles + (visibles === 1 ? ' estación' : ' estaciones');
+    });
+    document.querySelectorAll('#filtrosRadio .chip-filtro').forEach(b =>
+      b.classList.toggle('activo', b.dataset.filtro === filtro));
+  }
+
+  document.getElementById('filtrosRadio').addEventListener('click', (e) => {
+    const btn = e.target.closest('.chip-filtro');
+    if (btn) aplicarFiltroRadios(btn.dataset.filtro);
+  });
+</script>
 </body>
 </html>
-
-
 
 
 
