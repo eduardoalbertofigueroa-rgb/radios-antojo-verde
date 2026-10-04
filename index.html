@@ -883,6 +883,16 @@
     font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
   }
   .chip-filtro.activo { background: var(--green-primary); border-color: var(--green-primary); color: #08110e; }
+
+  /* ====== MODO TV (control remoto) ====== */
+  .tv-mode :focus { outline: 4px solid var(--green-primary); outline-offset: 3px; }
+  .tv-mode .card, .tv-mode .player-bar, .tv-mode .header { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .tv-mode .star, .tv-mode .moon, .tv-mode .laguna { animation: none; }
+  .tv-mode .radio-grid .card p { font-size: 18px; }
+  .tv-mode .radio-grid .card img { width: 56px; height: 56px; }
+  .tv-mode .radio-grid .card.local img { width: 72px; height: 72px; }
+  .tv-mode .chip-filtro { height: 44px; font-size: 16px; padding: 0 22px; }
+  .tv-mode .tab { font-size: 16px; }
 </style>
 </head>
 <body>
@@ -1443,17 +1453,7 @@
     setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
-  // CONTROL REMOTO TV
-  document.addEventListener('keydown', function(e) {
-    const focusables = Array.from(document.querySelectorAll('.tab, .card, .btn-volver, .btn-apk, a'))
-      .filter(el => el.offsetParent !== null);
-    let index = focusables.indexOf(document.activeElement);
-    if (e.key === 'ArrowRight') { index = (index + 1) % focusables.length; focusables[index].focus(); }
-    else if (e.key === 'ArrowLeft') { index = (index - 1 + focusables.length) % focusables.length; focusables[index].focus(); }
-    else if (e.key === 'ArrowDown') { index = Math.min((index + 4), focusables.length - 1); focusables[index].focus(); }
-    else if (e.key === 'ArrowUp') { index = Math.max((index - 4), 0); focusables[index].focus(); }
-    else if (e.key === 'Enter') { document.activeElement.click(); }
-  });
+  // CONTROL REMOTO TV: la navegación con flechas está en el bloque "MODO TV" al final del archivo
 
   // SUPABASE COMERCIOS (se carga recién al abrir la pestaña, una sola vez)
   const SUPABASE_URL = "https://chtpiyddqjcpbpxpnolo.supabase.co";
@@ -1538,6 +1538,75 @@
     const btn = e.target.closest('.chip-filtro');
     if (btn) aplicarFiltroRadios(btn.dataset.filtro);
   });
+</script>
+<script>
+  // ===== MODO TV =====
+  // Se activa solo en Android TV / Smart TV, con ?tv=1, o al usar las flechas del control.
+  (function () {
+    const ES_TV = /Android.*(TV|AFT|BRAVIA|SMART-TV|SMARTTV|GoogleTV)|Tizen|Web0S|CrKey/i.test(navigator.userAgent)
+                  || location.search.includes('tv=1');
+    const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-apk, a';
+    const modoTV = () => document.documentElement.classList.add('tv-mode');
+    if (ES_TV) modoTV();
+
+    function candidatos() {
+      return Array.from(document.querySelectorAll(SEL)).filter(el => el.offsetParent !== null);
+    }
+
+    // Navegación espacial: va al elemento más cercano en la dirección de la flecha
+    function mover(dir) {
+      const els = candidatos();
+      if (!els.length) return;
+      const act = document.activeElement;
+      if (!els.includes(act)) { els[0].focus(); return; }
+      const r = act.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const horizontal = dir === 'left' || dir === 'right';
+      let mejor = null, mejorPuntaje = Infinity;
+      els.forEach(el => {
+        if (el === act) return;
+        const b = el.getBoundingClientRect();
+        const dx = b.left + b.width / 2 - cx, dy = b.top + b.height / 2 - cy;
+        if (dir === 'right' && dx <= 1) return;
+        if (dir === 'left' && dx >= -1) return;
+        if (dir === 'down' && dy <= 1) return;
+        if (dir === 'up' && dy >= -1) return;
+        const along = horizontal ? Math.abs(dx) : Math.abs(dy);
+        const perp = horizontal ? Math.abs(dy) : Math.abs(dx);
+        const puntaje = along + perp * 2;
+        if (puntaje < mejorPuntaje) { mejorPuntaje = puntaje; mejor = el; }
+      });
+      if (mejor) {
+        mejor.focus({ preventScroll: true });
+        mejor.scrollIntoView({ block: 'center', inline: 'nearest' });
+      }
+    }
+
+    const DIRS = { ArrowRight: 'right', ArrowLeft: 'left', ArrowDown: 'down', ArrowUp: 'up' };
+
+    document.addEventListener('keydown', function (e) {
+      const act = document.activeElement;
+      const enControl = act && act !== document.body && !candidatos().includes(act);
+      if (enControl) return;                       // dejar que el reproductor use sus propias flechas
+      if (DIRS[e.key]) {
+        e.preventDefault();                        // evita el scroll/movimiento doble del navegador
+        modoTV();
+        mover(DIRS[e.key]);
+      } else if (e.key === 'Enter' && act && act.matches('.card, .card-comercio') && !/^(A|BUTTON)$/.test(act.tagName)) {
+        e.preventDefault();
+        act.click();
+      }
+    });
+
+    // Al salir de la app en la TV: cortar el audio y liberar el streaming
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && document.documentElement.classList.contains('tv-mode')) {
+        mainAudio.pause();
+        if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
+        visualizer.classList.remove('active');
+      }
+    });
+  })();
 </script>
 </body>
 </html>
