@@ -812,8 +812,7 @@
   #main-content > .hero { order: 1; }
   #main-content > .tabs { order: 2; }
   #main-content > #radiosSection,
-  #main-content > #comerciosSection,
-  #main-content > #tvSection { order: 3; }
+  #main-content > #comerciosSection { order: 3; }
   #main-content > .container-download { order: 4; }
   #main-content > .curiosidad { order: 5; }
 
@@ -884,68 +883,6 @@
     font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
   }
   .chip-filtro.activo { background: var(--green-primary); border-color: var(--green-primary); color: #08110e; }
-
-  /* ====== MODO MOSAICO TV ====== */
-  .tv-mosaic-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .canal-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .canal-header {
-    padding: 10px 14px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-    background: rgba(10, 20, 16, 0.4);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .canal-box {
-    aspect-ratio: 16 / 9;
-    background: #000;
-    display: grid;
-    place-items: center;
-    position: relative;
-  }
-  .canal-box iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-  .btn-cargar-canal {
-    background: var(--green-primary);
-    color: #051209;
-    border: 0;
-    border-radius: 100px;
-    padding: 8px 18px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 13px;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    transition: 0.2s;
-  }
-  .btn-cargar-canal:hover {
-    background: var(--green-glow);
-    transform: scale(1.05);
-  }
-  .link-yt-canal {
-    font-size: 11px;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .link-yt-canal:hover { color: var(--green-soft); }
 
   /* ====== MODO TV (control remoto) ====== */
   .tv-mode :focus { outline: 4px solid var(--green-primary); outline-offset: 3px; }
@@ -1101,9 +1038,6 @@
       <button id="tabRadios" class="tab active" tabindex="0">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg> RADIOS
       </button>
-      <button id="tabTv" class="tab" tabindex="0">
-        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg> TV EN VIVO
-      </button>
       <button id="tabComercios" class="tab" tabindex="0">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> COMERCIOS
       </button>
@@ -1117,7 +1051,7 @@
         <button class="chip-filtro" data-filtro="noticias" type="button">Noticias</button>
         <button class="chip-filtro" data-filtro="musica" type="button">Música</button>
       </div>
-      <div id="favoritosSection" style="display:none;">
+            <div id="favoritosSection" style="display:none;">
         <div class="section-title">
           <h3>⭐ Mis favoritas</h3>
           <span class="count" id="countFavoritos">0</span>
@@ -1227,22 +1161,10 @@
         <div class="card" tabindex="0" data-name="Lentos De Todos Los Tiempos" data-stream="https://s3.conectarmedia.com:8016/stream" data-band="FM" data-genre="musica">
           <img src="logo/lentosdetodoslostiempos.webp" alt="Logo de Lentos De Todos Los Tiempos" loading="lazy"><p>Lentos De Todos Los Tiempos</p>
         </div>
-        <div class="card" tabindex="0" data-name="DSPORT Radio Fm 103.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DSPORTSRADIOAAC_SC" data-band="FM" data-genre="deportes">
+          <div class="card" tabindex="0" data-name="DSPORT Radio Fm 103.1" data-stream="https://playerservices.streamtheworld.com/api/livestream-redirect/DSPORTSRADIOAAC_SC" data-band="FM" data-genre="deportes">
           <img src="logo/DSPORT.webp" alt="DSPORT Radio Fm 103.1" loading="lazy"><p>DSPORT Radio Fm 103.1</p>
         </div>
       </div>
-    </div>
-
-    <!-- SECCIÓN TV EN VIVO (MOSAICO CORREGIDO) -->
-    <div id="tvSection" style="display:none">
-      <div class="section-title">
-        <h3>📺 Mosaico de Noticias y TV</h3>
-        <span class="count">En vivo</span>
-      </div>
-      <p style="color:var(--text-dim); font-size:13px; margin:0 0 16px; max-width:600px;">
-        Monitoreo en simultáneo de canales de noticias en vivo. Tocá "Cargar señal" en la pantalla que quieras ver para iniciar la transmisión.
-      </p>
-      <div class="tv-mosaic-grid" id="tvMosaicGrid"></div>
     </div>
 
     <div id="comerciosSection" style="display:none">
@@ -1333,10 +1255,11 @@
 </div>
 
 <script>
-  // DETECCIÓN DE iOS
+  // DETECCIÓN DE iOS: reemplaza el botón de descarga .apk por instrucciones de instalación
   function esIOS() {
     const ua = navigator.userAgent;
     const esIphoneIpad = /iPad|iPhone|iPod/.test(ua);
+    // iPadOS 13+ se identifica como Mac, pero tiene soporte táctil
     const esIpadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
     return esIphoneIpad || esIpadOS13Plus;
   }
@@ -1346,7 +1269,9 @@
     document.getElementById('iosInstallCard').classList.add('visible');
   }
 
-  // CONTADORES AUTOMÁTICOS
+  // ===== CONTADORES AUTOMÁTICOS DE RADIOS =====
+  // Cuenta las tarjetas de cada grid y actualiza los números solo,
+  // así no hay que tocarlos a mano cada vez que se agrega una radio.
   function actualizarContadores() {
     const cantLocales = document.querySelectorAll('#gridLocales .card[data-stream]').length;
     const cantNacionales = document.querySelectorAll('#gridNacionales .card[data-stream]').length;
@@ -1371,81 +1296,29 @@
   updateClock();
   setInterval(updateClock, 10000);
 
-  // TABS & NAVEGACIÓN
+  // TABS
   const mainAudio = document.getElementById('mainAudio');
   const currentRadioName = document.getElementById('currentRadioName');
   const radiosSection = document.getElementById('radiosSection');
   const comerciosSection = document.getElementById('comerciosSection');
-  const tvSection = document.getElementById('tvSection');
-  const tabRadios = document.getElementById('tabRadios');
-  const tabTv = document.getElementById('tabTv');
-  const tabComercios = document.getElementById('tabComercios');
   const visualizer = document.getElementById('visualizer');
 
-  tabRadios.addEventListener('click', () => {
+  document.getElementById('tabRadios').addEventListener('click', () => {
     radiosSection.style.display = 'block';
-    tvSection.style.display = 'none';
     comerciosSection.style.display = 'none';
-    tabRadios.classList.add('active');
-    tabTv.classList.remove('active');
-    tabComercios.classList.remove('active');
+    document.getElementById('tabRadios').classList.add('active');
+    document.getElementById('tabComercios').classList.remove('active');
   });
 
-  tabTv.addEventListener('click', () => {
+  document.getElementById('tabComercios').addEventListener('click', () => {
     radiosSection.style.display = 'none';
-    tvSection.style.display = 'block';
-    comerciosSection.style.display = 'none';
-    tabTv.classList.add('active');
-    tabRadios.classList.remove('active');
-    tabComercios.classList.remove('active');
-  });
-
-  tabComercios.addEventListener('click', () => {
-    radiosSection.style.display = 'none';
-    tvSection.style.display = 'none';
     comerciosSection.style.display = 'block';
-    tabComercios.classList.add('active');
-    tabRadios.classList.remove('active');
-    tabTv.classList.remove('active');
+    document.getElementById('tabComercios').classList.add('active');
+    document.getElementById('tabRadios').classList.remove('active');
     cargarComercios();
   });
 
-  // MOSAICO DE CANALES TV (Lógica exacta del archivo que funciona)
-  const CANALES_TV = [
-    { nombre: "TN",        id: "UCj6PcyLvpnIRT_2W_mwa9Aw" },
-    { nombre: "C5N",       id: "UCFgk2Q2mVO1BklRQhSv6p0w" },
-    { nombre: "La Nación+", id: "UCba3hpU7EFBSk817y9qZkiA", video: "FEWZjXJ7M0c" },
-    { nombre: "Crónica",   id: "UCT7KFGv6s2a-rh2Jq8ZdM1g" },
-    { nombre: "A24",       id: "UCR9120YBAqMfntqgRTKmkjQ" },
-    { nombre: "Canal 26",  id: "UCrpMfcQNog595v5gAS-oUsQ", video: "C_RnFD6xiX8" }
-  ];
-
-  const tvMosaicGrid = document.getElementById('tvMosaicGrid');
-  if (tvMosaicGrid) {
-    tvMosaicGrid.innerHTML = "";
-    CANALES_TV.forEach((c) => {
-      const div = document.createElement('div');
-      div.className = 'canal-card';
-      div.innerHTML = `
-        <div class="canal-header">
-          <span>🔴 ${c.nombre}</span>
-          <a class="link-yt-canal" target="_blank" rel="noopener" href="https://www.youtube.com/channel/${c.id}/live">YouTube ↗</a>
-        </div>
-        <div class="canal-box">
-          <button type="button" class="btn-cargar-canal">▶ Cargar</button>
-        </div>
-      `;
-      div.querySelector('button').addEventListener('click', () => {
-        div.querySelector('.canal-box').innerHTML =
-          '<iframe src="' + (c.video ? 'https://www.youtube.com/embed/' + c.video : 'https://www.youtube.com/embed/live_stream?channel=' + c.id) + '"' +
-          ' referrerpolicy="strict-origin-when-cross-origin"' +
-          ' allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
-      });
-      tvMosaicGrid.appendChild(div);
-    });
-  }
-
-  // PLAYER DE AUDIO
+  // PLAYER (con soporte HLS para streams .m3u8 en Chrome/Firefox/Android)
   const playerError = document.getElementById('playerError');
   let hlsInstance = null;
 
@@ -1453,12 +1326,14 @@
     playerError.style.display = 'none';
     currentRadioName.innerText = "▶ " + nombre;
 
+    // Limpiar instancia previa de hls.js si existía
     if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
 
     const esM3u8 = url.includes('.m3u8');
     const soportaHlsNativo = mainAudio.canPlayType('application/vnd.apple.mpegurl');
 
     if (esM3u8 && !soportaHlsNativo && window.Hls && Hls.isSupported()) {
+      // Chrome/Firefox/Android: usar hls.js
       hlsInstance = new Hls();
       hlsInstance.loadSource(url);
       hlsInstance.attachMedia(mainAudio);
@@ -1467,6 +1342,7 @@
         if (data.fatal) mostrarErrorPlayer(nombre);
       });
     } else {
+      // Safari (HLS nativo) o streams normales (mp3/aac)
       mainAudio.src = url;
       mainAudio.play().catch(() => mostrarErrorPlayer(nombre));
     }
@@ -1492,7 +1368,7 @@
     });
   });
 
-  // FAVORITOS
+  // ===== FAVORITOS =====
   function getFavoritos() {
     return JSON.parse(localStorage.getItem('favoritos') || '[]');
   }
@@ -1547,6 +1423,7 @@
     pintarEstrellas();
   }
 
+  // Agrega el botón de estrella a cada tarjeta de radio
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.style.position = 'relative';
     const btn = document.createElement('button');
@@ -1576,7 +1453,9 @@
     setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
-  // SUPABASE COMERCIOS
+  // CONTROL REMOTO TV: la navegación con flechas está en el bloque "MODO TV" al final del archivo
+
+  // SUPABASE COMERCIOS (se carga recién al abrir la pestaña, una sola vez)
   const SUPABASE_URL = "https://chtpiyddqjcpbpxpnolo.supabase.co";
   const SUPABASE_KEY = "sb_publishable_PqTfEpdmzLj42gBvUqM1qQ_YQQA9d0W";
   let comerciosCargados = false;
@@ -1613,14 +1492,14 @@
       })
       .catch(err => {
         console.error("Error cargando comercios:", err);
-        comerciosCargados = false;
+        comerciosCargados = false; // permite reintentar si vuelve a abrir la pestaña
         document.querySelectorAll('[id^="lista-"]').forEach(c => {
           c.innerHTML = '<p style="color:var(--sunset); font-size:13px; text-align:center;">⚠ No pudimos cargar los comercios. Revisá tu conexión e intentá de nuevo.</p>';
         });
       });
   }
 
-  // SERVICE WORKER
+  // ===== SERVICE WORKER (offline + instalación como app) =====
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('service-worker.js').catch(err => console.error('Error registrando SW:', err));
@@ -1629,7 +1508,9 @@
 </script>
 
 <script>
-  // FILTROS DE RADIOS
+  // ===== FILTROS DE RADIOS =====
+  // Cada tarjeta tiene data-band (AM/FM) y data-genre (noticias, musica, folklore, deportes, variada).
+  // Para sumar una radio nueva, agregá esos dos atributos a su tarjeta.
   function coincideFiltro(card, filtro) {
     const banda = card.dataset.band, genero = card.dataset.genre;
     if (filtro === 'am') return banda === 'AM';
@@ -1658,9 +1539,9 @@
     if (btn) aplicarFiltroRadios(btn.dataset.filtro);
   });
 </script>
-
 <script>
-  // MODO TV
+  // ===== MODO TV =====
+  // Se activa solo en Android TV / Smart TV, con ?tv=1, o al usar las flechas del control.
   (function () {
     const ES_TV = /Android.*(TV|AFT|BRAVIA|SMART-TV|SMARTTV|GoogleTV)|Tizen|Web0S|CrKey/i.test(navigator.userAgent)
                   || location.search.includes('tv=1');
@@ -1672,11 +1553,13 @@
       return Array.from(document.querySelectorAll(SEL)).filter(el => el.offsetParent !== null);
     }
 
+    // Navegación espacial: va al elemento más cercano en la dirección de la flecha
     function mover(dir) {
       const els = candidatos();
       if (!els.length) return;
       const act = document.activeElement;
       if (!els.includes(act)) {
+        // Primera flecha: ir a la primera radio (o comercio) según su posición en pantalla, no según el orden del código
         const porPosicion = (a, b) => {
           const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
           return (ra.top - rb.top) || (ra.left - rb.left);
@@ -1715,9 +1598,9 @@
     document.addEventListener('keydown', function (e) {
       const act = document.activeElement;
       const enControl = act && act !== document.body && !candidatos().includes(act);
-      if (enControl) return;
+      if (enControl) return;                       // dejar que el reproductor use sus propias flechas
       if (DIRS[e.key]) {
-        e.preventDefault();
+        e.preventDefault();                        // evita el scroll/movimiento doble del navegador
         modoTV();
         mover(DIRS[e.key]);
       } else if (e.key === 'Enter' && act && act.matches('.card, .card-comercio') && !/^(A|BUTTON)$/.test(act.tagName)) {
@@ -1726,6 +1609,7 @@
       }
     });
 
+    // Al salir de la app en la TV: cortar el audio y liberar el streaming
     document.addEventListener('visibilitychange', function () {
       if (document.hidden && document.documentElement.classList.contains('tv-mode')) {
         mainAudio.pause();
