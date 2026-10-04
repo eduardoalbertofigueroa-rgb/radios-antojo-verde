@@ -1558,7 +1558,18 @@
       const els = candidatos();
       if (!els.length) return;
       const act = document.activeElement;
-      if (!els.includes(act)) { els[0].focus(); return; }
+      if (!els.includes(act)) {
+        // Primera flecha: ir a la primera radio (o comercio) según su posición en pantalla, no según el orden del código
+        const porPosicion = (a, b) => {
+          const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+          return (ra.top - rb.top) || (ra.left - rb.left);
+        };
+        const lista = els.filter(el => el.matches('.card, .card-comercio')).sort(porPosicion);
+        const inicial = lista[0] || els.sort(porPosicion)[0];
+        inicial.focus({ preventScroll: true });
+        inicial.scrollIntoView({ block: 'center', inline: 'nearest' });
+        return;
+      }
       const r = act.getBoundingClientRect();
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const horizontal = dir === 'left' || dir === 'right';
@@ -1610,7 +1621,6 @@
 </script>
 </body>
 </html>
-
 
 
 
