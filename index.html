@@ -806,6 +806,71 @@
     .player-bar { padding: 10px 12px; gap: 10px; }
     .header-info .info-chip:nth-child(3) { display: none; }
   }
+
+  /* ====== AJUSTE: ENCABEZADO COMPACTO (radios más arriba) ====== */
+  #main-content { display: flex; flex-direction: column; }
+  #main-content > .hero { order: 1; }
+  #main-content > .tabs { order: 2; }
+  #main-content > #radiosSection,
+  #main-content > #comerciosSection { order: 3; }
+  #main-content > .container-download { order: 4; }
+  #main-content > .curiosidad { order: 5; }
+
+  .hero { padding: 20px 20px 0; margin-bottom: 16px; }
+  .hero-eyebrow, .hero p.subtitle, .hero h2 br { display: none; }
+  .hero h2 { font-size: clamp(24px, 6vw, 36px); margin-bottom: 8px; }
+  .hero-meta { margin-bottom: 12px; }
+  .skyline-wrap { margin: 8px -20px 0; height: 90px; }
+  .moon { width: 28px; height: 28px; top: 10px; right: 24px; }
+
+  /* ====== DISEÑO NUEVO: RADIOS EN FILAS CON BOTÓN DE PLAY ====== */
+  .radio-grid { grid-template-columns: 1fr; gap: 8px; }
+  @media (min-width: 640px) { .radio-grid#gridLocales { grid-template-columns: 1fr 1fr; } }
+
+  .radio-grid .card {
+    flex-direction: row; justify-content: flex-start; gap: 12px;
+    padding: 8px 52px 8px 8px; border-radius: 14px;
+    background: var(--bg-card); animation: none;
+  }
+  .radio-grid .card:hover { transform: none; }
+  .radio-grid .card img {
+    width: 48px; height: 48px; margin: 0; flex-shrink: 0;
+    object-fit: cover; background: var(--bg-base);
+  }
+  .radio-grid .card p {
+    flex: 1; min-width: 0; text-align: left; font-size: 14px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* botón de play (círculo a la derecha de cada fila) */
+  .radio-grid .card::after,
+  .radio-grid .card.local::after {
+    content: ''; position: static; flex-shrink: 0;
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    background: var(--bg-card-hover) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8f5ec'%3E%3Cpolygon points='6 3 20 12 6 21'/%3E%3C/svg%3E") center / 16px no-repeat;
+  }
+  .radio-grid .card.local::after {
+    width: 48px; height: 48px;
+    background: var(--green-primary) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2308110e'%3E%3Cpolygon points='6 3 20 12 6 21'/%3E%3C/svg%3E") center / 18px no-repeat;
+  }
+  .radio-grid .card.active::after { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.35); }
+
+  /* radios locales: más grandes y con etiqueta */
+  .radio-grid .card.local { padding: 12px 60px 12px 12px; }
+  .radio-grid .card.local img { width: 64px; height: 64px; }
+  .radio-grid .card.local p::before {
+    content: '★ LOCAL'; display: block; width: fit-content; margin-bottom: 4px;
+    padding: 2px 8px; border-radius: 100px; background: rgba(245, 158, 11, 0.18);
+    color: var(--sunset); font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* estrella de favorita a la derecha */
+  .radio-grid .btn-favorito {
+    top: 50%; left: auto; right: 6px; width: 40px; height: 40px;
+    background: none; font-size: 18px; transform: translateY(-50%);
+  }
+  .radio-grid .btn-favorito:hover { transform: translateY(-50%) scale(1.15); }
 </style>
 </head>
 <body>
