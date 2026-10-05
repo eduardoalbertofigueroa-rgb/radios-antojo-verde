@@ -893,6 +893,23 @@
   .tv-mode .radio-grid .card.local img { width: 72px; height: 72px; }
   .tv-mode .chip-filtro { height: 44px; font-size: 16px; padding: 0 22px; }
   .tv-mode .tab { font-size: 16px; }
+
+  /* ====== NOTICIAS ====== */
+  .tabs { flex-wrap: wrap; }
+  #main-content > #noticiasSection { order: 3; }
+  .noticia-mark {
+    flex-shrink: 0; width: 48px; height: 48px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--bg-base); color: var(--green-primary); font-weight: 800; font-size: 14px;
+  }
+  .tv-mode .noticia-mark { width: 56px; height: 56px; font-size: 16px; }
+  #videoBox { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  .video-barra { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .btn-noticia {
+    background: var(--bg-card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 100px; padding: 10px 18px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+  #videoTitulo { margin: 0 0 8px; color: var(--green-primary); font-weight: 700; text-align: left; }
+  #videoFrame { width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; border-radius: 12px; }
 </style>
 </head>
 <body>
@@ -1040,6 +1057,9 @@
       </button>
       <button id="tabComercios" class="tab" tabindex="0">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> COMERCIOS
+      </button>
+      <button id="tabNoticias" class="tab" tabindex="0">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg> NOTICIAS
       </button>
     </div>
 
@@ -1233,6 +1253,22 @@
         <h3>⛓️ Nuestras Tornerías y Metalúrgicas</h3>
         <div id="lista-torneriasmetalurgicas"></div>
         <button class="btn-volver" tabindex="0" onclick="volverCategorias()">⬅ Volver</button>
+      </div>
+    </div>
+
+    <div id="noticiasSection" style="display:none">
+      <p style="color:var(--text-dim); font-size:13px; text-align:center; margin:0 0 14px;">Canales de noticias en vivo</p>
+      <div class="radio-grid" id="gridNoticias"></div>
+
+      <div id="videoBox" style="display:none">
+        <div class="video-barra">
+          <button type="button" class="btn-noticia" id="btnVolverNoticias">← Volver a los canales</button>
+          <button type="button" class="btn-noticia" id="btnPantallaCompleta">Pantalla completa</button>
+        </div>
+        <p id="videoTitulo"></p>
+        <iframe id="videoFrame" title="Canal de noticias en vivo"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -1545,7 +1581,7 @@
   (function () {
     const ES_TV = /Android.*(TV|AFT|BRAVIA|SMART-TV|SMARTTV|GoogleTV)|Tizen|Web0S|CrKey/i.test(navigator.userAgent)
                   || location.search.includes('tv=1');
-    const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-apk, a';
+    const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-noticia, .btn-apk, a';
     const modoTV = () => document.documentElement.classList.add('tv-mode');
     if (ES_TV) modoTV();
 
@@ -1617,6 +1653,96 @@
         visualizer.classList.remove('active');
       }
     });
+  })();
+</script>
+<script>
+  // ===== NOTICIAS EN VIVO =====
+  // Para renovar un canal que venció: cambiá solo el código "video" de su línea.
+  //  - "canal": ID del canal de YouTube (no vence).
+  //  - "video": código del video en vivo (hay que renovarlo cuando venza: es lo que va después de v= en la dirección).
+  const NOTICIAS = [
+    { nombre: 'TN',         marca: 'TN',  canal: 'UCj6PcyLvpnIRT_2W_mwa9Aw' },
+    { nombre: 'C5N',        marca: 'C5N', canal: 'UCFgk2Q2mVO1BklRQhSv6p0w' },
+    { nombre: 'La Nación+', marca: 'LN+', video: 'FEWZjXJ7M0c' },
+    { nombre: 'Crónica',    marca: 'CR',  canal: 'UCT7KFGv6s2a-rh2Jq8ZdM1g' },
+    { nombre: 'A24',        marca: 'A24', canal: 'UCR9120YBAqMfntqgRTKmkjQ' },
+    { nombre: 'Canal 26',   marca: '26',  video: 'C_RnFD6xiX8' }
+  ];
+
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const tabNoticias = $('tabNoticias'), seccion = $('noticiasSection');
+    const grid = $('gridNoticias'), box = $('videoBox'), frame = $('videoFrame');
+    let tarjetaAbierta = null, videoAbierto = false;
+
+    // Armar las tarjetas
+    NOTICIAS.forEach((n, i) => {
+      const card = document.createElement('div');
+      card.className = 'card noticia';
+      card.tabIndex = 0;
+      card.innerHTML = '<span class="noticia-mark">' + n.marca + '</span><p>' + n.nombre + '</p>';
+      card.addEventListener('click', () => abrirVideo(i, card));
+      grid.appendChild(card);
+    });
+
+    function urlDe(n) {
+      return n.video
+        ? 'https://www.youtube.com/embed/' + n.video + '?autoplay=1'
+        : 'https://www.youtube.com/embed/live_stream?channel=' + n.canal + '&autoplay=1';
+    }
+
+    function abrirVideo(i, card) {
+      mainAudio.pause();                       // pausa la radio si estaba sonando
+      visualizer.classList.remove('active');
+      tarjetaAbierta = card;
+      $('videoTitulo').textContent = '📺 ' + NOTICIAS[i].nombre + ' en vivo';
+      frame.src = urlDe(NOTICIAS[i]);
+      grid.style.display = 'none';
+      box.style.display = 'block';
+      if (!videoAbierto) history.pushState({ noticia: true }, '');   // así el botón "atrás" cierra el video
+      videoAbierto = true;
+      window.scrollTo(0, 0);
+      $('btnVolverNoticias').focus();
+    }
+
+    function cerrarVideo() {
+      if (!videoAbierto) return;
+      videoAbierto = false;
+      frame.src = 'about:blank';
+      box.style.display = 'none';
+      grid.style.display = '';
+      if (tarjetaAbierta) tarjetaAbierta.focus();
+    }
+
+    // Botón "Volver": retrocede el historial (y el evento popstate cierra el video)
+    $('btnVolverNoticias').addEventListener('click', () => {
+      if (history.state && history.state.noticia) history.back(); else cerrarVideo();
+    });
+    window.addEventListener('popstate', cerrarVideo);
+
+    $('btnPantallaCompleta').addEventListener('click', () => {
+      if (frame.requestFullscreen) frame.requestFullscreen();
+    });
+
+    // Pestañas
+    tabNoticias.addEventListener('click', () => {
+      $('radiosSection').style.display = 'none';
+      $('comerciosSection').style.display = 'none';
+      seccion.style.display = 'block';
+      $('tabRadios').classList.remove('active');
+      $('tabComercios').classList.remove('active');
+      tabNoticias.classList.add('active');
+    });
+    function salirDeNoticias() {
+      seccion.style.display = 'none';
+      tabNoticias.classList.remove('active');
+      if (videoAbierto) { if (history.state && history.state.noticia) history.back(); else cerrarVideo(); }
+    }
+    $('tabRadios').addEventListener('click', salirDeNoticias);
+    $('tabComercios').addEventListener('click', salirDeNoticias);
+
+    // Al salir de la app o cambiar de aplicación, cortar el video
+    document.addEventListener('visibilitychange', () => { if (document.hidden) cerrarVideo(); });
   })();
 </script>
 </body>
