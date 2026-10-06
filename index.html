@@ -685,6 +685,115 @@
     transform: translateX(4px);
   }
 
+  /* ====== NOTICIAS / CANALES TV ====== */
+  .noticias-intro {
+    color: var(--text-dim);
+    font-size: 13px;
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 20px;
+    line-height: 1.5;
+  }
+  .noticias-intro strong { color: var(--text); }
+  .noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .canal-card {
+    background: rgba(20, 41, 34, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .canal-card:hover { border-color: rgba(74, 222, 128, 0.35); }
+  .canal-card.activo { border-color: var(--green-primary); box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25); }
+  .canal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .canal-head h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+  .canal-head .badge-live {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--red-live);
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+  .canal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 14px;
+  }
+  .canal-actions .btn-canal {
+    flex: 1;
+    background: var(--green-primary);
+    color: #051209;
+    border: none;
+    border-radius: 100px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .canal-actions .btn-canal:hover { background: var(--green-glow); }
+  .canal-actions .btn-canal.cargando { opacity: 0.7; pointer-events: none; }
+  .canal-actions .btn-yt {
+    background: rgba(20, 41, 34, 0.8);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: 0.2s;
+  }
+  .canal-actions .btn-yt:hover { color: var(--text); border-color: rgba(74, 222, 128, 0.3); }
+  .canal-player {
+    display: none;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .canal-card.activo .canal-player { display: block; }
+  .canal-player iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .noticias-aviso {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+  .noticias-aviso strong { color: var(--sunset); }
+
   .seccion-detalle { padding: 10px 0; }
   .seccion-detalle h3 { color: var(--green-primary); margin-bottom: 16px; font-size: 1.2rem; }
 
@@ -812,7 +921,8 @@
   #main-content > .hero { order: 1; }
   #main-content > .tabs { order: 2; }
   #main-content > #radiosSection,
-  #main-content > #comerciosSection { order: 3; }
+  #main-content > #comerciosSection,
+  #main-content > #noticiasSection { order: 3; }
   #main-content > .container-download { order: 4; }
   #main-content > .curiosidad { order: 5; }
 
@@ -893,6 +1003,13 @@
   .tv-mode .radio-grid .card.local img { width: 72px; height: 72px; }
   .tv-mode .chip-filtro { height: 44px; font-size: 16px; padding: 0 22px; }
   .tv-mode .tab { font-size: 16px; }
+  .tv-mode .btn-canal, .tv-mode .btn-yt {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 12px 18px;
+  }
+  .tv-mode .canal-head h4 { font-size: 18px; }
+  .tv-mode .noticias-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 </style>
 </head>
 <body>
@@ -1040,6 +1157,9 @@
       </button>
       <button id="tabComercios" class="tab" tabindex="0">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> COMERCIOS
+      </button>
+      <button id="tabNoticias" class="tab" tabindex="0">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg> NOTICIAS
       </button>
     </div>
 
@@ -1236,6 +1356,16 @@
       </div>
     </div>
 
+    <div id="noticiasSection" style="display:none">
+      <p class="noticias-intro">
+        Canales de <strong>noticias en vivo</strong> por YouTube. Tocá <strong>Ver en vivo</strong> para cargar el stream (solo se carga el que elegís).
+      </p>
+      <div class="noticias-grid" id="noticiasGrid"></div>
+      <div class="noticias-aviso">
+        <strong>Aviso:</strong> los vivos dependen de YouTube y de cada canal. Si uno no carga, usá “Abrir en YouTube”. Puede haber publicidad del propio canal.
+      </div>
+    </div>
+
   </main>
 
 </div>
@@ -1301,22 +1431,112 @@
   const currentRadioName = document.getElementById('currentRadioName');
   const radiosSection = document.getElementById('radiosSection');
   const comerciosSection = document.getElementById('comerciosSection');
+  const noticiasSection = document.getElementById('noticiasSection');
   const visualizer = document.getElementById('visualizer');
 
-  document.getElementById('tabRadios').addEventListener('click', () => {
-    radiosSection.style.display = 'block';
-    comerciosSection.style.display = 'none';
-    document.getElementById('tabRadios').classList.add('active');
-    document.getElementById('tabComercios').classList.remove('active');
-  });
+  function activarTab(cual) {
+    radiosSection.style.display = cual === 'radios' ? 'block' : 'none';
+    comerciosSection.style.display = cual === 'comercios' ? 'block' : 'none';
+    if (noticiasSection) noticiasSection.style.display = cual === 'noticias' ? 'block' : 'none';
+    document.getElementById('tabRadios').classList.toggle('active', cual === 'radios');
+    document.getElementById('tabComercios').classList.toggle('active', cual === 'comercios');
+    const tabNoticias = document.getElementById('tabNoticias');
+    if (tabNoticias) tabNoticias.classList.toggle('active', cual === 'noticias');
+    if (cual === 'comercios') cargarComercios();
+    if (cual === 'noticias') renderNoticias();
+    // Al salir de Noticias, liberar iframes (importante en TV)
+    if (cual !== 'noticias') {
+      document.querySelectorAll('.canal-player').forEach((p) => { p.innerHTML = ''; });
+      document.querySelectorAll('.canal-card').forEach((c) => c.classList.remove('activo'));
+      document.querySelectorAll('.btn-canal').forEach((b) => {
+        b.textContent = 'Ver en vivo';
+        b.classList.remove('cargando');
+      });
+    }
+  }
 
-  document.getElementById('tabComercios').addEventListener('click', () => {
-    radiosSection.style.display = 'none';
-    comerciosSection.style.display = 'block';
-    document.getElementById('tabComercios').classList.add('active');
-    document.getElementById('tabRadios').classList.remove('active');
-    cargarComercios();
-  });
+  document.getElementById('tabRadios').addEventListener('click', () => activarTab('radios'));
+  document.getElementById('tabComercios').addEventListener('click', () => activarTab('comercios'));
+  const tabNoticiasBtn = document.getElementById('tabNoticias');
+  if (tabNoticiasBtn) tabNoticiasBtn.addEventListener('click', () => activarTab('noticias'));
+
+  // ===== CANALES DE NOTICIAS (YouTube, carga bajo demanda) =====
+  const CANALES_NOTICIAS = [
+    { nombre: "TN", id: "UCj6PcyLvpnIRT_2W_mwa9Aw" },
+    { nombre: "C5N", id: "UCFgk2Q2mVO1BklRQhSv6p0w" },
+    { nombre: "La Nación+", id: "UCba3hpU7EFBSk817y9qZkiA", video: "FEWZjXJ7M0c" },
+    { nombre: "Crónica", id: "UCT7KFGv6s2a-rh2Jq8ZdM1g" },
+    { nombre: "A24", id: "UCR9120YBAqMfntqgRTKmkjQ" },
+    { nombre: "Canal 26", id: "UCrpMfcQNog595v5gAS-oUsQ", video: "C_RnFD6xiX8" }
+  ];
+  let noticiasRenderizadas = false;
+
+  function embedUrlCanal(c) {
+    if (c.video) return "https://www.youtube.com/embed/" + c.video + "?autoplay=1";
+    return "https://www.youtube.com/embed/live_stream?channel=" + c.id + "&autoplay=1";
+  }
+
+  function youtubeCanalUrl(c) {
+    return "https://www.youtube.com/channel/" + c.id + "/live";
+  }
+
+  function renderNoticias() {
+    if (noticiasRenderizadas) return;
+    const grid = document.getElementById("noticiasGrid");
+    if (!grid) return;
+    grid.innerHTML = CANALES_NOTICIAS.map((c, i) => `
+      <article class="canal-card" data-canal-index="${i}">
+        <div class="canal-head">
+          <h4>${c.nombre}</h4>
+          <span class="badge-live">● En vivo</span>
+        </div>
+        <div class="canal-player" id="canalPlayer-${i}"></div>
+        <div class="canal-actions">
+          <button type="button" class="btn-canal" data-index="${i}" tabindex="0">Ver en vivo</button>
+          <a class="btn-yt" href="${youtubeCanalUrl(c)}" target="_blank" rel="noopener" tabindex="0">YouTube</a>
+        </div>
+      </article>
+    `).join("");
+
+    grid.querySelectorAll(".btn-canal").forEach((btn) => {
+      btn.addEventListener("click", () => activarCanal(Number(btn.dataset.index), btn));
+    });
+    noticiasRenderizadas = true;
+  }
+
+  function activarCanal(index, btn) {
+    const c = CANALES_NOTICIAS[index];
+    if (!c) return;
+
+    // Cerrar otros embeds para no cargar varios a la vez (mejor en TV y móvil)
+    document.querySelectorAll(".canal-card").forEach((card, i) => {
+      const player = document.getElementById("canalPlayer-" + i);
+      if (i === index) {
+        card.classList.add("activo");
+        if (player && !player.querySelector("iframe")) {
+          player.innerHTML =
+            '<iframe src="' + embedUrlCanal(c) + '"' +
+            ' title="' + c.nombre + ' en vivo"' +
+            ' referrerpolicy="strict-origin-when-cross-origin"' +
+            ' allow="autoplay; encrypted-media; fullscreen; picture-in-picture"' +
+            ' allowfullscreen></iframe>';
+        }
+        if (btn) {
+          btn.textContent = "En reproducción";
+          btn.classList.add("cargando");
+        }
+        card.scrollIntoView({ block: "center", behavior: "smooth" });
+      } else {
+        card.classList.remove("activo");
+        if (player) player.innerHTML = "";
+        const otherBtn = card.querySelector(".btn-canal");
+        if (otherBtn) {
+          otherBtn.textContent = "Ver en vivo";
+          otherBtn.classList.remove("cargando");
+        }
+      }
+    });
+  }
 
   // PLAYER (con soporte HLS para streams .m3u8 en Chrome/Firefox/Android)
   const playerError = document.getElementById('playerError');
@@ -1545,7 +1765,7 @@
   (function () {
     const ES_TV = /Android.*(TV|AFT|BRAVIA|SMART-TV|SMARTTV|GoogleTV)|Tizen|Web0S|CrKey/i.test(navigator.userAgent)
                   || location.search.includes('tv=1');
-    const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-apk, a';
+    const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-apk, .btn-canal, .btn-yt, a';
     const modoTV = () => document.documentElement.classList.add('tv-mode');
     if (ES_TV) modoTV();
 
@@ -1609,23 +1829,24 @@
       }
     });
 
-    // Al salir de la app en la TV: cortar el audio y liberar el streaming
+    // Al salir de la app en la TV: cortar audio, noticias y liberar streaming
     document.addEventListener('visibilitychange', function () {
       if (document.hidden && document.documentElement.classList.contains('tv-mode')) {
         mainAudio.pause();
         if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
         visualizer.classList.remove('active');
+        document.querySelectorAll('.canal-player').forEach((p) => { p.innerHTML = ''; });
+        document.querySelectorAll('.canal-card').forEach((c) => c.classList.remove('activo'));
+        document.querySelectorAll('.btn-canal').forEach((b) => {
+          b.textContent = 'Ver en vivo';
+          b.classList.remove('cargando');
+        });
       }
     });
   })();
 </script>
 </body>
 </html>
-
-
-
-
-
 
 
 
