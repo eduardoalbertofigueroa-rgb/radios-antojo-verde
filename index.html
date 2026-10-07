@@ -1427,7 +1427,6 @@
   function esIOS() {
     const ua = navigator.userAgent;
     const esIphoneIpad = /iPad|iPhone|iPod/.test(ua);
-    // iPadOS 13+ se identifica como Mac, pero tiene soporte táctil
     const esIpadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
     return esIphoneIpad || esIpadOS13Plus;
   }
@@ -1438,8 +1437,6 @@
   }
 
   // ===== CONTADORES AUTOMÁTICOS DE RADIOS =====
-  // Cuenta las tarjetas de cada grid y actualiza los números solo,
-  // así no hay que tocarlos a mano cada vez que se agrega una radio.
   function actualizarContadores() {
     const cantLocales = document.querySelectorAll('#gridLocales .card[data-stream]').length;
     const cantNacionales = document.querySelectorAll('#gridNacionales .card[data-stream]').length;
@@ -1482,7 +1479,6 @@
     if (tabNoticias) tabNoticias.classList.toggle('active', cual === 'noticias');
     if (cual === 'comercios') cargarComercios();
     if (cual === 'noticias') renderNoticias();
-    // Al salir de Noticias, liberar iframes (importante en TV)
     if (cual !== 'noticias') {
       document.querySelectorAll('.canal-player').forEach((p) => { p.innerHTML = ''; });
       document.querySelectorAll('.canal-card').forEach((c) => c.classList.remove('activo'));
@@ -1499,13 +1495,13 @@
   if (tabNoticiasBtn) tabNoticiasBtn.addEventListener('click', () => activarTab('noticias'));
 
   // ===== CANALES DE NOTICIAS (YouTube, carga bajo demanda) =====
-const CANALES = [
-    { nombre: "TN",        id: "UCj6PcyLvpnIRT_2W_mwa9Aw", video: "cb12KmMMDJA" },
-    { nombre: "C5N",       id: "UCFgk2Q2mVO1BklRQhSv6p0w", video: "j6oh4Kqz3UM" },
+  const CANALES_NOTICIAS = [
+    { nombre: "TN",         id: "UCj6PcyLvpnIRT_2W_mwa9Aw", video: "cb12KmMMDJA" },
+    { nombre: "C5N",        id: "UCFgk2Q2mVO1BklRQhSv6p0w", video: "j6oh4Kqz3UM" },
     { nombre: "La Nación+", id: "UCba3hpU7EFBSk817y9qZkiA", video: "FEWZjXJ7M0c" },
-    { nombre: "Crónica",   id: "UCT7KFGv6s2a-rh2Jq8ZdM1g", video: "hw4uHyct4vg" },
-    { nombre: "A24",       id: "UCR9120YBAqMfntqgRTKmkjQ", video: "ArKbAx1K-2U" },
-    { nombre: "Canal 26",  id: "UCrpMfcQNog595v5gAS-oUsQ", video: "C_RnFD6xiX8" }
+    { nombre: "Crónica",    id: "UCT7KFGv6s2a-rh2Jq8ZdM1g", video: "hw4uHyct4vg" },
+    { nombre: "A24",        id: "UCR9120YBAqMfntqgRTKmkjQ", video: "ArKbAx1K-2U" },
+    { nombre: "Canal 26",   id: "UCrpMfcQNog595v5gAS-oUsQ", video: "C_RnFD6xiX8" }
   ];
   let noticiasRenderizadas = false;
 
@@ -1546,7 +1542,6 @@ const CANALES = [
     const c = CANALES_NOTICIAS[index];
     if (!c) return;
 
-    // Cerrar otros embeds para no cargar varios a la vez (mejor en TV y móvil)
     document.querySelectorAll(".canal-card").forEach((card, i) => {
       const player = document.getElementById("canalPlayer-" + i);
       if (i === index) {
@@ -1584,14 +1579,12 @@ const CANALES = [
     playerError.style.display = 'none';
     currentRadioName.innerText = "▶ " + nombre;
 
-    // Limpiar instancia previa de hls.js si existía
     if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
 
     const esM3u8 = url.includes('.m3u8');
     const soportaHlsNativo = mainAudio.canPlayType('application/vnd.apple.mpegurl');
 
     if (esM3u8 && !soportaHlsNativo && window.Hls && Hls.isSupported()) {
-      // Chrome/Firefox/Android: usar hls.js
       hlsInstance = new Hls();
       hlsInstance.loadSource(url);
       hlsInstance.attachMedia(mainAudio);
@@ -1600,7 +1593,6 @@ const CANALES = [
         if (data.fatal) mostrarErrorPlayer(nombre);
       });
     } else {
-      // Safari (HLS nativo) o streams normales (mp3/aac)
       mainAudio.src = url;
       mainAudio.play().catch(() => mostrarErrorPlayer(nombre));
     }
@@ -1681,7 +1673,6 @@ const CANALES = [
     pintarEstrellas();
   }
 
-  // Agrega el botón de estrella a cada tarjeta de radio
   document.querySelectorAll('.card[data-stream]').forEach(card => {
     card.style.position = 'relative';
     const btn = document.createElement('button');
@@ -1711,9 +1702,7 @@ const CANALES = [
     setTimeout(() => { document.querySelector('.card-comercio').focus(); }, 100);
   }
 
-  // CONTROL REMOTO TV: la navegación con flechas está en el bloque "MODO TV" al final del archivo
-
-  // SUPABASE COMERCIOS (se carga recién al abrir la pestaña, una sola vez)
+  // SUPABASE COMERCIOS
   const SUPABASE_URL = "https://chtpiyddqjcpbpxpnolo.supabase.co";
   const SUPABASE_KEY = "sb_publishable_PqTfEpdmzLj42gBvUqM1qQ_YQQA9d0W";
   let comerciosCargados = false;
@@ -1750,14 +1739,13 @@ const CANALES = [
       })
       .catch(err => {
         console.error("Error cargando comercios:", err);
-        comerciosCargados = false; // permite reintentar si vuelve a abrir la pestaña
+        comerciosCargados = false;
         document.querySelectorAll('[id^="lista-"]').forEach(c => {
           c.innerHTML = '<p style="color:var(--sunset); font-size:13px; text-align:center;">⚠ No pudimos cargar los comercios. Revisá tu conexión e intentá de nuevo.</p>';
         });
       });
   }
 
-  // ===== SERVICE WORKER (offline + instalación como app) =====
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('service-worker.js').catch(err => console.error('Error registrando SW:', err));
@@ -1767,8 +1755,6 @@ const CANALES = [
 
 <script>
   // ===== FILTROS DE RADIOS =====
-  // Cada tarjeta tiene data-band (AM/FM) y data-genre (noticias, musica, folklore, deportes, variada).
-  // Para sumar una radio nueva, agregá esos dos atributos a su tarjeta.
   function coincideFiltro(card, filtro) {
     const banda = card.dataset.band, genero = card.dataset.genre;
     if (filtro === 'am') return banda === 'AM';
@@ -1799,10 +1785,9 @@ const CANALES = [
 </script>
 <script>
   // ===== MODO TV =====
-  // Se activa solo en Android TV / Smart TV, con ?tv=1, o al usar las flechas del control.
   (function () {
     const ES_TV = /Android.*(TV|AFT|BRAVIA|SMART-TV|SMARTTV|GoogleTV)|Tizen|Web0S|CrKey/i.test(navigator.userAgent)
-                  || location.search.includes('tv=1');
+                || location.search.includes('tv=1');
     const SEL = '.tab, .chip-filtro, .card, .card-comercio, .btn-volver, .btn-apk, .btn-canal, .btn-yt, a';
     const modoTV = () => document.documentElement.classList.add('tv-mode');
     if (ES_TV) modoTV();
@@ -1811,13 +1796,11 @@ const CANALES = [
       return Array.from(document.querySelectorAll(SEL)).filter(el => el.offsetParent !== null);
     }
 
-    // Navegación espacial: va al elemento más cercano en la dirección de la flecha
     function mover(dir) {
       const els = candidatos();
       if (!els.length) return;
       const act = document.activeElement;
       if (!els.includes(act)) {
-        // Primera flecha: ir a la primera radio (o comercio) según su posición en pantalla, no según el orden del código
         const porPosicion = (a, b) => {
           const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
           return (ra.top - rb.top) || (ra.left - rb.left);
@@ -1856,9 +1839,9 @@ const CANALES = [
     document.addEventListener('keydown', function (e) {
       const act = document.activeElement;
       const enControl = act && act !== document.body && !candidatos().includes(act);
-      if (enControl) return;                       // dejar que el reproductor use sus propias flechas
+      if (enControl) return;
       if (DIRS[e.key]) {
-        e.preventDefault();                        // evita el scroll/movimiento doble del navegador
+        e.preventDefault();
         modoTV();
         mover(DIRS[e.key]);
       } else if (e.key === 'Enter' && act && act.matches('.card, .card-comercio') && !/^(A|BUTTON)$/.test(act.tagName)) {
@@ -1867,7 +1850,6 @@ const CANALES = [
       }
     });
 
-    // Al salir de la app en la TV: cortar audio, noticias y liberar streaming
     document.addEventListener('visibilitychange', function () {
       if (document.hidden && document.documentElement.classList.contains('tv-mode')) {
         mainAudio.pause();
@@ -1885,7 +1867,6 @@ const CANALES = [
 </script>
 </body>
 </html>
-
 
 
 
