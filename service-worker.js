@@ -5,7 +5,7 @@
 
 // Subí este número cada vez que cambies archivos que no sean el index.html
 // (el index.html se actualiza solo, ver más abajo).
-const CACHE_NAME = 'junin-conecta-v7';
+const CACHE_NAME = 'junin-conecta-v8';
 
 // Archivos base de la interfaz. Agregá acá cada logo de radio (logo/*.webp)
 // si querés que las tarjetas se vean completas también sin conexión.
